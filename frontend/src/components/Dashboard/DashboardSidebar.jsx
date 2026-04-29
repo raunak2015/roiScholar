@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const DashboardSidebar = () => {
   return (
@@ -9,14 +10,17 @@ const DashboardSidebar = () => {
           Recommended Actions
         </h2>
         <div className="space-y-4">
-          <a className="block bg-white/10 hover:bg-white/20 p-4 rounded-lg transition-colors group" href="#application-tracker">
+          <Link className="block bg-white/10 hover:bg-white/20 p-4 rounded-lg transition-colors group" to="/application-tracker">
             <div className="flex items-center justify-between mb-1">
               <span className="text-sm font-bold uppercase tracking-widest text-primary-fixed">Next Step</span>
               <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
             </div>
             <h3 className="font-bold text-lg">Complete application</h3>
             <p className="text-xs text-blue-100 opacity-80 mt-1">Connect your verified student ID to finalize your refinance rate.</p>
-          </a>
+          </Link>
+          <Link to="/calculator" className="w-full block mt-2 p-4 bg-secondary text-on-secondary rounded-lg font-bold text-center hover:opacity-95 transition-opacity">
+            Open Calculator
+          </Link>
           <button className="w-full flex items-center gap-3 p-4 bg-surface-container-lowest/5 hover:bg-surface-container-lowest/10 rounded-lg transition-colors text-left" type="button">
             <span className="material-symbols-outlined text-secondary-fixed">compare_arrows</span>
             <div className="flex-grow">
