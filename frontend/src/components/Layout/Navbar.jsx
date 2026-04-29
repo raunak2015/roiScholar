@@ -1,93 +1,68 @@
-import React from 'react';
-import { AppBar, Toolbar, IconButton, Typography, InputBase, Badge, Box, Avatar } from '@mui/material';
-import { Search as SearchIcon, NotificationsOutlined, AccountCircle } from '@mui/icons-material';
-import { alpha, styled } from '@mui/material/styles';
-import { useSelector } from 'react-redux';
+﻿import { Link, useLocation } from 'react-router-dom';
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
+const navItems = [
+  { name: 'Dashboard', to: '/dashboard' },
+  { name: 'Calculator', to: '/calculator' },
+  { name: 'ROI Simulator', to: '/roi-simulator' },
+  { name: 'Compare', to: '/compare' },
+  { name: 'Profile', to: '/profile' },
+];
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
+export default function Navbar({ userName = 'JD' }) {
+  const location = useLocation();
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
-
-const Navbar = () => {
-  const { user } = useSelector((state) => state.auth);
+  const initials =
+    userName
+      .split(' ')
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((part) => part[0]?.toUpperCase())
+      .join('') || 'JD';
 
   return (
-    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor: '#091E42' }}>
-      <Toolbar>
-        <Typography variant="h6" noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' }, fontWeight: 700, letterSpacing: 1 }}>
-          ROIScholar
-        </Typography>
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
-          />
-        </Search>
-        <Box sx={{ flexGrow: 1 }} />
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <IconButton size="large" aria-label="show 4 new notifications" color="inherit">
-            <Badge badgeContent={4} color="error">
-              <NotificationsOutlined />
-            </Badge>
-          </IconButton>
-          <IconButton
-            size="large"
-            edge="end"
-            aria-label="account of current user"
-            aria-haspopup="true"
-            color="inherit"
-            sx={{ ml: 1 }}
-          >
-            {user ? (
-              <Avatar sx={{ bgcolor: '#0052CC', width: 32, height: 32, fontSize: '0.875rem', fontWeight: 600 }}>
-                {user.email ? user.email[0].toUpperCase() : 'U'}
-              </Avatar>
-            ) : (
-              <AccountCircle />
-            )}
-          </IconButton>
-        </Box>
-      </Toolbar>
-    </AppBar>
-  );
-};
+    <header className="sticky top-0 w-full z-50 bg-[#f9f9ff] shadow-sm">
+      <div className="max-w-7xl mx-auto px-8 flex justify-between items-center h-20">
+        <Link to="/dashboard" className="text-xl font-black tracking-tighter text-[#00236f]">
+          EduLoan Compass
+        </Link>
 
-export default Navbar;
+        <nav className="hidden md:flex items-center gap-8 h-full">
+          {navItems.map((item) => {
+            const isActive = location.pathname === item.to;
+            return (
+              <Link
+                key={item.name}
+                to={item.to}
+                className={`h-full flex items-center font-medium transition-all duration-200 ${
+                  isActive
+                    ? 'text-[#00236f] border-b-2 border-[#006a61] pb-1 font-semibold'
+                    : 'text-[#44474e] hover:text-[#00236f]'
+                }`}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className="flex items-center gap-4">
+          <button
+            className="p-2 rounded-full hover:bg-[#f0f0f7] active:scale-95 transition-transform"
+            type="button"
+          >
+            <span className="material-symbols-outlined text-[#00236f]">notifications</span>
+          </button>
+          <button
+            className="p-2 rounded-full hover:bg-[#f0f0f7] active:scale-95 transition-transform"
+            type="button"
+          >
+            <span className="material-symbols-outlined text-[#00236f]">help_outline</span>
+          </button>
+          <div className="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center border-2 border-white shadow-sm overflow-hidden text-[#00236f] font-bold">
+            {initials}
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
