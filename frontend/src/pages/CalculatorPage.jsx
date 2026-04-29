@@ -40,12 +40,8 @@ export default function CalculatorPage() {
             <button className="text-primary border-b-2 border-secondary pb-1 font-semibold">
               Calculator
             </button>
-            <button className="text-on-surface-variant font-medium hover:text-primary transition-all duration-200">
-              ROI Simulator
-            </button>
-            <button className="text-on-surface-variant font-medium hover:text-primary transition-all duration-200">
-              Compare
-            </button>
+            <button onClick={() => navigate("/roi-simulator")} className="text-on-surface-variant font-medium hover:text-primary transition-all duration-200">ROI Simulator</button>
+            <button onClick={() => navigate("/compare")} className="text-on-surface-variant font-medium hover:text-primary transition-all duration-200">Compare</button>
             <button
               onClick={() => navigate('/profile')}
               className="text-on-surface-variant font-medium hover:text-primary transition-all duration-200"
@@ -114,3 +110,5 @@ export default function CalculatorPage() {
     </div>
   );
 }
+
+
