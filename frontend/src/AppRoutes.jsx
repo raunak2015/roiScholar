@@ -7,6 +7,7 @@ const LoginPage = lazy(() => import('./pages/LoginPage'));
 const RegisterPage = lazy(() => import('./pages/RegisterPage'));
 const DashboardPage = lazy(() => import('./pages/Dashboard'));
 const CalculatorPage = lazy(() => import('./pages/CalculatorPage'));
+const ROISimulatorPage = lazy(() => import('./pages/ROISimulatorPage'));
 
 const AppRoutes = () => {
     return (
@@ -22,6 +23,7 @@ const AppRoutes = () => {
                 {/* Protected App Routes (can add auth logic here later) */}
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/calculator" element={<CalculatorPage />} />
+                <Route path="/roi-simulator" element={<ROISimulatorPage />} />
 
                 {/* Fallback to Landing Page or Dashboard */}
                 <Route path="*" element={<Navigate to="/" replace />} />
