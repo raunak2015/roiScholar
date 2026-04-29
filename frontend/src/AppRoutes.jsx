@@ -9,6 +9,7 @@ const DashboardPage = lazy(() => import('./pages/Dashboard'));
 const CalculatorPage = lazy(() => import('./pages/CalculatorPage'));
 const ROISimulatorPage = lazy(() => import('./pages/ROISimulatorPage'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage'));
+const CompareDetailPage = lazy(() => import('./pages/CompareDetailPage'));
 
 const AppRoutes = () => {
     return (
@@ -26,6 +27,7 @@ const AppRoutes = () => {
                 <Route path="/calculator" element={<CalculatorPage />} />
                 <Route path="/roi-simulator" element={<ROISimulatorPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/compare-detail" element={<CompareDetailPage />} />
 
                 {/* Fallback to Landing Page or Dashboard */}
                 <Route path="*" element={<Navigate to="/" replace />} />
