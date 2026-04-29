@@ -1,6 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const navItems = ['Dashboard', 'Calculator', 'ROI Simulator', 'Compare', 'Profile'];
+const navItems = [
+  { name: 'Dashboard', to: '/dashboard' },
+  { name: 'Calculator', to: '/calculator' },
+  { name: 'ROI Simulator', to: '/roi-simulator' },
+  { name: 'Compare', to: '/compare' },
+  { name: 'Profile', to: '/profile' },
+];
 
 const DashboardHeader = ({ userName = 'Alex' }) => {
   return (
@@ -10,17 +17,17 @@ const DashboardHeader = ({ userName = 'Alex' }) => {
 
         <nav className="hidden md:flex items-center gap-8 h-full">
           {navItems.map((item) => (
-            <a
-              key={item}
+            <Link
+              key={item.name}
+              to={item.to}
               className={`h-full flex items-center font-medium transition-all duration-200 ${
-                item === 'Dashboard'
+                item.name === 'Dashboard'
                   ? 'text-[#00236f] border-b-2 border-[#006a61] pb-1 font-semibold'
                   : 'text-[#44474e] hover:text-[#00236f]'
               }`}
-              href="#"
             >
-              {item}
-            </a>
+              {item.name}
+            </Link>
           ))}
         </nav>
 
