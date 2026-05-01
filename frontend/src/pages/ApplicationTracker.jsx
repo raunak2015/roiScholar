@@ -37,6 +37,36 @@ export default function ApplicationTracker() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleDocumentsAdd = (newFiles = []) => {
+    if (!newFiles.length) {
+      return;
+    }
+
+    setFormData((prev) => {
+      const existing = prev.documents || [];
+      const merged = [...existing];
+
+      newFiles.forEach((file) => {
+        const isDuplicate = merged.some(
+          (item) => item.name === file.name && item.size === file.size,
+        );
+
+        if (!isDuplicate) {
+          merged.push(file);
+        }
+      });
+
+      return { ...prev, documents: merged };
+    });
+  };
+
+  const handleDocumentRemove = (id) => {
+    setFormData((prev) => ({
+      ...prev,
+      documents: (prev.documents || []).filter((doc) => doc.id !== id),
+    }));
+  };
+
   const handleNextStep = () => {
     if (currentStep < steps.length) {
       setCurrentStep(currentStep + 1);
@@ -52,6 +82,7 @@ export default function ApplicationTracker() {
   const handleSubmit = () => {
     try {
       console.log('Application submitted:', formData);
+      
       // Reset form state
       setFormData({
         fullName: '',
@@ -64,13 +95,12 @@ export default function ApplicationTracker() {
         loanTerm: '',
         documents: [],
       });
-      // Navigate to dashboard after successful submission
-      setTimeout(() => {
-        navigate('/dashboard', { replace: true });
-      }, 500);
+
+      // Navigate to dashboard
+      navigate('/dashboard', { replace: false });
     } catch (error) {
       console.error('Error submitting application:', error);
-      navigate('/dashboard', { replace: true });
+      navigate('/dashboard', { replace: false });
     }
   };
 
@@ -83,7 +113,13 @@ export default function ApplicationTracker() {
       case 3:
         return <LoanEstimateStep formData={formData} handleInputChange={handleInputChange} />;
       case 4:
-        return <DocumentUploadStep />;
+        return (
+          <DocumentUploadStep
+            documents={formData.documents}
+            onAddFiles={handleDocumentsAdd}
+            onRemoveFile={handleDocumentRemove}
+          />
+        );
       default:
         return null;
     }
