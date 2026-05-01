@@ -2,32 +2,11 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveLoanScenario } from '../../features/loan/loanSlice';
 
-export default function CalculatorResultCard({ calculatorData, loanResults }) {
+export default function CalculatorResultCard({ calculatorData = {}, loanResults = {} }) {
   const dispatch = useDispatch();
   const savedScenarios = useSelector((state) => state.loan?.savedScenarios || []);
-  const { tuition, livingExpenses, insurance, interestRate, tenure, totalLoanAmount } = calculatorData;
-  const { monthlyPayment, totalInterest, totalRepayment } = loanResults || {};
-
-  // Calculate EMI using formula: EMI = P * r * (1+r)^n / ((1+r)^n - 1)
-  const calculateEMI = () => {
-    if (!totalLoanAmount || !tenure || interestRate === undefined) return 0;
-
-    const monthlyRate = interestRate / 100 / 12;
-    const months = tenure * 12;
-
-    if (monthlyRate === 0) {
-      return totalLoanAmount / months;
-    }
-
-    const numerator = totalLoanAmount * monthlyRate * Math.pow(1 + monthlyRate, months);
-    const denominator = Math.pow(1 + monthlyRate, months) - 1;
-    return numerator / denominator;
-  };
-
-  const emi = calculateEMI();
-  const months = tenure * 12;
-  const totalCost = emi * months;
-  const totalInterest = totalCost - totalLoanAmount;
+  const { monthlyPayment = 0, totalInterest = 0, totalRepayment = 0 } = loanResults;
+  const { principal = 0 } = calculatorData;
 
   const handleApplyForRate = () => {
     // Redirect to application or loan form
@@ -38,7 +17,7 @@ export default function CalculatorResultCard({ calculatorData, loanResults }) {
     const id = `scenario_${Date.now()}`;
     const scenario = {
       id,
-      inputs: { tuition, livingExpenses, insurance, interestRate, tenure, totalLoanAmount },
+      inputs: calculatorData,
       results: { monthlyPayment, totalInterest, totalRepayment },
       createdAt: new Date().toISOString(),
     };
@@ -63,7 +42,7 @@ export default function CalculatorResultCard({ calculatorData, loanResults }) {
             </span>
             <div className="flex items-baseline gap-2 mt-2">
               <span className="text-5xl font-black tracking-tighter">
-                ${emi.toFixed(2)}
+                ${monthlyPayment.toFixed(2)}
               </span>
               <span className="text-lg font-medium opacity-70">/mo</span>
             </div>
@@ -75,7 +54,7 @@ export default function CalculatorResultCard({ calculatorData, loanResults }) {
               <span className="text-xs font-bold uppercase tracking-wider opacity-70">
                 Total Principal
               </span>
-              <p className="text-2xl font-bold">${totalLoanAmount.toLocaleString()}</p>
+              <p className="text-2xl font-bold">${principal.toLocaleString()}</p>
             </div>
             <div className="space-y-1">
               <span className="text-xs font-bold uppercase tracking-wider opacity-70">
@@ -90,7 +69,7 @@ export default function CalculatorResultCard({ calculatorData, loanResults }) {
             <div className="flex justify-between items-center mb-6">
               <span className="text-sm font-semibold opacity-80">Total Cost of Loan</span>
               <span className="text-3xl font-black">
-                  ${totalCost.toLocaleString('en-US', { maximumFractionDigits: 0 })}
+                  ${totalRepayment.toLocaleString('en-US', { maximumFractionDigits: 0 })}
                 </span>
             </div>
 
