@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const COUNTRIES = ['United States', 'Canada', 'United Kingdom', 'Australia'];
+const COUNTRIES = ['United States', 'Canada', 'United Kingdom', 'Australia', 'India'];
 const DEGREES = ['Computer Science', 'Data Science', 'AI & ML', 'Engineering'];
 
 export default function UniversityFilterPanel({ filters = {}, onFilterChange = () => {} }) {

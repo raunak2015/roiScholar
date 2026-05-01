@@ -4,9 +4,9 @@ const initialState = {
 	universities: [],
 	selectedUniversities: [],
 	filters: {
-		country: '',
-		degree: '',
-		maxTuition: '',
+		country: [],
+		degree: [],
+		maxTuition: 200000,
 	},
 };
 

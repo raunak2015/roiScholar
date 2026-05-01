@@ -1,9 +1,15 @@
 export default function ComparisonTable({ universities = [], selected = [], onSelect = () => {} }) {
+  const formatCurrency = (value) => {
+    const number = Number(value);
+    return Number.isFinite(number) ? number.toLocaleString() : 'N/A';
+  };
+
   const toggleSelect = (id) => {
-    const newSelected = selected.includes(id)
-      ? selected.filter((s) => s !== id)
+    const nextSelected = selected.includes(id)
+      ? selected.filter((selectedId) => selectedId !== id)
       : [...selected, id];
-    onSelect(newSelected);
+
+    onSelect(nextSelected);
   };
 
   if (universities.length === 0) {
@@ -29,7 +35,7 @@ export default function ComparisonTable({ universities = [], selected = [], onSe
           </tr>
         </thead>
         <tbody>
-          {universities.map((uni, idx) => (
+          {universities.map((uni) => (
             <tr
               key={uni.id}
               className={`border-b border-surface-container-highest hover:bg-surface-container-highest transition-colors ${
@@ -58,16 +64,16 @@ export default function ComparisonTable({ universities = [], selected = [], onSe
               </td>
               <td className="px-6 py-4 text-on-surface-variant">{uni.program}</td>
               <td className="px-6 py-4 text-right font-semibold text-secondary">
-                ${uni.totalCost.toLocaleString()}
+                ${formatCurrency(uni.totalCost)}
               </td>
               <td className="px-6 py-4 text-right font-semibold text-on-surface">
-                ${uni.roi?.startingSalary.toLocaleString()}
+                ${formatCurrency(uni.roi?.startingSalary)}
               </td>
               <td className="px-6 py-4 text-right text-on-surface">
                 {uni.roi?.breakEvenPeriod || 'N/A'}
               </td>
               <td className="px-6 py-4 text-right font-semibold text-tertiary">
-                ${uni.roi?.tenYearProjection.toLocaleString()}
+                ${formatCurrency(uni.roi?.tenYearProjection)}
               </td>
             </tr>
           ))}
