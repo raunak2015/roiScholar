@@ -473,11 +473,13 @@ function buildLogo(rawUniversity) {
 	const domain = rawUniversity?.domains?.[0];
 
 	if (domain) {
-		return `https://logo.clearbit.com/${domain}`;
+		// Google Favicon service is often more reliable for academic domains than Clearbit
+		return `https://www.google.com/s2/favicons?sz=128&domain=${domain}`;
 	}
 
-	const label = encodeURIComponent((rawUniversity?.name || 'University').slice(0, 2).toUpperCase());
-	return `https://placehold.co/160x160?text=${label}`;
+	const label = encodeURIComponent(rawUniversity?.name || 'U');
+	// Use UI-Avatars for a nicer colored placeholder with initials
+	return `https://ui-avatars.com/api/?name=${label}&background=random&color=fff&size=128`;
 }
 
 function buildUniversityRecord(rawUniversity, index) {
@@ -491,6 +493,7 @@ function buildUniversityRecord(rawUniversity, index) {
 			: `${rawUniversity?.name || 'university'}-${country}-${index}`,
 		name: rawUniversity?.name || 'Unnamed University',
 		country,
+		state: rawUniversity?.['state-province'] || '',
 		degree: profile.degree,
 		program: profile.program,
 		logo: buildLogo(rawUniversity),

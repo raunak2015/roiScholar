@@ -170,7 +170,11 @@ export default function CompareUniversities() {
                 <img
                   alt={uni.name}
                   src={uni.logo}
-                  className="w-16 h-16 rounded-lg object-contain"
+                  className="w-16 h-16 rounded-lg object-contain bg-surface-container-highest"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(uni.name)}&background=random&color=fff&size=128`;
+                  }}
                 />
                 <div className="flex-1">
                   <h3 className="font-bold text-lg">{uni.name}</h3>
@@ -188,7 +192,7 @@ export default function CompareUniversities() {
 
               <div className="space-y-2 text-sm">
                 <p>
-                  <span className="font-semibold">Location:</span> {uni.country}
+                  <span className="font-semibold">Location:</span> {uni.state ? `${uni.state}, ${uni.country}` : uni.country}
                 </p>
                 <p>
                   <span className="font-semibold">Total Cost:</span> ${Number(uni.totalCost).toLocaleString()}
