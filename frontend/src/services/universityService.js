@@ -422,7 +422,7 @@ const FALLBACK_UNIVERSITIES = [
 	},
 ];
 
-const DEFAULT_LIMIT_PER_COUNTRY = 4;
+const DEFAULT_LIMIT_PER_COUNTRY = 20;
 
 function getCountryProfile(country) {
 	return COUNTRY_PROFILES[country] || COUNTRY_PROFILES.default;
