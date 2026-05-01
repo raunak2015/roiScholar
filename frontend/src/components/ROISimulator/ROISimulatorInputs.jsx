@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useCurrency } from '../../hooks/useCurrency';
 
 const DEGREES = [
   'Computer Science (B.S.)',
@@ -63,6 +64,7 @@ const PERCENTILE_BY_DEGREE_MARKET = {
 };
 
 export default function ROISimulatorInputs({ onInputChange }) {
+  const { format } = useCurrency();
   const [inputs, setInputs] = useState({
     degree: 'Artificial Intelligence & ML',
     market: 'United States of America',
@@ -139,7 +141,7 @@ export default function ROISimulatorInputs({ onInputChange }) {
       <div className="bg-primary bg-gradient-to-br from-primary to-primary-container p-8 rounded-xl flex flex-col justify-between text-white shadow-lg">
         <div>
           <p className="text-sm font-medium opacity-80 mb-1">EXPECTED STARTING SALARY</p>
-          <div className="text-4xl font-extrabold">${startingSalary.toLocaleString()}</div>
+          <div className="text-4xl font-extrabold">{format(startingSalary)}</div>
         </div>
         <div className="mt-4 flex items-center gap-2 text-secondary-fixed font-semibold">
           <span

@@ -11,6 +11,7 @@ import {
   Area,
   AreaChart,
 } from 'recharts';
+import { useCurrency } from '../../hooks/useCurrency';
 
 export default function ROIVisualizer({ 
   totalInvestment = 50000, 
@@ -18,6 +19,7 @@ export default function ROIVisualizer({
   salaryGrowth = 0.05, 
   years = 10 
 }) {
+  const { symbol, format } = useCurrency();
   // Generate data for the 10-year projection
   const data = useMemo(() => {
     let cumulativeEarnings = 0;
@@ -45,15 +47,15 @@ export default function ROIVisualizer({
           <div className="space-y-1">
             <div className="flex justify-between gap-8">
               <span className="text-on-surface-variant">Investment:</span>
-              <span className="font-bold text-on-surface">${payload[0].value.toLocaleString()}</span>
+              <span className="font-bold text-on-surface">{format(payload[0].value)}</span>
             </div>
             <div className="flex justify-between gap-8">
               <span className="text-on-surface-variant">Cumulative Earnings:</span>
-              <span className="font-bold text-primary">${payload[1].value.toLocaleString()}</span>
+              <span className="font-bold text-primary">{format(payload[1].value)}</span>
             </div>
             <div className={`flex justify-between gap-8 pt-2 mt-2 border-t border-outline-variant ${payload[2].value >= 0 ? 'text-tertiary' : 'text-error'}`}>
               <span className="font-medium">Net Position:</span>
-              <span className="font-extrabold">${payload[2].value.toLocaleString()}</span>
+              <span className="font-extrabold">{format(payload[2].value)}</span>
             </div>
           </div>
         </div>
@@ -90,7 +92,7 @@ export default function ROIVisualizer({
               axisLine={false} 
               tickLine={false} 
               tick={{ fill: 'var(--md-sys-color-on-surface-variant)', fontSize: 12 }}
-              tickFormatter={(value) => `$${value / 1000}k`}
+              tickFormatter={(value) => `${symbol}${value / 1000}k`}
             />
             <Tooltip content={<CustomTooltip />} />
             <Legend 

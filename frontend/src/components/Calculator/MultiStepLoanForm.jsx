@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { useCurrency } from '../../hooks/useCurrency';
 
 const steps = [
   { id: 1, title: 'Program', icon: 'school' },
@@ -28,6 +29,7 @@ const validationSchema = [
 
 export default function MultiStepLoanForm({ onCalculate }) {
   const [activeStep, setActiveStep] = useState(0);
+  const { symbol, format } = useCurrency();
 
   const initialValues = {
     university: '',
@@ -132,7 +134,7 @@ export default function MultiStepLoanForm({ onCalculate }) {
                   <div className="flex flex-col gap-1">
                     <label className="text-sm font-bold text-on-surface-variant">Tuition (Per Year)</label>
                     <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">$</span>
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">{symbol}</span>
                       <Field 
                         type="number" 
                         name="tuitionPerYear" 
@@ -144,7 +146,7 @@ export default function MultiStepLoanForm({ onCalculate }) {
                   <div className="flex flex-col gap-1">
                     <label className="text-sm font-bold text-on-surface-variant">Monthly Living Cost</label>
                     <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">$</span>
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">{symbol}</span>
                       <Field 
                         type="number" 
                         name="livingMonthly" 
@@ -174,7 +176,7 @@ export default function MultiStepLoanForm({ onCalculate }) {
                 <div className="p-4 bg-primary/5 rounded-2xl border border-primary/10 flex justify-between items-center">
                   <span className="font-bold text-on-surface">Total Cost Estimated:</span>
                   <span className="text-2xl font-extrabold text-primary">
-                    ${((values.tuitionPerYear * values.duration) + (values.livingMonthly * 12 * values.duration) + Number(values.insurance) + Number(values.misc)).toLocaleString()}
+                    {format(((values.tuitionPerYear * values.duration) + (values.livingMonthly * 12 * values.duration) + Number(values.insurance) + Number(values.misc)))}
                   </span>
                 </div>
               </div>
@@ -186,7 +188,7 @@ export default function MultiStepLoanForm({ onCalculate }) {
                 <div className="flex flex-col gap-1">
                   <label className="text-sm font-bold text-on-surface-variant">Desired Loan Amount</label>
                   <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">$</span>
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">{symbol}</span>
                     <Field 
                       type="number" 
                       name="loanAmount" 

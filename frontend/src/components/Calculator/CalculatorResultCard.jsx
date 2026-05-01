@@ -1,27 +1,16 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveLoanScenario, persistLoanScenario } from '../../features/loan/loanSlice';
-import { getCurrencySymbol } from '../../services/currencyService';
+import { useCurrency } from '../../hooks/useCurrency';
 import { toast } from 'react-toastify';
 
 export default function CalculatorResultCard({ calculatorData = {}, loanResults = {} }) {
   const dispatch = useDispatch();
   const savedScenarios = useSelector((state) => state.loan?.savedScenarios || []);
-  const { targetCurrency, rates } = useSelector((state) => state.currency);
+  const { format } = useCurrency();
   
   const { monthlyPayment = 0, totalInterest = 0, totalRepayment = 0 } = loanResults;
   const { principal = 0 } = calculatorData;
-
-  const currentRate = rates[targetCurrency] || 1;
-  const symbol = getCurrencySymbol(targetCurrency);
-
-  const formatValue = (val) => {
-    const converted = val * currentRate;
-    return converted.toLocaleString('en-US', { 
-      maximumFractionDigits: 0,
-      minimumFractionDigits: 0
-    });
-  };
 
   const handleApplyForRate = () => {
     // Redirect to application or loan form
@@ -71,7 +60,7 @@ export default function CalculatorResultCard({ calculatorData = {}, loanResults 
             </span>
             <div className="flex items-baseline gap-2 mt-2">
               <span className="text-5xl font-black tracking-tighter">
-                {symbol}{formatValue(monthlyPayment)}
+                {format(monthlyPayment)}
               </span>
               <span className="text-lg font-medium opacity-70">/mo</span>
             </div>
@@ -83,13 +72,13 @@ export default function CalculatorResultCard({ calculatorData = {}, loanResults 
               <span className="text-xs font-bold uppercase tracking-wider opacity-70">
                 Total Principal
               </span>
-              <p className="text-2xl font-bold">{symbol}{formatValue(principal)}</p>
+              <p className="text-2xl font-bold">{format(principal)}</p>
             </div>
             <div className="space-y-1">
               <span className="text-xs font-bold uppercase tracking-wider opacity-70">
                 Total Interest
               </span>
-              <p className="text-2xl font-bold">{symbol}{formatValue(totalInterest)}</p>
+              <p className="text-2xl font-bold">{format(totalInterest)}</p>
             </div>
           </div>
 
@@ -98,7 +87,7 @@ export default function CalculatorResultCard({ calculatorData = {}, loanResults 
             <div className="flex justify-between items-center mb-6">
               <span className="text-sm font-semibold opacity-80">Total Cost of Loan</span>
               <span className="text-3xl font-black">
-                  {symbol}{formatValue(totalRepayment)}
+                  {format(totalRepayment)}
                 </span>
             </div>
 
