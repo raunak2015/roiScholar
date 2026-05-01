@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import MainNavbar from '../components/Layout/MainNavbar';
@@ -11,167 +11,55 @@ import VisaDetailsCard from '../components/Compare/VisaDetailsCard';
 import UniversityFilterPanel from '../components/Compare/UniversityFilterPanel';
 import ComparisonTable from '../components/Compare/ComparisonTable';
 import { setUniversities, updateUniversityFilters, setSelectedUniversities } from '../features/university/universitySlice';
+import { DEFAULT_COMPARE_COUNTRIES, loadCompareUniversities } from '../services/universityService';
 
 export default function CompareDetailPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const uniState = useSelector((state) => state.university || {});
-  const [selectedIds, setSelectedIds] = useState([]);
+  const universityRows = uniState.universities || [];
+  const selectedUniversities = uniState.selectedUniversities || [];
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  const mockUniversities = [
-    {
-      id: 1,
-      name: 'Stanford University',
-      country: 'United States',
-      degree: 'Computer Science',
-      program: 'MS in Computer Science',
-      logo: 'https://lh3.googleusercontent.com/aida-public/AB6AXuADWAgRn84e8eR__3qFpiaZ30tqMCBYkDqbTFF1GklU2LSayLnT5bHf3tACe4ONnX9D6XTnIN3KQP28k_mogFkMxYpoGrJd0A07BVzonob4B7orGOzfXK_XWgZRe3FfH_kgJG8i-14vajTPjkJKpxacSmJlf8oAK9PCT-wF07FJqItknwAqT_TjRpZ50KQJ5TBuNZ7ThPqr3iyVbEE7JT59ggYhZ4761o-2_ClRK52EfK8kGBXk8aEUzPWFaFSPuUi2pGd0dUtb1Zw',
-      totalCost: 125000,
-      costBreakdown: {
-        tuition: 82000,
-        living: 38000,
-        misc: 5000,
-      },
-      costPercentages: {
-        tuition: 70,
-        living: 25,
-        misc: 5,
-      },
-      roi: {
-        startingSalary: 165000,
-        breakEvenPeriod: '2.2 Years',
-        tenYearProjection: 1400000,
-        projectionPercentage: 85,
-      },
-      loan: {
-        interestRate: 8.45,
-        monthlyEMI: 1240,
-        totalRepayment: 148800,
-      },
-      visa: {
-        title: 'Visa Details (USA - F1)',
-        icon: 'flight_takeoff',
-        description:
-          '36-month OPT STEM extension available. High likelihood of H1-B sponsorship from Silicon Valley network partners.',
-      },
-    },
-    {
-      id: 2,
-      name: 'University of Toronto',
-      country: 'Canada',
-      degree: 'Computer Science',
-      program: 'MSc in Applied Computing',
-      logo: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB8yVPeBI7jk4Yjdka1I97JcsOcdJW5CSojfT_cD5uxfU3Q6L_PMNNEcod_UXzV819yk3WIYDP_nwAgwtAUHw4eyJ7tadHb07Rg7e0OzzaF8QSoPFfJiKEjO0h1mz9PXHrgNTwQWfR0zV9a5yLSq-R6x2bzGkRJDdDwio8IsPsAdqxs4TAUA4S1h8CiMn7p6gN1Dxs1-gMAfnMSGr4tjORYtIK8GkN7q0MEMYtpFg241XKooSbEVUGOW7Ipj-ju-gNr_0LpVRFBbCE',
-      totalCost: 78000,
-      costBreakdown: {
-        tuition: 45000,
-        living: 28000,
-        misc: 5000,
-      },
-      costPercentages: {
-        tuition: 55,
-        living: 35,
-        misc: 10,
-      },
-      roi: {
-        startingSalary: 115000,
-        breakEvenPeriod: '2.8 Years',
-        tenYearProjection: 850000,
-        projectionPercentage: 60,
-      },
-      loan: {
-        interestRate: 7.25,
-        monthlyEMI: 780,
-        totalRepayment: 93600,
-      },
-      visa: {
-        title: 'Visa Details (Canada - PGWP)',
-        icon: 'travel_explore',
-        description:
-          'Eligible for 3-year Post-Graduation Work Permit. Clear path to Permanent Residency (Express Entry) for high-skilled tech workers.',
-      },
-    },
-    {
-      id: 3,
-      name: 'MIT',
-      country: 'United States',
-      degree: 'AI & ML',
-      program: 'MS in Computer Science (AI)',
-      logo: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB8yVPeBI7jk4Yjdka1I97JcsOcdJW5CSojfT_cD5uxfU3Q6L_PMNNEcod_UXzV819yk3WIYDP_nwAgwtAUHw4eyJ7tadHb07Rg7e0OzzaF8QSoPFfJiKEjO0h1mz9PXHrgNTwQWfR0zV9a5yLSq-R6x2bzGkRJDdDwio8IsPsAdqxs4TAUA4S1h8CiMn7p6gN1Dxs1-gMAfnMSGr4tjORYtIK8GkN7q0MEMYtpFg241XKooSbEVUGOW7Ipj-ju-gNr_0LpVRFBbCE',
-      totalCost: 135000,
-      costBreakdown: {
-        tuition: 90000,
-        living: 40000,
-        misc: 5000,
-      },
-      costPercentages: {
-        tuition: 67,
-        living: 30,
-        misc: 3,
-      },
-      roi: {
-        startingSalary: 185000,
-        breakEvenPeriod: '2.0 Years',
-        tenYearProjection: 1550000,
-        projectionPercentage: 88,
-      },
-      loan: {
-        interestRate: 8.5,
-        monthlyEMI: 1340,
-        totalRepayment: 160800,
-      },
-      visa: {
-        title: 'Visa Details (USA - F1)',
-        icon: 'flight_takeoff',
-        description:
-          'STEM OPT extension 24 months + 3 year extension possible. High sponsorship rates for AI/ML roles.',
-      },
-    },
-    {
-      id: 4,
-      name: 'University of Cambridge',
-      country: 'United Kingdom',
-      degree: 'AI & ML',
-      program: 'MPhil in Advanced Computer Science',
-      logo: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB8yVPeBI7jk4Yjdka1I97JcsOcdJW5CSojfT_cD5uxfU3Q6L_PMNNEcod_UXzV819yk3WIYDP_nwAgwtAUHw4eyJ7tadHb07Rg7e0OzzaF8QSoPFfJiKEjO0h1mz9PXHrgNTwQWfR0zV9a5yLSq-R6x2bzGkRJDdDwio8IsPsAdqxs4TAUA4S1h8CiMn7p6gN1Dxs1-gMAfnMSGr4tjORYtIK8GkN7q0MEMYtpFg241XKooSbEVUGOW7Ipj-ju-gNr_0LpVRFBbCE',
-      totalCost: 95000,
-      costBreakdown: {
-        tuition: 55000,
-        living: 35000,
-        misc: 5000,
-      },
-      costPercentages: {
-        tuition: 58,
-        living: 37,
-        misc: 5,
-      },
-      roi: {
-        startingSalary: 130000,
-        breakEvenPeriod: '2.5 Years',
-        tenYearProjection: 1050000,
-        projectionPercentage: 72,
-      },
-      loan: {
-        interestRate: 7.75,
-        monthlyEMI: 945,
-        totalRepayment: 113400,
-      },
-      visa: {
-        title: 'Visa Details (UK - Graduate Route)',
-        icon: 'travel_explore',
-        description:
-          '2-year graduate visa post-completion. Pathway to Skilled Worker visa for tech roles.',
-      },
-    },
-  ];
-
-  // Initialize universities on mount
   useEffect(() => {
-    dispatch(setUniversities(mockUniversities));
-  }, [dispatch]);
+    let cancelled = false;
+
+    async function initializeUniversities() {
+      if (universityRows.length > 0) {
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
+      setError('');
+
+      try {
+        const data = await loadCompareUniversities({ countries: DEFAULT_COMPARE_COUNTRIES });
+
+        if (!cancelled) {
+          dispatch(setUniversities(data));
+        }
+      } catch (fetchError) {
+        if (!cancelled) {
+          setError(fetchError?.message || 'Failed to load university comparison data');
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    initializeUniversities();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [dispatch, universityRows.length]);
 
   // Filter universities based on Redux filters
-  const filteredUniversities = (uniState.universities || mockUniversities).filter((uni) => {
+  const filteredUniversities = universityRows.filter((uni) => {
     const countryMatch =
       !uniState.filters?.country?.length || uniState.filters.country.includes(uni.country);
     const degreeMatch =
@@ -185,10 +73,10 @@ export default function CompareDetailPage() {
   };
 
   const handleSelectUniversities = (ids) => {
-    setSelectedIds(ids);
     dispatch(setSelectedUniversities(ids));
   };
 
+  const selectedIds = selectedUniversities;
   const universities = filteredUniversities;
 
   return (
@@ -205,6 +93,16 @@ export default function CompareDetailPage() {
             Filter and compare STEM programs across countries with financial ROI analysis
           </p>
         </div>
+
+        {loading ? (
+          <div className="mb-8 rounded-xl bg-surface-container-low p-6 text-center text-on-surface-variant">
+            Loading universities from Hipolabs...
+          </div>
+        ) : error ? (
+          <div className="mb-8 rounded-xl border border-error/20 bg-error/5 p-4 text-error">
+            {error}
+          </div>
+        ) : null}
 
         {/* Filter Panel */}
         <UniversityFilterPanel
