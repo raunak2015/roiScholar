@@ -1,13 +1,14 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ROISimulatorInputs from '../components/ROISimulator/ROISimulatorInputs';
 import FinancialMilestoneCard from '../components/ROISimulator/FinancialMilestoneCard';
 import FinancialGainCard from '../components/ROISimulator/FinancialGainCard';
-import EarningsChart from '../components/ROISimulator/EarningsChart';
 import ROISimulatorCTA from '../components/ROISimulator/ROISimulatorCTA';
 import MainNavbar from '../components/Layout/MainNavbar';
 import { setRoiInputs, setRoiResults } from '../features/roi/roiSlice';
 import { calculateROI, calculateMultiYearROI } from '../features/roi/roiUtils';
+import FileUpload from '../components/UI/FileUpload';
+import ROIVisualizer from '../components/ROI/ROIVisualizer';
 
 export default function ROISimulatorPage() {
   const dispatch = useDispatch();
@@ -60,13 +61,28 @@ export default function ROISimulatorPage() {
           </p>
         </div>
 
-        <ROISimulatorInputs onInputChange={handleInputChange} />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+          <div className="lg:col-span-1 flex flex-col gap-8">
+            <ROISimulatorInputs onInputChange={handleInputChange} />
+            <FileUpload 
+              label="Upload Offer Letter (AI Extraction)" 
+              onFileSelect={(file) => console.log('File selected:', file)} 
+            />
+          </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
-          <FinancialMilestoneCard roiState={roiState} loanState={loanState} />
-          <FinancialGainCard roiState={roiState} loanState={loanState} />
-          <EarningsChart roiState={roiState} loanState={loanState} />
-          <ROISimulatorCTA />
+          <div className="lg:col-span-2 flex flex-col gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <FinancialMilestoneCard roiState={roiState} loanState={loanState} />
+              <FinancialGainCard roiState={roiState} loanState={loanState} />
+            </div>
+            
+            <ROIVisualizer 
+              totalInvestment={loanState?.totalLoanAmount || 50000}
+              startingSalary={roiState?.expectedSalary || 80000}
+            />
+            
+            <ROISimulatorCTA />
+          </div>
         </div>
       </main>
 
