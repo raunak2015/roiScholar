@@ -24,7 +24,7 @@ export default function ApplicationFormFooter({ currentStep, steps, onPrevious, 
             onClick={onNext}
             className="bg-gradient-to-r from-primary to-primary-container text-on-primary px-8 py-3 rounded-lg font-bold tracking-wide uppercase text-sm shadow-lg hover:shadow-lg active:scale-95 transition-all flex items-center gap-2"
           >
-            Continue to {steps[currentStep].label}
+            Continue to {steps[currentStep]?.label || 'Next'}
             <span className="material-symbols-outlined">arrow_forward</span>
           </button>
         ) : (
