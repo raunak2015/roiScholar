@@ -85,8 +85,8 @@ export default function ApplicationsPage() {
                 {applications
                   .filter((a) => a.status === status.id)
                   .map((app) => (
-                    <div 
-                      key={app.id} 
+                    <div
+                      key={app.id}
                       className="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/5 shadow-sm hover:shadow-md hover:border-primary/20 transition-all cursor-pointer group"
                     >
                       <div className="flex items-start gap-4 mb-4">
@@ -100,7 +100,7 @@ export default function ApplicationsPage() {
                           </p>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-center justify-between pt-4 border-t border-outline-variant/5">
                         <div className="flex items-center gap-1.5 text-on-surface-variant text-[10px] font-bold uppercase tracking-wider">
                           <span className="material-symbols-outlined text-sm">event</span>
@@ -113,7 +113,7 @@ export default function ApplicationsPage() {
                       </div>
                     </div>
                   ))}
-                
+
                 {applications.filter(a => a.status === status.id).length === 0 && (
                   <div className="py-8 text-center text-on-surface-variant/30 flex flex-col items-center">
                     <span className="material-symbols-outlined text-3xl mb-2">inbox</span>

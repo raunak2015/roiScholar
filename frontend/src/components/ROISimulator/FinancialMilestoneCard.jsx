@@ -3,26 +3,33 @@ export default function FinancialMilestoneCard({ roiState = {}, loanState = {} }
   const repaymentProgress = Math.min(Math.round((breakEvenYears / 10) * 100), 100);
 
   return (
-    <div className="lg:col-span-5 bg-surface-container-low rounded-xl p-8 flex flex-col justify-between relative overflow-hidden">
+    <div className="bg-[#f0f4ff] rounded-2xl p-8 flex flex-col justify-between relative overflow-hidden h-full border border-primary/5">
       <div className="relative z-10">
-        <h3 className="text-lg font-bold text-primary mb-6">Financial Milestone</h3>
-        <div className="flex items-baseline gap-2 mb-2">
-          <span className="text-5xl font-black text-primary">{breakEvenYears.toFixed(1)}</span>
-          <span className="text-xl font-semibold text-on-surface-variant">Years</span>
+        <h3 className="text-sm font-bold text-[#1e2b58] mb-8">Financial Milestone</h3>
+        <div className="flex items-baseline gap-3 mb-2">
+          <span className="text-6xl font-black text-[#1e2b58] tracking-tighter">
+            {breakEvenYears.toFixed(1)}
+          </span>
+          <span className="text-xl font-bold text-[#1e2b58]/60">Years</span>
         </div>
-        <p className="text-on-surface-variant font-medium mb-8">Estimated Break-even Point</p>
-        <div className="space-y-3">
-          <div className="flex justify-between text-sm font-bold text-primary">
+        <p className="text-[#1e2b58]/70 font-medium text-sm mb-10">Estimated Break-even Point</p>
+        
+        <div className="space-y-4">
+          <div className="flex justify-between text-[10px] font-black text-[#1e2b58] tracking-widest uppercase">
             <span>REPAYMENT PROGRESS</span>
             <span>{repaymentProgress}%</span>
           </div>
-          <div className="w-full h-2 bg-surface-container-highest rounded-none">
-            <div className="h-full bg-secondary" style={{ width: `${repaymentProgress}%` }}></div>
+          <div className="w-full h-2 bg-white rounded-full overflow-hidden border border-primary/5">
+            <div className="h-full bg-[#006a61]" style={{ width: `${repaymentProgress}%` }}></div>
           </div>
         </div>
       </div>
-      <div className="absolute -right-12 -bottom-12 opacity-5">
-        <span className="material-symbols-outlined text-[12rem]">history_toggle_off</span>
+      
+      {/* Decorative Background Clock */}
+      <div className="absolute -right-8 -bottom-8 opacity-5">
+        <span className="material-symbols-outlined text-[10rem] text-[#1e2b58]">
+          schedule
+        </span>
       </div>
     </div>
   );

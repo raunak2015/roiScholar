@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useCurrency } from '../../hooks/useCurrency';
 
 const DEGREES = [
   'Computer Science (B.S.)',
@@ -63,6 +64,7 @@ const PERCENTILE_BY_DEGREE_MARKET = {
 };
 
 export default function ROISimulatorInputs({ onInputChange }) {
+  const { format } = useCurrency();
   const [inputs, setInputs] = useState({
     degree: 'Artificial Intelligence & ML',
     market: 'United States of America',
@@ -86,69 +88,63 @@ export default function ROISimulatorInputs({ onInputChange }) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-      {/* Degree and Market Inputs */}
-      <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Academic Pathway */}
-        <div className="bg-surface-container-lowest p-6 rounded-xl shadow-sm space-y-4">
-          <label className="block text-sm font-semibold text-primary tracking-wide">
-            ACADEMIC PATHWAY
-          </label>
-          <div className="relative">
-            <select
-              value={inputs.degree}
-              onChange={handleDegreeChange}
-              className="w-full bg-surface-container-low border-none rounded-lg p-4 text-on-surface font-medium focus:ring-2 focus:ring-primary appearance-none"
-            >
-              {DEGREES.map((degree) => (
-                <option key={degree} value={degree}>
-                  {degree}
-                </option>
-              ))}
-            </select>
-            <span className="material-symbols-outlined absolute right-4 top-4 pointer-events-none text-outline">
-              expand_more
-            </span>
-          </div>
-        </div>
-
-        {/* Target Market */}
-        <div className="bg-surface-container-lowest p-6 rounded-xl shadow-sm space-y-4">
-          <label className="block text-sm font-semibold text-primary tracking-wide">
-            TARGET MARKET
-          </label>
-          <div className="relative">
-            <select
-              value={inputs.market}
-              onChange={handleMarketChange}
-              className="w-full bg-surface-container-low border-none rounded-lg p-4 text-on-surface font-medium focus:ring-2 focus:ring-primary appearance-none"
-            >
-              {MARKETS.map((market) => (
-                <option key={market} value={market}>
-                  {market}
-                </option>
-              ))}
-            </select>
-            <span className="material-symbols-outlined absolute right-4 top-4 pointer-events-none text-outline">
-              public
-            </span>
-          </div>
+      {/* Academic Pathway Card */}
+      <div className="bg-white rounded-xl p-6 shadow-sm border border-outline-variant/10 flex flex-col justify-between">
+        <label className="block text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-4">
+          Academic Pathway
+        </label>
+        <div className="relative group">
+          <select
+            value={inputs.degree}
+            onChange={handleDegreeChange}
+            className="w-full bg-surface-container-low border-0 rounded-lg p-3 text-on-surface font-bold focus:ring-0 appearance-none cursor-pointer"
+          >
+            {DEGREES.map((degree) => (
+              <option key={degree} value={degree}>
+                {degree}
+              </option>
+            ))}
+          </select>
+          <span className="material-symbols-outlined absolute right-3 top-2.5 text-on-surface-variant pointer-events-none text-lg">
+            expand_more
+          </span>
         </div>
       </div>
 
-      {/* Expected Starting Salary Card */}
-      <div className="bg-primary bg-gradient-to-br from-primary to-primary-container p-8 rounded-xl flex flex-col justify-between text-white shadow-lg">
-        <div>
-          <p className="text-sm font-medium opacity-80 mb-1">EXPECTED STARTING SALARY</p>
-          <div className="text-4xl font-extrabold">${startingSalary.toLocaleString()}</div>
-        </div>
-        <div className="mt-4 flex items-center gap-2 text-secondary-fixed font-semibold">
-          <span
-            className="material-symbols-outlined"
-            style={{ fontVariationSettings: "'FILL' 1" }}
+      {/* Target Market Card */}
+      <div className="bg-white rounded-xl p-6 shadow-sm border border-outline-variant/10 flex flex-col justify-between">
+        <label className="block text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-4">
+          Target Market
+        </label>
+        <div className="relative group flex items-center">
+          <select
+            value={inputs.market}
+            onChange={handleMarketChange}
+            className="w-full bg-surface-container-low border-0 rounded-lg p-3 text-on-surface font-bold focus:ring-0 appearance-none cursor-pointer"
           >
-            trending_up
+            {MARKETS.map((market) => (
+              <option key={market} value={market}>
+                {market}
+              </option>
+            ))}
+          </select>
+          <span className="material-symbols-outlined absolute right-3 top-2.5 text-on-surface-variant pointer-events-none text-lg">
+            public
           </span>
-          <span>{percentile} in {inputs.market}</span>
+        </div>
+      </div>
+
+      {/* Expected Starting Salary Dark Card */}
+      <div className="bg-[#1e2b58] rounded-xl p-6 shadow-lg flex flex-col justify-center text-white">
+        <span className="text-[10px] font-black uppercase tracking-widest opacity-70 mb-2">
+          Expected Starting Salary
+        </span>
+        <div className="text-4xl font-black mb-3">
+          {format(startingSalary, { minimumFractionDigits: 0 })}
+        </div>
+        <div className="flex items-center gap-2 text-[#4ade80] text-xs font-bold">
+          <span className="material-symbols-outlined text-sm">trending_up</span>
+          <span>{percentile} in {inputs.market === 'United States of America' ? 'USA' : inputs.market}</span>
         </div>
       </div>
     </div>

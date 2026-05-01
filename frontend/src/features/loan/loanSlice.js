@@ -5,19 +5,19 @@ import { getStorageItem, setStorageItem, removeStorageItem } from '../../service
 const SAVED_LOANS_KEY = 'savedLoans';
 
 export const persistLoanScenario = createAsyncThunk(
-  'loan/persistLoanScenario',
-  async (scenarioData, { rejectWithValue }) => {
-    try {
-      const response = await axios.post('/api/scenarios', scenarioData);
-      return response.data.data;
-    } catch (error) {
-      return rejectWithValue(error.response?.data?.message || 'Failed to persist scenario');
-    }
-  }
+	'loan/persistLoanScenario',
+	async (scenarioData, { rejectWithValue }) => {
+		try {
+			const response = await axios.post('/api/scenarios', scenarioData);
+			return response.data.data;
+		} catch (error) {
+			return rejectWithValue(error.response?.data?.message || 'Failed to persist scenario');
+		}
+	}
 );
 
 const initialState = {
-  // ... (initialState unchanged)
+	// ... (initialState unchanged)
 	principal: 0,
 	annualInterestRate: 0,
 	termInMonths: 60,
@@ -64,13 +64,13 @@ const loanSlice = createSlice({
 			removeStorageItem(SAVED_LOANS_KEY, 'localStorage');
 		},
 	},
-  extraReducers: (builder) => {
-    builder
-      .addCase(persistLoanScenario.fulfilled, (state, action) => {
-        state.savedScenarios = [...state.savedScenarios, action.payload];
-        setStorageItem(SAVED_LOANS_KEY, state.savedScenarios, 'localStorage');
-      });
-  },
+	extraReducers: (builder) => {
+		builder
+			.addCase(persistLoanScenario.fulfilled, (state, action) => {
+				state.savedScenarios = [...state.savedScenarios, action.payload];
+				setStorageItem(SAVED_LOANS_KEY, state.savedScenarios, 'localStorage');
+			});
+	},
 });
 
 export const { setLoanInputs, setLoanResults, saveLoanScenario, removeLoanScenario, clearLoanScenarios } = loanSlice.actions;
