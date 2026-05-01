@@ -4,8 +4,8 @@ import { Provider } from 'react-redux';
 import { HelmetProvider } from 'react-helmet-async';
 import { store } from './store';
 import App from './App';
-import './styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
+import './styles/globals.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

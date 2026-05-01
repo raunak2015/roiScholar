@@ -1,46 +1,40 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getStorageItem, setStorageItem } from '../../services/storage';
 
-const THEME_KEY = 'themePreference';
-
-const initialState = {
-	themeMode: getStorageItem(THEME_KEY, 'light', 'localStorage'),
-	isLoading: false,
-	notifications: [],
+const getInitialTheme = () => {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) return savedTheme;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 };
 
 const uiSlice = createSlice({
-	name: 'ui',
-	initialState,
-	reducers: {
-		setThemeMode: (state, action) => {
-			state.themeMode = action.payload || 'light';
-			setStorageItem(THEME_KEY, state.themeMode, 'localStorage');
-		},
-		toggleThemeMode: (state) => {
-			state.themeMode = state.themeMode === 'dark' ? 'light' : 'dark';
-			setStorageItem(THEME_KEY, state.themeMode, 'localStorage');
-		},
-		setUiLoading: (state, action) => {
-			state.isLoading = Boolean(action.payload);
-		},
-		pushNotification: (state, action) => {
-			const notification = action.payload;
-
-			if (!notification) {
-				return;
-			}
-
-			state.notifications = [...state.notifications, notification];
-		},
-		removeNotification: (state, action) => {
-			state.notifications = state.notifications.filter((item) => item?.id !== action.payload);
-		},
-		clearNotifications: (state) => {
-			state.notifications = [];
-		},
-	},
+  name: 'ui',
+  initialState: {
+    themeMode: getInitialTheme(),
+    isSidebarOpen: true,
+    globalLoading: false,
+  },
+  reducers: {
+    toggleTheme: (state) => {
+      state.themeMode = state.themeMode === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme', state.themeMode);
+      
+      // Update DOM class immediately
+      if (state.themeMode === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.documentElement.dataset.theme = 'dark';
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.dataset.theme = 'light';
+      }
+    },
+    setGlobalLoading: (state, action) => {
+      state.globalLoading = action.payload;
+    },
+    toggleSidebar: (state) => {
+      state.isSidebarOpen = !state.isSidebarOpen;
+    },
+  },
 });
 
-export const { setThemeMode, toggleThemeMode, setUiLoading, pushNotification, removeNotification, clearNotifications } = uiSlice.actions;
+export const { toggleTheme, setGlobalLoading, toggleSidebar } = uiSlice.actions;
 export default uiSlice.reducer;
