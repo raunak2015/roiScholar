@@ -1,14 +1,12 @@
+import { useCurrency } from '../../hooks/useCurrency';
+
 export default function ComparisonTable({ universities = [], selected = [], onSelect = () => {} }) {
-  const formatCurrency = (value) => {
-    const number = Number(value);
-    return Number.isFinite(number) ? number.toLocaleString() : 'N/A';
-  };
+  const { format } = useCurrency();
 
   const toggleSelect = (id) => {
     const nextSelected = selected.includes(id)
       ? selected.filter((selectedId) => selectedId !== id)
       : [...selected, id];
-
     onSelect(nextSelected);
   };
 
@@ -73,16 +71,16 @@ export default function ComparisonTable({ universities = [], selected = [], onSe
               </td>
               <td className="px-6 py-4 text-on-surface-variant">{uni.program}</td>
               <td className="px-6 py-4 text-right font-semibold text-secondary">
-                ${formatCurrency(uni.totalCost)}
+                {uni.totalCost ? format(uni.totalCost) : 'N/A'}
               </td>
               <td className="px-6 py-4 text-right font-semibold text-on-surface">
-                ${formatCurrency(uni.roi?.startingSalary)}
+                {uni.roi?.startingSalary ? format(uni.roi.startingSalary) : 'N/A'}
               </td>
               <td className="px-6 py-4 text-right text-on-surface">
                 {uni.roi?.breakEvenPeriod || 'N/A'}
               </td>
               <td className="px-6 py-4 text-right font-semibold text-tertiary">
-                ${formatCurrency(uni.roi?.tenYearProjection)}
+                {uni.roi?.tenYearProjection ? format(uni.roi.tenYearProjection, { compact: true }) : 'N/A'}
               </td>
             </tr>
           ))}

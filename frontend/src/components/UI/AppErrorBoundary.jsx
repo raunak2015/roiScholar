@@ -25,7 +25,7 @@ class AppErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen flex items-center justify-center bg-surface-container-lowest px-6">
-          <div className="max-w-lg w-full rounded-2xl border border-outline-variant/20 bg-white p-8 text-center shadow-lg">
+          <div className="max-w-lg w-full rounded-2xl border border-outline-variant/20 bg-surface p-8 text-center shadow-lg">
             <h1 className="text-3xl font-bold text-on-surface mb-3">Something went wrong</h1>
             <p className="text-on-surface-variant mb-6">
               {this.state.error?.message || 'The app hit an unexpected error while loading this screen.'}

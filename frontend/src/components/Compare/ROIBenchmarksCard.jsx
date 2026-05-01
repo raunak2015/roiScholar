@@ -1,4 +1,8 @@
+import { useCurrency } from '../../hooks/useCurrency';
+
 export default function ROIBenchmarksCard({ roi }) {
+  const { format } = useCurrency();
+
   return (
     <div className="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/10">
       <h3 className="text-sm font-bold uppercase tracking-widest text-on-surface-variant mb-6">
@@ -9,7 +13,7 @@ export default function ROIBenchmarksCard({ roi }) {
         <div className="space-y-1">
           <p className="text-xs text-on-surface-variant">Starting Salary</p>
           <p className="text-2xl font-bold text-on-surface">
-            ${roi.startingSalary.toLocaleString()}
+            {format(roi.startingSalary)}
           </p>
         </div>
 
@@ -31,7 +35,7 @@ export default function ROIBenchmarksCard({ roi }) {
             ></div>
           </div>
           <p className="text-right text-sm font-bold text-secondary mt-1">
-            +${(roi.tenYearProjection / 1000000).toFixed(1)}M Potential
+            +{format(roi.tenYearProjection, { compact: true })} Potential
           </p>
         </div>
       </div>

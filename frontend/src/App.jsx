@@ -6,7 +6,7 @@ import ReactGA from 'react-ga4';
 import { ToastContainer } from 'react-toastify';
 import AppRoutes from './AppRoutes';
 import AppErrorBoundary from './components/UI/AppErrorBoundary';
-import ThemeToggle from './components/UI/ThemeToggle';
+
 
 const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
 
@@ -90,10 +90,7 @@ function App() {
         <RouteMeta />
         <div className={`min-h-screen bg-surface text-on-surface transition-colors duration-300 ${themeMode === 'dark' ? 'dark' : ''}`}>
           <AppRoutes />
-          
-          <div className="fixed bottom-6 right-6 z-[60]">
-            <ThemeToggle />
-          </div>
+
 
           <ToastContainer
             position="top-right"

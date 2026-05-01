@@ -1,4 +1,8 @@
+import { useCurrency } from '../../hooks/useCurrency';
+
 export default function LoanRecommendationCard({ loan }) {
+  const { format } = useCurrency();
+
   return (
     <div className="bg-primary text-on-primary p-8 rounded-xl shadow-lg">
       <h3 className="text-sm font-bold uppercase tracking-widest opacity-70 mb-6">
@@ -16,14 +20,14 @@ export default function LoanRecommendationCard({ loan }) {
           </div>
           <div className="text-right">
             <p className="text-xs opacity-80">Monthly EMI</p>
-            <p className="text-xl font-bold">${loan.monthlyEMI.toLocaleString()}</p>
+            <p className="text-xl font-bold">{format(loan.monthlyEMI)}</p>
           </div>
         </div>
 
         {/* Total Repayment */}
         <div className="flex justify-between text-sm opacity-90">
           <span>Total Repayment</span>
-          <span className="font-bold">${loan.totalRepayment.toLocaleString()}</span>
+          <span className="font-bold">{format(loan.totalRepayment)}</span>
         </div>
       </div>
 
