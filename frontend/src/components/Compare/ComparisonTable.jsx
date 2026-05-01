@@ -56,10 +56,19 @@ export default function ComparisonTable({ universities = [], selected = [], onSe
                     <img
                       src={uni.logo}
                       alt={uni.name}
-                      className="w-10 h-10 rounded object-cover"
+                      className="w-10 h-10 rounded object-contain bg-surface-container-highest"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(uni.name)}&background=random&color=fff&size=128`;
+                      }}
                     />
                   )}
-                  <span className="font-semibold text-on-surface">{uni.name}</span>
+                  <div className="flex flex-col">
+                    <span className="font-semibold text-on-surface">{uni.name}</span>
+                    <span className="text-xs text-on-surface-variant">
+                      {uni.state ? `${uni.state}, ${uni.country}` : uni.country}
+                    </span>
+                  </div>
                 </div>
               </td>
               <td className="px-6 py-4 text-on-surface-variant">{uni.program}</td>
