@@ -50,8 +50,28 @@ export default function ApplicationTracker() {
   };
 
   const handleSubmit = () => {
-    console.log('Application submitted:', formData);
-    navigate('/dashboard');
+    try {
+      console.log('Application submitted:', formData);
+      // Reset form state
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        educationLevel: '',
+        university: '',
+        program: '',
+        loanAmount: '',
+        loanTerm: '',
+        documents: [],
+      });
+      // Navigate to dashboard after successful submission
+      setTimeout(() => {
+        navigate('/dashboard', { replace: true });
+      }, 500);
+    } catch (error) {
+      console.error('Error submitting application:', error);
+      navigate('/dashboard', { replace: true });
+    }
   };
 
   const renderStepContent = () => {
