@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import ProtectedRoute from './components/Layout/ProtectedRoute';
 
 // Lazy loading pages
 const LandingPage = lazy(() => import('./pages/LandingPage'));
@@ -25,14 +26,16 @@ const AppRoutes = () => {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
 
-                {/* Protected App Routes (can add auth logic here later) */}
-                <Route path="/dashboard" element={<DashboardPage />} />
-                <Route path="/calculator" element={<CalculatorPage />} />
-                <Route path="/roi-simulator" element={<ROISimulatorPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/compare" element={<CompareUniversitiesPage />} />
-                <Route path="/compare-detail" element={<CompareDetailPage />} />
-                <Route path="/applications" element={<ApplicationTrackerPage />} />
+                {/* Protected App Routes */}
+                <Route element={<ProtectedRoute />}>
+                    <Route path="/dashboard" element={<DashboardPage />} />
+                    <Route path="/calculator" element={<CalculatorPage />} />
+                    <Route path="/roi-simulator" element={<ROISimulatorPage />} />
+                    <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="/compare" element={<CompareUniversitiesPage />} />
+                    <Route path="/compare-detail" element={<CompareDetailPage />} />
+                    <Route path="/applications" element={<ApplicationTrackerPage />} />
+                </Route>
 
                 {/* 404 Not Found Page */}
                 <Route path="/not-found" element={<NotFoundPage />} />
