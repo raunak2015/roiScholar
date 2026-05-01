@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import MainNavbar from '../components/Layout/MainNavbar';
 import Footer from '../components/Layout/Footer';
 import StepProgressBar from '../components/Application/StepProgressBar';
@@ -96,10 +97,13 @@ export default function ApplicationTracker() {
         documents: [],
       });
 
+      toast.success('Application submitted successfully.');
+
       // Navigate to dashboard
       navigate('/dashboard', { replace: false });
     } catch (error) {
       console.error('Error submitting application:', error);
+      toast.error('Unable to submit application. Please try again.');
       navigate('/dashboard', { replace: false });
     }
   };
