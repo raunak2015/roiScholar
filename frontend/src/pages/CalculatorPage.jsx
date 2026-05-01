@@ -1,26 +1,28 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import CalculatorInputForm from '../components/Calculator/CalculatorInputForm';
+import MultiStepLoanForm from '../components/Calculator/MultiStepLoanForm';
 import CalculatorResultCard from '../components/Calculator/CalculatorResultCard';
 import MainNavbar from '../components/Layout/MainNavbar';
 import { calculateLoanSummary } from '../features/loan/loanUtils';
 import { setLoanInputs, setLoanResults } from '../features/loan/loanSlice';
 
 export default function CalculatorPage() {
+  const dispatch = useDispatch();
+  const loanState = useSelector((state) => state.loan || {});
+  
   const [calculatorData, setCalculatorData] = useState({
-    tuition: 45000,
-    livingExpenses: 18000,
-    insurance: 2500,
-    totalLoanAmount: 65500,
-    interestRate: 6.5,
+    university: 'Stanford University',
+    degree: 'MS in Computer Science',
+    loanAmount: 50000,
+    interestRate: 8.5,
     tenure: 10,
   });
 
-  const handleCalculatorChange = (data) => {
+  const handleCalculate = (data) => {
     setCalculatorData(data);
 
-    const principal = data.totalLoanAmount || 0;
-    const annualInterestRate = data.interestRate || 0;
+    const principal = Number(data.loanAmount) || 0;
+    const annualInterestRate = Number(data.interestRate) || 0;
     const termInMonths = (Number(data.tenure) || 0) * 12;
 
     // Dispatch inputs and results into Redux
@@ -30,8 +32,6 @@ export default function CalculatorPage() {
     dispatch(setLoanResults(summary));
   };
 
-  const dispatch = useDispatch();
-  const loanState = useSelector((state) => state.loan || {});
 
   return (
     <div className="min-h-screen bg-surface flex flex-col">
@@ -48,8 +48,8 @@ export default function CalculatorPage() {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          <CalculatorInputForm onCalculatorChange={handleCalculatorChange} />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-20">
+          <MultiStepLoanForm onCalculate={handleCalculate} />
           <CalculatorResultCard calculatorData={calculatorData} loanResults={loanState} />
         </div>
       </main>
