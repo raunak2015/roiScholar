@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import CurrencySelector from '../UI/CurrencySelector';
+import ThemeToggle from '../UI/ThemeToggle';
 
 const navItems = [
   { name: 'Dashboard', to: '/dashboard' },
@@ -60,8 +61,9 @@ export default function Navbar({ userName = 'JD' }) {
             <span className="material-symbols-outlined text-[#00236f]">help_outline</span>
           </button>
           
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex items-center gap-3">
             <CurrencySelector />
+            <ThemeToggle />
           </div>
 
           <div className="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center border-2 border-white shadow-sm overflow-hidden text-[#00236f] font-bold">

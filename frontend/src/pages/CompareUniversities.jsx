@@ -7,6 +7,8 @@ import UniversityFilterPanel from '../components/Compare/UniversityFilterPanel';
 import ComparisonTable from '../components/Compare/ComparisonTable';
 import { loadCompareUniversities, DEFAULT_COMPARE_COUNTRIES } from '../services/universityService';
 import { setUniversities, setSelectedUniversities, updateUniversityFilters } from '../features/university/universitySlice';
+import SkeletonLoader from '../components/UI/SkeletonLoader';
+import EmptyState from '../components/UI/EmptyState';
 
 export default function CompareUniversities() {
   const navigate = useNavigate();
@@ -142,9 +144,9 @@ export default function CompareUniversities() {
         )}
 
         {loading ? (
-          <div className="flex flex-col items-center justify-center py-20 animate-pulse">
-            <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin mb-4"></div>
-            <p className="text-on-surface-variant font-medium">Fetching universities from Hipolabs...</p>
+          <div className="space-y-12">
+            <SkeletonLoader type="table" />
+            <SkeletonLoader type="card" count={3} />
           </div>
         ) : error ? (
           <div className="mb-8 rounded-xl border border-error/20 bg-error/5 p-6 text-error flex items-center gap-4">
@@ -155,25 +157,16 @@ export default function CompareUniversities() {
             </div>
           </div>
         ) : filteredUniversities.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 bg-surface-container-lowest rounded-3xl border border-outline-variant/10 shadow-sm transition-all duration-500">
-            <div className="w-20 h-20 bg-surface-container rounded-full flex items-center justify-center mb-6">
-              <span className="material-symbols-outlined text-4xl text-on-surface-variant">search_off</span>
-            </div>
-            <h2 className="text-2xl font-bold text-on-surface mb-2">No universities found</h2>
-            <p className="text-on-surface-variant text-center max-w-md mb-8">
-              We couldn't find any universities matching "{searchTerm || searchInput}". 
-              Try adjusting your search term or checking the country filters.
-            </p>
-            <button
-              onClick={() => {
-                setSearchInput('');
-                setSearchTerm('');
-              }}
-              className="px-8 py-3 bg-primary/10 text-primary rounded-xl font-bold hover:bg-primary/20 transition-all"
-            >
-              Clear Search
-            </button>
-          </div>
+          <EmptyState 
+            title="No Universities Found"
+            description={searchTerm ? `We couldn't find any results for "${searchTerm}". Try a different university name or check your filters.` : "Start your search by typing a university name or selecting a country filter above."}
+            actionLabel="Reset Search"
+            onAction={() => {
+              setSearchInput('');
+              setSearchTerm('');
+              dispatch(updateUniversityFilters({}));
+            }}
+          />
         ) : (
           <div className="animate-in fade-in duration-700">
             <div className="mb-6 flex items-center justify-between">
