@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const scenarioController = require('../controllers/scenarioController');
-const { protect } = require('../middlewares/auth.middleware'); // Assuming you have auth middleware
+const { protect } = require('../middleware/auth.middleware');
 
 router.use(protect); // All scenario routes are protected
 
