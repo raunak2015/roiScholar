@@ -3,10 +3,15 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { TextField, Button, IconButton, InputAdornment, Divider, Checkbox, FormControlLabel } from '@mui/material';
 import { Visibility, VisibilityOff, Google, LinkedIn } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { register } from '../../features/auth/authSlice';
+import { toast } from 'react-toastify';
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -34,9 +39,23 @@ const RegisterForm = () => {
       acceptTerms: Yup.boolean()
         .oneOf([true], 'You must accept the terms and conditions'),
     }),
-    onSubmit: (values) => {
-      console.log('Registration attempt', values);
-      // TODO: Dispatch register action
+    onSubmit: async (values) => {
+      try {
+        const userData = {
+          name: values.fullName,
+          email: values.email,
+          password: values.password
+        };
+        const resultAction = await dispatch(register(userData));
+        if (register.fulfilled.match(resultAction)) {
+          toast.success('Registration successful!');
+          navigate('/dashboard');
+        } else {
+          toast.error(resultAction.payload || 'Registration failed');
+        }
+      } catch (err) {
+        toast.error('An unexpected error occurred');
+      }
     },
   });
 

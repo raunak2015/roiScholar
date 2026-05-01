@@ -6,7 +6,8 @@ import { Visibility, VisibilityOff, Google, LinkedIn } from '@mui/icons-material
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { loginStart, loginSuccess, loginFailure } from '../../features/auth/authSlice';
+import { login } from '../../features/auth/authSlice';
+import { toast } from 'react-toastify';
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,24 +28,17 @@ const LoginForm = () => {
         .required('Password is required'),
     }),
     onSubmit: async (values) => {
-      dispatch(loginStart());
-      
-      // Simulate API call delay
-      setTimeout(() => {
-        if (values.email === 'admin@roischolar.com' && values.password === 'Password123') {
-          const dummyUser = {
-            id: '1',
-            name: 'John Doe',
-            email: 'admin@roischolar.com',
-            role: 'premium'
-          };
-          dispatch(loginSuccess({ user: dummyUser, token: 'dummy-jwt-token' }));
+      try {
+        const resultAction = await dispatch(login(values));
+        if (login.fulfilled.match(resultAction)) {
+          toast.success('Login successful!');
           navigate('/dashboard');
         } else {
-          dispatch(loginFailure('Invalid email or password'));
-          alert('Invalid credentials! Try: admin@roischolar.com / Password123');
+          toast.error(resultAction.payload || 'Invalid credentials');
         }
-      }, 1000);
+      } catch (err) {
+        toast.error('An unexpected error occurred');
+      }
     },
   });
 
