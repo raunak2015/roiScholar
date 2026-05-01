@@ -13,6 +13,7 @@ const ProfilePage = lazy(() => import('./pages/ProfilePage'));
 const CompareUniversitiesPage = lazy(() => import('./pages/CompareUniversities'));
 const CompareDetailPage = lazy(() => import('./pages/CompareDetailPage'));
 const ApplicationTrackerPage = lazy(() => import('./pages/ApplicationTracker'));
+const ApplicationsPage = lazy(() => import('./pages/ApplicationsPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 const AppRoutes = () => {
@@ -34,7 +35,8 @@ const AppRoutes = () => {
                     <Route path="/profile" element={<ProfilePage />} />
                     <Route path="/compare" element={<CompareUniversitiesPage />} />
                     <Route path="/compare-detail" element={<CompareDetailPage />} />
-                    <Route path="/applications" element={<ApplicationTrackerPage />} />
+                    <Route path="/apply-now" element={<ApplicationTrackerPage />} />
+                    <Route path="/applications" element={<ApplicationsPage />} />
                 </Route>
 
                 {/* 404 Not Found Page */}
