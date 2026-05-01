@@ -35,7 +35,7 @@ export default function CalculatorPage() {
 
   return (
     <div className="min-h-screen bg-surface flex flex-col">
-      <MainNavbar userName="JD" />
+      <MainNavbar />
 
       <main className="flex-1 max-w-7xl mx-auto px-8 py-12 w-full">
         <header className="mb-12">
@@ -56,7 +56,7 @@ export default function CalculatorPage() {
 
       <footer className="w-full border-t border-surface-container mt-16 bg-surface">
         <div className="max-w-7xl mx-auto px-8 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-lg font-bold text-primary">EduLoan Compass</div>
+          <div className="text-lg font-bold text-primary">RoiScholar</div>
           <div className="flex flex-wrap justify-center gap-8">
             <button className="text-sm text-on-surface-variant hover:text-primary transition-colors">
               About STEM ROI
@@ -75,7 +75,7 @@ export default function CalculatorPage() {
             </button>
           </div>
           <div className="text-sm text-on-surface-variant">
-            © 2024 EduLoan Compass. Navigating STEM futures with precision.
+            © 2024 RoiScholar. Navigating STEM futures with precision.
           </div>
         </div>
       </footer>

@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  const featuresRef = useRef(null);
+
+  const scrollToFeatures = () => {
+    featuresRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <div className="bg-surface text-on-surface selection:bg-secondary/30 selection:text-secondary min-h-screen font-['Inter']">
@@ -28,7 +33,10 @@ const LandingPage = () => {
                 >
                   CALCULATE YOUR TRUE COST
                 </button>
-                <button className="inline-flex items-center justify-center px-10 py-4 bg-surface-container text-on-surface font-bold rounded-lg tracking-wide hover:bg-surface-container-high active:scale-95 transition-all uppercase">
+                <button 
+                  onClick={scrollToFeatures}
+                  className="inline-flex items-center justify-center px-10 py-4 bg-surface-container text-on-surface font-bold rounded-lg tracking-wide hover:bg-surface-container-high active:scale-95 transition-all uppercase"
+                >
                   LEARN MORE
                 </button>
               </div>
@@ -59,7 +67,7 @@ const LandingPage = () => {
         </section>
 
         {/* Features Bento Grid */}
-        <section className="py-24 bg-surface-container-low">
+        <section ref={featuresRef} className="py-24 bg-surface-container-low">
           <div className="max-w-7xl mx-auto px-8">
             <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
               <div className="max-w-2xl">
@@ -115,7 +123,7 @@ const LandingPage = () => {
                 <p className="text-on-surface-variant leading-relaxed mb-10 relative z-10">Project your post-graduation salary based on 2026 STEM market trends and see exactly when your degree pays for itself.</p>
                 <div
                   className="flex items-center gap-2 text-tertiary font-black text-xs tracking-[0.15em] group-hover:gap-4 transition-all cursor-pointer relative z-10"
-                  onClick={() => navigate('/calculator')}
+                  onClick={() => navigate('/login')}
                 >
                   <span>RUN SIMULATION</span>
                   <span className="material-symbols-outlined text-sm font-black">arrow_forward</span>
@@ -174,7 +182,7 @@ const LandingPage = () => {
               <h2 className="text-4xl font-black text-on-surface leading-tight mb-6">Stop guessing. Start calculating.</h2>
               <p className="text-on-surface-variant leading-relaxed mb-8">Our simulator uses real-time market data to give you a pragmatic view of your financial future. No marketing fluff—just hard ROI metrics.</p>
               <button
-                onClick={() => navigate('/calculator')}
+                onClick={() => navigate('/login')}
                 className="flex items-center gap-4 text-primary font-black hover:gap-6 transition-all"
               >
                 <span className="text-lg">START SIMULATION</span>
@@ -195,7 +203,7 @@ const LandingPage = () => {
                   Ready to navigate your STEM future with precision?
                 </h2>
                 <p className="text-on-primary/70 text-xl mb-12 font-medium max-w-2xl mx-auto">
-                  Join 12,000+ students using EduLoan Compass to secure their education without the debt trap.
+                  Join 12,000+ students using RoiScholar to secure their education without the debt trap.
                 </p>
                 <form className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto" onSubmit={(e) => e.preventDefault()}>
                   <input
@@ -217,8 +225,8 @@ const LandingPage = () => {
       <footer className="w-full border-t border-outline-variant/10 bg-surface py-12">
         <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex flex-col items-center md:items-start gap-2">
-            <span className="text-lg font-bold text-primary">EduLoan Compass</span>
-            <p className="text-on-surface-variant text-xs">© 2026 EduLoan Compass. Navigating STEM futures with precision.</p>
+            <span className="text-lg font-bold text-primary">RoiScholar</span>
+            <p className="text-on-surface-variant text-xs">© 2026 RoiScholar. Navigating STEM futures with precision.</p>
           </div>
           <div className="flex flex-wrap justify-center gap-8">
             {['About STEM ROI', 'Lender Transparency', 'Privacy Protocol', 'Terms of Service'].map(link => (

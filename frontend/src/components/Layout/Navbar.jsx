@@ -1,7 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from '../../features/auth/authSlice';
-import CurrencySelector from '../UI/CurrencySelector';
 import ThemeToggle from '../UI/ThemeToggle';
 
 const navItems = [
@@ -9,7 +8,6 @@ const navItems = [
   { name: 'Calculator', to: '/calculator' },
   { name: 'ROI Simulator', to: '/roi-simulator' },
   { name: 'Compare', to: '/compare' },
-  { name: 'Profile', to: '/profile' },
 ];
 
 export default function Navbar() {
@@ -35,7 +33,7 @@ export default function Navbar() {
     <header className="sticky top-0 w-full z-50 bg-surface shadow-sm border-b border-outline-variant/10">
       <div className="max-w-7xl mx-auto px-8 flex justify-between items-center h-20">
         <Link to="/dashboard" className="text-xl font-black tracking-tighter text-primary">
-          EduLoan Compass
+          RoiScholar
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 h-full">
@@ -72,15 +70,17 @@ export default function Navbar() {
           </button>
           
           <div className="hidden lg:flex items-center gap-3">
-            <CurrencySelector />
             <ThemeToggle />
           </div>
 
           {isAuthenticated ? (
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center border-2 border-surface shadow-sm overflow-hidden text-primary font-bold">
+              <Link
+                to="/profile"
+                className="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center border-2 border-surface shadow-sm overflow-hidden text-primary font-bold hover:scale-105 transition-transform"
+              >
                 {initials}
-              </div>
+              </Link>
               <button
                 onClick={handleLogout}
                 className="text-sm font-bold text-error hover:bg-error/10 px-3 py-1.5 rounded-lg transition-colors"

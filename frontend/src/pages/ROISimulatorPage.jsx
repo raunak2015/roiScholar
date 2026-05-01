@@ -87,9 +87,9 @@ export default function ROISimulatorPage() {
       <footer className="w-full border-t border-outline-variant/10 bg-white mt-16">
         <div className="max-w-7xl mx-auto px-8 py-12 flex flex-col md:flex-row justify-between items-start gap-12">
           <div className="space-y-4">
-            <div className="text-xl font-black text-[#1e2b58]">EduLoan Compass</div>
+            <div className="text-xl font-black text-[#1e2b58]">RoiScholar</div>
             <div className="text-on-surface-variant text-xs font-medium leading-relaxed max-w-[240px]">
-              © 2024 EduLoan Compass. Navigating STEM futures with precision.
+              © 2024 RoiScholar. Navigating STEM futures with precision.
             </div>
           </div>
           

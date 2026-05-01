@@ -1,3 +1,5 @@
+import CurrencySelector from '../UI/CurrencySelector';
+
 export default function RegionalDefaults({
   country,
   degree,
@@ -28,7 +30,7 @@ export default function RegionalDefaults({
             Regional & Educational Defaults
           </h2>
           <p className="text-on-surface-variant text-sm mt-1">
-            Set your default search parameters for faster ROI calculations.
+            Set your default search parameters and preferred currency.
           </p>
         </div>
         <span className="material-symbols-outlined text-secondary opacity-40 text-4xl">
@@ -36,7 +38,7 @@ export default function RegionalDefaults({
         </span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-end">
         {/* Target Country */}
         <div className="space-y-2">
           <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">
@@ -80,6 +82,16 @@ export default function RegionalDefaults({
             <span className="material-symbols-outlined absolute right-4 top-3 text-on-surface-variant pointer-events-none">
               expand_more
             </span>
+          </div>
+        </div>
+
+        {/* Preferred Currency */}
+        <div className="space-y-2">
+          <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">
+            Preferred Currency
+          </label>
+          <div className="h-12 flex items-center">
+            <CurrencySelector />
           </div>
         </div>
       </div>
