@@ -1,12 +1,18 @@
 ﻿import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import ROISimulatorInputs from '../components/ROISimulator/ROISimulatorInputs';
 import FinancialMilestoneCard from '../components/ROISimulator/FinancialMilestoneCard';
 import FinancialGainCard from '../components/ROISimulator/FinancialGainCard';
 import EarningsChart from '../components/ROISimulator/EarningsChart';
 import ROISimulatorCTA from '../components/ROISimulator/ROISimulatorCTA';
 import MainNavbar from '../components/Layout/MainNavbar';
+import { setRoiInputs, setRoiResults } from '../features/roi/roiSlice';
+import { calculateROI, calculateMultiYearROI } from '../features/roi/roiUtils';
 
 export default function ROISimulatorPage() {
+  const dispatch = useDispatch();
+  const loanState = useSelector((state) => state.loan || {});
+  const roiState = useSelector((state) => state.roi || {});
   const [, setSimulatorInputs] = useState({
     degree: 'Artificial Intelligence & ML',
     market: 'United States of America',
@@ -15,6 +21,28 @@ export default function ROISimulatorPage() {
 
   const handleInputChange = (data) => {
     setSimulatorInputs(data);
+
+    dispatch(
+      setRoiInputs({
+        selectedDegree: data.degree,
+        selectedCountry: data.market,
+        expectedSalary: data.startingSalary,
+      }),
+    );
+
+    const monthlyPayment = loanState?.monthlyPayment || 0;
+    const roiResults = calculateROI({
+      monthlyPayment,
+      startingSalary: data.startingSalary,
+    });
+
+    dispatch(
+      setRoiResults({
+        projectedSalary: data.startingSalary,
+        breakEvenYears: roiResults.breakEvenYears,
+        netGain: roiResults.totalGainAtBreakEven,
+      }),
+    );
   };
 
   return (
@@ -35,9 +63,9 @@ export default function ROISimulatorPage() {
         <ROISimulatorInputs onInputChange={handleInputChange} />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
-          <FinancialMilestoneCard />
-          <FinancialGainCard />
-          <EarningsChart />
+          <FinancialMilestoneCard roiState={roiState} loanState={loanState} />
+          <FinancialGainCard roiState={roiState} loanState={loanState} />
+          <EarningsChart roiState={roiState} loanState={loanState} />
           <ROISimulatorCTA />
         </div>
       </main>
