@@ -3,6 +3,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const universityRoutes = require('./routes/university.routes');
+const scenarioRoutes = require('./routes/scenario.routes');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.get('/health', (req, res) => {
 
 // Routes
 app.use('/api/universities', universityRoutes);
+app.use('/api/scenarios', scenarioRoutes);
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {

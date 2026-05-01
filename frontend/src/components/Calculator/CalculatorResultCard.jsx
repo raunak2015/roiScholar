@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { saveLoanScenario } from '../../features/loan/loanSlice';
+import { saveLoanScenario, persistLoanScenario } from '../../features/loan/loanSlice';
 import { getCurrencySymbol } from '../../services/currencyService';
+import { toast } from 'react-toastify';
 
 export default function CalculatorResultCard({ calculatorData = {}, loanResults = {} }) {
   const dispatch = useDispatch();
@@ -28,16 +29,30 @@ export default function CalculatorResultCard({ calculatorData = {}, loanResults 
   };
 
   const handleSaveScenario = () => {
-    const id = `scenario_${Date.now()}`;
     const scenario = {
-      id,
-      inputs: calculatorData,
+      title: `${calculatorData.university} - ${calculatorData.degree}`,
+      university: calculatorData.university,
+      degree: calculatorData.degree,
+      inputs: {
+        loanAmount: calculatorData.loanAmount,
+        interestRate: calculatorData.interestRate,
+        tenure: calculatorData.tenure,
+        tuitionPerYear: calculatorData.tuitionPerYear,
+        livingMonthly: calculatorData.livingMonthly,
+      },
       results: { monthlyPayment, totalInterest, totalRepayment },
-      createdAt: new Date().toISOString(),
     };
 
-    dispatch(saveLoanScenario(scenario));
-    console.log('Scenario saved', scenario);
+    dispatch(persistLoanScenario(scenario))
+      .unwrap()
+      .then(() => {
+        toast.success('Scenario saved to your profile!');
+      })
+      .catch((err) => {
+        toast.error(err || 'Failed to save scenario');
+        // Fallback to local save if backend fails
+        dispatch(saveLoanScenario({ ...scenario, id: `local_${Date.now()}` }));
+      });
   };
 
   return (
