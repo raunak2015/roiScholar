@@ -22,9 +22,9 @@ export default function Navbar({ userName = 'JD' }) {
       .join('') || 'JD';
 
   return (
-    <header className="sticky top-0 w-full z-50 bg-[#f9f9ff] shadow-sm">
+    <header className="sticky top-0 w-full z-50 bg-surface shadow-sm border-b border-outline-variant/10">
       <div className="max-w-7xl mx-auto px-8 flex justify-between items-center h-20">
-        <Link to="/dashboard" className="text-xl font-black tracking-tighter text-[#00236f]">
+        <Link to="/dashboard" className="text-xl font-black tracking-tighter text-primary">
           EduLoan Compass
         </Link>
 
@@ -37,8 +37,8 @@ export default function Navbar({ userName = 'JD' }) {
                 to={item.to}
                 className={`h-full flex items-center font-medium transition-all duration-200 ${
                   isActive
-                    ? 'text-[#00236f] border-b-2 border-[#006a61] pb-1 font-semibold'
-                    : 'text-[#44474e] hover:text-[#00236f]'
+                    ? 'text-primary border-b-2 border-secondary pb-1 font-semibold'
+                    : 'text-on-surface-variant hover:text-primary'
                 }`}
               >
                 {item.name}
@@ -49,16 +49,16 @@ export default function Navbar({ userName = 'JD' }) {
 
         <div className="flex items-center gap-4">
           <button
-            className="p-2 rounded-full hover:bg-[#f0f0f7] active:scale-95 transition-transform"
+            className="p-2 rounded-full hover:bg-surface-container-high active:scale-95 transition-transform"
             type="button"
           >
-            <span className="material-symbols-outlined text-[#00236f]">notifications</span>
+            <span className="material-symbols-outlined text-primary">notifications</span>
           </button>
           <button
-            className="p-2 rounded-full hover:bg-[#f0f0f7] active:scale-95 transition-transform"
+            className="p-2 rounded-full hover:bg-surface-container-high active:scale-95 transition-transform"
             type="button"
           >
-            <span className="material-symbols-outlined text-[#00236f]">help_outline</span>
+            <span className="material-symbols-outlined text-primary">help_outline</span>
           </button>
           
           <div className="hidden lg:flex items-center gap-3">
@@ -66,7 +66,7 @@ export default function Navbar({ userName = 'JD' }) {
             <ThemeToggle />
           </div>
 
-          <div className="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center border-2 border-white shadow-sm overflow-hidden text-[#00236f] font-bold">
+          <div className="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center border-2 border-surface shadow-sm overflow-hidden text-primary font-bold">
             {initials}
           </div>
         </div>

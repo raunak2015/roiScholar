@@ -3,18 +3,18 @@ import LoginForm from '../components/Auth/LoginForm';
 
 const LoginPage = () => {
   return (
-    <div className="flex min-h-screen bg-white">
+    <div className="flex min-h-screen bg-surface">
       {/* Left side - Form */}
-      <div className="flex w-full flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:w-1/2 lg:px-20 xl:px-24 bg-white relative z-10 shadow-[20px_0_40px_-15px_rgba(0,0,0,0.05)]">
+      <div className="flex w-full flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:w-1/2 lg:px-20 xl:px-24 bg-surface relative z-10 shadow-[20px_0_40px_-15px_rgba(0,0,0,0.05)]">
         <div className="mx-auto w-full max-w-md">
           {/* Logo / Brand Header */}
           <div className="flex items-center gap-2 mb-10">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-900 text-white shadow-lg shadow-blue-900/30">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-on-primary shadow-lg shadow-primary/30">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
               </svg>
             </div>
-            <span className="text-2xl font-bold text-gray-900 tracking-tight">RoiScholar</span>
+            <span className="text-2xl font-bold text-on-surface tracking-tight">RoiScholar</span>
           </div>
 
           <LoginForm />

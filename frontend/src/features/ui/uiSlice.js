@@ -9,20 +9,22 @@ const getInitialTheme = () => {
 const uiSlice = createSlice({
   name: 'ui',
   initialState: {
-    theme: getInitialTheme(),
+    themeMode: getInitialTheme(),
     isSidebarOpen: true,
     globalLoading: false,
   },
   reducers: {
     toggleTheme: (state) => {
-      state.theme = state.theme === 'light' ? 'dark' : 'light';
-      localStorage.setItem('theme', state.theme);
+      state.themeMode = state.themeMode === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme', state.themeMode);
       
-      // Update DOM class
-      if (state.theme === 'dark') {
+      // Update DOM class immediately
+      if (state.themeMode === 'dark') {
         document.documentElement.classList.add('dark');
+        document.documentElement.dataset.theme = 'dark';
       } else {
         document.documentElement.classList.remove('dark');
+        document.documentElement.dataset.theme = 'light';
       }
     },
     setGlobalLoading: (state, action) => {

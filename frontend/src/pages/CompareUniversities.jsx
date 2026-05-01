@@ -92,7 +92,7 @@ export default function CompareUniversities() {
   };
 
   return (
-    <div className="bg-[#f9f9ff] min-h-screen flex flex-col">
+    <div className="bg-surface min-h-screen flex flex-col">
       <MainNavbar userName="JD" />
 
       <main className="max-w-7xl mx-auto px-8 py-10 flex-grow">

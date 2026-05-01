@@ -13,7 +13,7 @@ const Dashboard = () => {
 
     return (
       <Suspense fallback={<div className="flex h-screen items-center justify-center">Loading Dashboard...</div>}>
-        <div className="bg-[#f9f9ff] text-on-surface min-h-screen flex flex-col font-['Inter']">
+        <div className="bg-surface text-on-surface min-h-screen flex flex-col font-['Inter']">
           <MainNavbar userName={userName} />
 
           <main className="max-w-7xl mx-auto px-8 py-12 flex-grow">
@@ -46,7 +46,7 @@ const Dashboard = () => {
   } catch (error) {
     console.error('Dashboard Error:', error);
     return (
-      <div className="bg-[#f9f9ff] min-h-screen flex flex-col">
+      <div className="min-h-screen bg-surface flex flex-col">
         <MainNavbar userName="User" />
         <div className="flex-grow flex items-center justify-center">
           <div className="text-center">

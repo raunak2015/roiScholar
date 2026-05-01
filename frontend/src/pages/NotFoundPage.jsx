@@ -6,7 +6,7 @@ export default function NotFoundPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-[#f9f9ff] min-h-screen flex flex-col">
+    <div className="bg-surface min-h-screen flex flex-col">
       <MainNavbar userName="JD" />
 
       <main className="flex-grow flex items-center justify-center px-8 py-10">
