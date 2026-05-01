@@ -16,31 +16,31 @@ if (GA_MEASUREMENT_ID) {
 
 const routeMeta = {
   default: {
-    title: 'EduLoan Compass',
-    description: 'Compare universities, calculate loan ROI, and plan your STEM career with EduLoan Compass.',
+    title: 'RoiScholar',
+    description: 'Compare universities, calculate loan ROI, and plan your STEM career with RoiScholar.',
   },
   '/': {
-    title: 'EduLoan Compass | Plan Your STEM Future',
+    title: 'RoiScholar | Plan Your STEM Future',
     description: 'Make data-driven education decisions with ROI projections and loan insights for STEM programs.',
   },
   '/calculator': {
-    title: 'Loan Calculator | EduLoan Compass',
+    title: 'Loan Calculator | RoiScholar',
     description: 'Estimate monthly payments, interest, and repayment totals for your education loan.',
   },
   '/roi-simulator': {
-    title: 'ROI Simulator | EduLoan Compass',
+    title: 'ROI Simulator | RoiScholar',
     description: 'Project your career earnings and find the break-even point for your STEM degree investment.',
   },
   '/compare': {
-    title: 'Compare Universities | EduLoan Compass',
+    title: 'Compare Universities | RoiScholar',
     description: 'Compare tuition, ROI, and outcomes across top STEM programs worldwide.',
   },
   '/applications': {
-    title: 'Application Tracker | EduLoan Compass',
+    title: 'Application Tracker | RoiScholar',
     description: 'Track your application progress and manage documents in one place.',
   },
   '/dashboard': {
-    title: 'Dashboard | EduLoan Compass',
+    title: 'Dashboard | RoiScholar',
     description: 'Monitor your saved scenarios, application status, and financial insights.',
   },
 };

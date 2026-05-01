@@ -7,9 +7,9 @@ const DashboardFooter = () => {
     <footer className="w-full border-t border-outline-variant/10 bg-surface mt-24">
       <div className="max-w-7xl mx-auto px-8 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="flex flex-col gap-2">
-          <div className="text-lg font-bold text-primary">EduLoan Compass</div>
+          <div className="text-lg font-bold text-primary">RoiScholar</div>
           <div className="font-['Inter'] text-sm leading-relaxed text-on-surface-variant">
-            © 2024 EduLoan Compass. Navigating STEM futures with precision.
+            © 2024 RoiScholar. Navigating STEM futures with precision.
           </div>
         </div>
         <div className="flex flex-wrap justify-center gap-8">
