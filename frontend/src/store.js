@@ -4,6 +4,7 @@ import loanReducer from './features/loan/loanSlice';
 import roiReducer from './features/roi/roiSlice';
 import uiReducer from './features/ui/uiSlice';
 import universityReducer from './features/university/universitySlice';
+import currencyReducer from './features/currency/currencySlice';
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     roi: roiReducer,
     ui: uiReducer,
     university: universityReducer,
+    currency: currencyReducer,
   },
 });
