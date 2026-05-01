@@ -1,4 +1,6 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { logoutUser } from '../../features/auth/authSlice';
 import CurrencySelector from '../UI/CurrencySelector';
 import ThemeToggle from '../UI/ThemeToggle';
 
@@ -10,16 +12,24 @@ const navItems = [
   { name: 'Profile', to: '/profile' },
 ];
 
-export default function Navbar({ userName = 'JD' }) {
+export default function Navbar() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user, isAuthenticated } = useSelector((state) => state.auth || {});
 
   const initials =
-    userName
-      .split(' ')
+    user?.name
+      ?.split(' ')
       .filter(Boolean)
       .slice(0, 2)
       .map((part) => part[0]?.toUpperCase())
       .join('') || 'JD';
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    navigate('/login');
+  };
 
   return (
     <header className="sticky top-0 w-full z-50 bg-surface shadow-sm border-b border-outline-variant/10">
@@ -66,9 +76,28 @@ export default function Navbar({ userName = 'JD' }) {
             <ThemeToggle />
           </div>
 
-          <div className="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center border-2 border-surface shadow-sm overflow-hidden text-primary font-bold">
-            {initials}
-          </div>
+          {isAuthenticated ? (
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center border-2 border-surface shadow-sm overflow-hidden text-primary font-bold">
+                {initials}
+              </div>
+              <button
+                onClick={handleLogout}
+                className="text-sm font-bold text-error hover:bg-error/10 px-3 py-1.5 rounded-lg transition-colors"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-3">
+              <Link to="/login" className="text-sm font-bold text-primary hover:bg-primary/10 px-4 py-2 rounded-lg transition-colors">
+                Log in
+              </Link>
+              <Link to="/register" className="text-sm font-bold bg-primary text-on-primary px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors">
+                Sign up
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </header>

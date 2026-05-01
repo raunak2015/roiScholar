@@ -2,6 +2,8 @@ import React, { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import ProtectedRoute from './components/Layout/ProtectedRoute';
 
+import PublicRoute from './components/Layout/PublicRoute';
+
 // Lazy loading pages
 const LandingPage = lazy(() => import('./pages/LandingPage'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
@@ -24,8 +26,10 @@ const AppRoutes = () => {
                 <Route path="/" element={<LandingPage />} />
 
                 {/* Auth Routes */}
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
+                <Route element={<PublicRoute />}>
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                </Route>
 
                 {/* Protected App Routes */}
                 <Route element={<ProtectedRoute />}>
