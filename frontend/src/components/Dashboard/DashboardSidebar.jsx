@@ -10,7 +10,7 @@ const DashboardSidebar = () => {
           Recommended Actions
         </h2>
         <div className="space-y-4">
-          <Link className="block bg-white/10 hover:bg-white/20 p-4 rounded-lg transition-colors group" to="/application-tracker">
+          <Link className="block bg-white/10 hover:bg-white/20 p-4 rounded-lg transition-colors group" to="/applications">
             <div className="flex items-center justify-between mb-1">
               <span className="text-sm font-bold uppercase tracking-widest text-primary-fixed">Next Step</span>
               <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
