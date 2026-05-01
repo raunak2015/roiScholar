@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveLoanScenario } from '../../features/loan/loanSlice';
 
-export default function CalculatorResultCard({ calculatorData }) {
-  const [savedScenarios, setSavedScenarios] = useState(0);
-  const { tuition, livingExpenses, insurance, interestRate, tenure, totalLoanAmount } =
-    calculatorData;
+export default function CalculatorResultCard({ calculatorData, loanResults }) {
+  const dispatch = useDispatch();
+  const savedScenarios = useSelector((state) => state.loan?.savedScenarios || []);
+  const { tuition, livingExpenses, insurance, interestRate, tenure, totalLoanAmount } = calculatorData;
+  const { monthlyPayment, totalInterest, totalRepayment } = loanResults || {};
 
   // Calculate EMI using formula: EMI = P * r * (1+r)^n / ((1+r)^n - 1)
   const calculateEMI = () => {
@@ -32,8 +35,16 @@ export default function CalculatorResultCard({ calculatorData }) {
   };
 
   const handleSaveScenario = () => {
-    setSavedScenarios((prev) => prev + 1);
-    console.log('Scenario saved');
+    const id = `scenario_${Date.now()}`;
+    const scenario = {
+      id,
+      inputs: { tuition, livingExpenses, insurance, interestRate, tenure, totalLoanAmount },
+      results: { monthlyPayment, totalInterest, totalRepayment },
+      createdAt: new Date().toISOString(),
+    };
+
+    dispatch(saveLoanScenario(scenario));
+    console.log('Scenario saved', scenario);
   };
 
   return (
@@ -79,8 +90,8 @@ export default function CalculatorResultCard({ calculatorData }) {
             <div className="flex justify-between items-center mb-6">
               <span className="text-sm font-semibold opacity-80">Total Cost of Loan</span>
               <span className="text-3xl font-black">
-                ${totalCost.toLocaleString('en-US', { maximumFractionDigits: 0 })}
-              </span>
+                  ${totalCost.toLocaleString('en-US', { maximumFractionDigits: 0 })}
+                </span>
             </div>
 
             {/* Action Buttons */}
@@ -95,7 +106,7 @@ export default function CalculatorResultCard({ calculatorData }) {
                 onClick={handleSaveScenario}
                 className="w-full py-4 bg-white/10 text-white rounded-lg font-bold uppercase tracking-widest text-xs hover:bg-white/20 transition-all border border-white/10 active:scale-95 transform"
               >
-                Save Scenario
+                Save Scenario ({savedScenarios.length})
               </button>
             </div>
           </div>
