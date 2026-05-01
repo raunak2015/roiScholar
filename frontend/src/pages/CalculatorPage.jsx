@@ -1,7 +1,10 @@
 ﻿import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import CalculatorInputForm from '../components/Calculator/CalculatorInputForm';
 import CalculatorResultCard from '../components/Calculator/CalculatorResultCard';
 import MainNavbar from '../components/Layout/MainNavbar';
+import { calculateLoanSummary } from '../features/loan/loanUtils';
+import { setLoanInputs, setLoanResults } from '../features/loan/loanSlice';
 
 export default function CalculatorPage() {
   const [calculatorData, setCalculatorData] = useState({
@@ -15,7 +18,20 @@ export default function CalculatorPage() {
 
   const handleCalculatorChange = (data) => {
     setCalculatorData(data);
+
+    const principal = data.totalLoanAmount || 0;
+    const annualInterestRate = data.interestRate || 0;
+    const termInMonths = (Number(data.tenure) || 0) * 12;
+
+    // Dispatch inputs and results into Redux
+    dispatch(setLoanInputs({ principal, annualInterestRate, termInMonths }));
+
+    const summary = calculateLoanSummary({ principal, annualInterestRate, termInMonths });
+    dispatch(setLoanResults(summary));
   };
+
+  const dispatch = useDispatch();
+  const loanState = useSelector((state) => state.loan || {});
 
   return (
     <div className="min-h-screen bg-surface flex flex-col">
@@ -34,7 +50,7 @@ export default function CalculatorPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <CalculatorInputForm onCalculatorChange={handleCalculatorChange} />
-          <CalculatorResultCard calculatorData={calculatorData} />
+          <CalculatorResultCard calculatorData={calculatorData} loanResults={loanState} />
         </div>
       </main>
 
