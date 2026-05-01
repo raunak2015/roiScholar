@@ -9,7 +9,10 @@ const DashboardPage = lazy(() => import('./pages/Dashboard'));
 const CalculatorPage = lazy(() => import('./pages/CalculatorPage'));
 const ROISimulatorPage = lazy(() => import('./pages/ROISimulatorPage'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage'));
+const CompareUniversitiesPage = lazy(() => import('./pages/CompareUniversities'));
 const CompareDetailPage = lazy(() => import('./pages/CompareDetailPage'));
+const ApplicationTrackerPage = lazy(() => import('./pages/ApplicationTracker'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 const AppRoutes = () => {
     return (
@@ -27,10 +30,15 @@ const AppRoutes = () => {
                 <Route path="/calculator" element={<CalculatorPage />} />
                 <Route path="/roi-simulator" element={<ROISimulatorPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/compare" element={<CompareUniversitiesPage />} />
                 <Route path="/compare-detail" element={<CompareDetailPage />} />
+                <Route path="/applications" element={<ApplicationTrackerPage />} />
 
-                {/* Fallback to Landing Page or Dashboard */}
-                <Route path="*" element={<Navigate to="/" replace />} />
+                {/* 404 Not Found Page */}
+                <Route path="/not-found" element={<NotFoundPage />} />
+                
+                {/* Fallback to 404 Page */}
+                <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </Suspense>
     );
