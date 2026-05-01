@@ -52,7 +52,7 @@ const Dashboard = () => {
           <div className="text-center">
             <h1 className="text-3xl font-bold text-on-surface mb-4">Error Loading Dashboard</h1>
             <p className="text-on-surface-variant mb-6 max-w-md">{error?.message || 'An unexpected error occurred'}</p>
-            <button 
+            <button
               onClick={() => window.location.reload()}
               className="px-6 py-3 bg-primary text-on-primary rounded-lg font-semibold hover:shadow-lg transition-all"
             >

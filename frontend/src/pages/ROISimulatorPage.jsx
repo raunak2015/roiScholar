@@ -47,69 +47,56 @@ export default function ROISimulatorPage() {
   };
 
   return (
-    <div className="min-h-screen bg-surface flex flex-col">
-      <MainNavbar userName="JD" />
+    <div className="min-h-screen bg-[#f8faff] flex flex-col font-['Inter']">
+      <MainNavbar />
 
       <main className="flex-1 max-w-7xl mx-auto px-8 py-12 w-full">
-        <div className="mb-12">
-          <h1 className="text-[2.75rem] font-extrabold tracking-tight text-primary leading-tight">
+        {/* Header Section */}
+        <header className="mb-10">
+          <h1 className="text-[2.75rem] font-black tracking-tight text-[#1e2b58] mb-2">
             ROI Simulator
           </h1>
-          <p className="text-on-surface-variant text-lg max-w-2xl mt-2">
-            Project your career trajectory and financial health by simulating educational costs
-            against global STEM market trends.
+          <p className="text-on-surface-variant text-base max-w-2xl font-medium">
+            Project your career trajectory and financial health by simulating educational costs against global STEM market trends.
           </p>
-        </div>
+        </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-          <div className="lg:col-span-1 flex flex-col gap-8">
-            <ROISimulatorInputs onInputChange={handleInputChange} />
-            <FileUpload 
-              label="Upload Offer Letter (AI Extraction)" 
-              onFileSelect={(file) => console.log('File selected:', file)} 
-            />
+        {/* Top Row: Inputs */}
+        <ROISimulatorInputs onInputChange={handleInputChange} />
+
+        {/* Middle Row: Metrics Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8 items-stretch">
+          <div className="lg:col-span-5 h-full">
+            <FinancialMilestoneCard roiState={roiState} loanState={loanState} />
           </div>
-
-          <div className="lg:col-span-2 flex flex-col gap-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <FinancialMilestoneCard roiState={roiState} loanState={loanState} />
-              <FinancialGainCard roiState={roiState} loanState={loanState} />
-            </div>
-            
-            <ROIVisualizer 
-              totalInvestment={loanState?.totalLoanAmount || 50000}
-              startingSalary={roiState?.expectedSalary || 80000}
-            />
-            
-            <ROISimulatorCTA />
+          <div className="lg:col-span-7 h-full">
+            <FinancialGainCard roiState={roiState} loanState={loanState} />
           </div>
         </div>
+
+        {/* Bottom Row: Visualizer Chart */}
+        <ROIVisualizer 
+          totalInvestment={loanState?.totalLoanAmount || 50000}
+          startingSalary={roiState?.expectedSalary || 112500}
+        />
+
+        {/* CTA Section */}
+        <ROISimulatorCTA />
       </main>
 
-      <footer className="w-full border-t border-surface-container mt-16 bg-surface">
-        <div className="max-w-7xl mx-auto px-8 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="space-y-2 text-center md:text-left">
-            <span className="text-lg font-bold text-primary">EduLoan Compass</span>
-            <p className="text-on-surface-variant text-sm max-w-xs leading-relaxed">
+      <footer className="w-full border-t border-outline-variant/10 bg-white mt-16">
+        <div className="max-w-7xl mx-auto px-8 py-12 flex flex-col md:flex-row justify-between items-start gap-12">
+          <div className="space-y-4">
+            <div className="text-xl font-black text-[#1e2b58]">EduLoan Compass</div>
+            <div className="text-on-surface-variant text-xs font-medium leading-relaxed max-w-[240px]">
               © 2024 EduLoan Compass. Navigating STEM futures with precision.
-            </p>
+            </div>
           </div>
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
-            <button className="text-on-surface-variant text-sm hover:text-primary transition-colors">
-              About STEM ROI
-            </button>
-            <button className="text-on-surface-variant text-sm hover:text-primary transition-colors">
-              Lender Transparency
-            </button>
-            <button className="text-on-surface-variant text-sm hover:text-primary transition-colors">
-              Privacy Protocol
-            </button>
-            <button className="text-on-surface-variant text-sm hover:text-primary transition-colors">
-              Terms of Service
-            </button>
-            <button className="text-on-surface-variant text-sm hover:text-primary transition-colors">
-              Financial Concierge
-            </button>
+          
+          <div className="flex flex-wrap gap-x-12 gap-y-4">
+            {['About STEM ROI', 'Lender Transparency', 'Privacy Protocol', 'Terms of Service', 'Financial Concierge'].map(link => (
+              <button key={link} className="text-on-surface-variant text-xs font-bold hover:text-[#1e2b58] transition-colors">{link}</button>
+            ))}
           </div>
         </div>
       </footer>

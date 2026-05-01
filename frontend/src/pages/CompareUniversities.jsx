@@ -157,7 +157,7 @@ export default function CompareUniversities() {
             </div>
           </div>
         ) : filteredUniversities.length === 0 ? (
-          <EmptyState 
+          <EmptyState
             title="No Universities Found"
             description={searchTerm ? `We couldn't find any results for "${searchTerm}". Try a different university name or check your filters.` : "Start your search by typing a university name or selecting a country filter above."}
             actionLabel="Reset Search"
@@ -194,19 +194,17 @@ export default function CompareUniversities() {
                 <div
                   key={uni.id}
                   onClick={() => toggleUniversity(uni.id)}
-                  className={`p-6 rounded-2xl cursor-pointer transition-all duration-300 transform hover:-translate-y-1 ${
-                    selectedUniversities.includes(uni.id)
+                  className={`p-6 rounded-2xl cursor-pointer transition-all duration-300 transform hover:-translate-y-1 ${selectedUniversities.includes(uni.id)
                       ? 'bg-primary text-on-primary shadow-xl ring-2 ring-primary ring-offset-2'
                       : 'bg-surface-container-low text-on-surface hover:shadow-lg border border-outline-variant/10'
-                  }`}
+                    }`}
                 >
                   <div className="flex items-start gap-4 mb-5">
                     <img
                       alt={uni.name}
                       src={uni.logo}
-                      className={`w-16 h-16 rounded-xl object-contain p-2 ${
-                        selectedUniversities.includes(uni.id) ? 'bg-white/20' : 'bg-surface-container-highest'
-                      }`}
+                      className={`w-16 h-16 rounded-xl object-contain p-2 ${selectedUniversities.includes(uni.id) ? 'bg-white/20' : 'bg-surface-container-highest'
+                        }`}
                       onError={(e) => {
                         e.target.onerror = null;
                         e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(uni.name)}&background=random&color=fff&size=128`;
@@ -215,11 +213,10 @@ export default function CompareUniversities() {
                     <div className="flex-1">
                       <h3 className="font-bold text-lg leading-tight mb-1">{uni.name}</h3>
                       <p
-                        className={`text-sm font-medium ${
-                          selectedUniversities.includes(uni.id)
+                        className={`text-sm font-medium ${selectedUniversities.includes(uni.id)
                             ? 'text-on-primary/80'
                             : 'text-on-surface-variant'
-                        }`}
+                          }`}
                       >
                         {uni.program}
                       </p>
@@ -251,9 +248,8 @@ export default function CompareUniversities() {
                     <span className={`text-xs font-bold uppercase tracking-widest ${selectedUniversities.includes(uni.id) ? 'text-on-primary/70' : 'text-primary'}`}>
                       {selectedUniversities.includes(uni.id) ? 'Selected for Comparison' : 'Select to Compare'}
                     </span>
-                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
-                      selectedUniversities.includes(uni.id) ? 'bg-white border-white text-primary' : 'border-outline-variant'
-                    }`}>
+                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${selectedUniversities.includes(uni.id) ? 'bg-white border-white text-primary' : 'border-outline-variant'
+                      }`}>
                       {selectedUniversities.includes(uni.id) && <span className="material-symbols-outlined text-sm font-bold">check</span>}
                     </div>
                   </div>
@@ -268,9 +264,9 @@ export default function CompareUniversities() {
                     {selectedUniversities.slice(0, 3).map((id) => {
                       const uni = universities.find(u => u.id === id);
                       return (
-                        <img 
+                        <img
                           key={id}
-                          src={uni?.logo} 
+                          src={uni?.logo}
                           className="inline-block h-10 w-10 rounded-full ring-2 ring-white bg-white object-contain p-1"
                         />
                       );
@@ -296,11 +292,10 @@ export default function CompareUniversities() {
                   <button
                     onClick={handleCompare}
                     disabled={selectedUniversities.length < 2}
-                    className={`px-8 py-3 rounded-2xl font-bold shadow-lg transition-all ${
-                      selectedUniversities.length >= 2
+                    className={`px-8 py-3 rounded-2xl font-bold shadow-lg transition-all ${selectedUniversities.length >= 2
                         ? 'bg-primary text-on-primary hover:scale-105 active:scale-95'
                         : 'bg-primary/50 text-on-primary/50 cursor-not-allowed'
-                    }`}
+                      }`}
                   >
                     Compare Now
                   </button>
