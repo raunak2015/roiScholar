@@ -12,11 +12,10 @@ export default function SettingsSidebar({ activeTab, onTabChange }) {
           <button
             key={tab.id}
             onClick={() => onTabChange(tab.id)}
-            className={`flex items-center gap-3 px-4 py-3 text-sm rounded-lg transition-all ${
-              activeTab === tab.id
+            className={`flex items-center gap-3 px-4 py-3 text-sm rounded-lg transition-all ${activeTab === tab.id
                 ? 'font-bold bg-surface-container-highest text-primary shadow-sm border-l-4 border-secondary'
                 : 'font-semibold text-on-surface-variant hover:bg-surface-container-high'
-            }`}
+              }`}
           >
             <span
               className="material-symbols-outlined text-[20px]"

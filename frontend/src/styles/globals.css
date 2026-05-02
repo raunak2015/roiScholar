@@ -2,51 +2,104 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base Theme Variables */
+/* Base Theme Variables (Light Mode) */
 :root {
   --color-primary: #00236f;
   --color-on-primary: #ffffff;
+  --color-primary-container: #1e3a8a;
+  --color-on-primary-container: #dce1ff;
+  --color-primary-fixed: #dce1ff;
+  --color-primary-fixed-dim: #b6c4ff;
+  --color-on-primary-fixed: #00164e;
+  --color-on-primary-fixed-variant: #264191;
   --color-secondary: #006a61;
   --color-on-secondary: #ffffff;
+  --color-secondary-container: #86f2e4;
+  --color-on-secondary-container: #003732;
+  --color-secondary-fixed: #89f5e7;
+  --color-secondary-fixed-dim: #6bd8cb;
+  --color-on-secondary-fixed: #00201d;
+  --color-on-secondary-fixed-variant: #005049;
   --color-tertiary: #442100;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #653400;
+  --color-on-tertiary-container: #ffdcbe;
+  --color-tertiary-fixed: #ffdcc3;
+  --color-tertiary-fixed-dim: #ffb77d;
+  --color-on-tertiary-fixed: #2f1500;
+  --color-on-tertiary-fixed-variant: #6e3900;
   --color-surface: #f9f9ff;
   --color-on-surface: #141b2b;
+  --color-surface-dim: #d9d7e0;
+  --color-surface-bright: #f9f9ff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f3f3fb;
   --color-surface-container: #e9edff;
-  --color-surface-container-low: #f1f3ff;
   --color-surface-container-high: #e1e8fd;
   --color-surface-container-highest: #dce2f7;
-  --color-outline-variant: #c5c5d3;
+  --color-surface-variant: #e8eaf6;
   --color-on-surface-variant: #444651;
+  --color-outline: #8e9099;
+  --color-outline-variant: #c5c5d3;
+  --color-inverse-surface: #2f3033;
+  --color-inverse-on-surface: #f9f9ff;
+  --color-inverse-primary: #b6c4ff;
+  --color-error: #b3261e;
+  --color-on-error: #ffffff;
+  --color-error-container: #f9dedc;
+  --color-on-error-container: #410e0b;
 }
 
-/* 
-  ULTRA-SPECIFIC DARK MODE OVERRIDES 
-  We are defining these twice: once as variables and once as direct utility overrides 
-  to guarantee the theme switches regardless of variable resolution issues.
-*/
-.dark, [data-theme='dark'] {
+/* Dark Mode Theme Variables */
+.dark,
+[data-theme='dark'] {
   --color-primary: #b6c4ff !important;
-  --color-on-primary: #00164e !important;
+  --color-on-primary: #00297a !important;
+  --color-primary-container: #1e3a8a !important;
+  --color-on-primary-container: #dce1ff !important;
+  --color-primary-fixed: #dce1ff !important;
+  --color-primary-fixed-dim: #b6c4ff !important;
+  --color-on-primary-fixed: #00164e !important;
+  --color-on-primary-fixed-variant: #264191 !important;
   --color-secondary: #6bd8cb !important;
-  --color-on-secondary: #00201d !important;
+  --color-on-secondary: #003732 !important;
+  --color-secondary-container: #86f2e4 !important;
+  --color-on-secondary-container: #003732 !important;
+  --color-secondary-fixed: #89f5e7 !important;
+  --color-secondary-fixed-dim: #6bd8cb !important;
+  --color-on-secondary-fixed: #00201d !important;
+  --color-on-secondary-fixed-variant: #005049 !important;
   --color-tertiary: #ffb77d !important;
+  --color-on-tertiary: #4d2700 !important;
+  --color-tertiary-container: #653400 !important;
+  --color-on-tertiary-container: #ffdcbe !important;
+  --color-tertiary-fixed: #ffdcc3 !important;
+  --color-tertiary-fixed-dim: #ffb77d !important;
+  --color-on-tertiary-fixed: #2f1500 !important;
+  --color-on-tertiary-fixed-variant: #6e3900 !important;
   --color-surface: #141b2b !important;
-  --color-on-surface: #f9f9ff !important;
-  --color-surface-container: #1e293b !important;
-  --color-surface-container-low: #0f172a !important;
-  --color-surface-container-high: #334155 !important;
-  --color-surface-container-highest: #475569 !important;
-  --color-outline-variant: #444651 !important;
-  --color-on-surface-variant: #c5c5d3 !important;
-  
+  --color-on-surface: #e3e2e6 !important;
+  --color-surface-dim: #111318 !important;
+  --color-surface-bright: #393f4e !important;
+  --color-surface-container-lowest: #0f172a !important;
+  --color-surface-container-low: #191c26 !important;
+  --color-surface-container: #1e212d !important;
+  --color-surface-container-high: #282a3c !important;
+  --color-surface-container-highest: #333547 !important;
+  --color-surface-variant: #444651 !important;
+  --color-on-surface-variant: #c4c6d0 !important;
+  --color-outline: #8e9099 !important;
+  --color-outline-variant: #c5c5d3 !important;
+  --color-inverse-surface: #e3e2e6 !important;
+  --color-inverse-on-surface: #2f3033 !important;
+  --color-inverse-primary: #4059aa !important;
+  --color-error: #ffb4ab !important;
+  --color-on-error: #690005 !important;
+  --color-error-container: #93000a !important;
+  --color-on-error-container: #ffdad6 !important;
+
   color-scheme: dark;
 }
-
-/* Explicit Utility Overrides for Dark Mode */
-.dark .bg-surface { background-color: #141b2b !important; }
-.dark .text-on-surface { color: #f9f9ff !important; }
-.dark .bg-surface-container { background-color: #1e293b !important; }
-.dark .bg-surface-container-low { background-color: #0f172a !important; }
 
 @layer base {
   * {

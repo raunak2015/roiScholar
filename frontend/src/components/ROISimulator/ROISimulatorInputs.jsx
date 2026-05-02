@@ -89,7 +89,7 @@ export default function ROISimulatorInputs({ onInputChange }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
       {/* Academic Pathway Card */}
-      <div className="bg-white rounded-xl p-6 shadow-sm border border-outline-variant/10 flex flex-col justify-between">
+      <div className="bg-surface-container rounded-xl p-6 shadow-sm border border-outline-variant/10 flex flex-col justify-between">
         <label className="block text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-4">
           Academic Pathway
         </label>
@@ -112,7 +112,7 @@ export default function ROISimulatorInputs({ onInputChange }) {
       </div>
 
       {/* Target Market Card */}
-      <div className="bg-white rounded-xl p-6 shadow-sm border border-outline-variant/10 flex flex-col justify-between">
+      <div className="bg-surface-container rounded-xl p-6 shadow-sm border border-outline-variant/10 flex flex-col justify-between">
         <label className="block text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-4">
           Target Market
         </label>
@@ -135,14 +135,14 @@ export default function ROISimulatorInputs({ onInputChange }) {
       </div>
 
       {/* Expected Starting Salary Dark Card */}
-      <div className="bg-[#1e2b58] rounded-xl p-6 shadow-lg flex flex-col justify-center text-white">
+      <div className="bg-primary rounded-xl p-6 shadow-lg flex flex-col justify-center text-on-primary">
         <span className="text-[10px] font-black uppercase tracking-widest opacity-70 mb-2">
           Expected Starting Salary
         </span>
         <div className="text-4xl font-black mb-3">
           {format(startingSalary, { minimumFractionDigits: 0 })}
         </div>
-        <div className="flex items-center gap-2 text-[#4ade80] text-xs font-bold">
+        <div className="flex items-center gap-2 text-secondary text-xs font-bold">
           <span className="material-symbols-outlined text-sm">trending_up</span>
           <span>{percentile} in {inputs.market === 'United States of America' ? 'USA' : inputs.market}</span>
         </div>

@@ -43,11 +43,10 @@ export default function Navbar() {
               <Link
                 key={item.name}
                 to={item.to}
-                className={`h-full flex items-center font-medium transition-all duration-200 ${
-                  isActive
-                    ? 'text-primary border-b-2 border-secondary pb-1 font-semibold'
-                    : 'text-on-surface-variant hover:text-primary'
-                }`}
+                className={`h-full flex items-center font-medium transition-all duration-200 ${isActive
+                  ? 'text-primary border-b-2 border-secondary pb-1 font-semibold'
+                  : 'text-on-surface-variant hover:text-primary'
+                  }`}
               >
                 {item.name}
               </Link>
@@ -68,7 +67,7 @@ export default function Navbar() {
           >
             <span className="material-symbols-outlined text-primary">help_outline</span>
           </button>
-          
+
           <div className="hidden lg:flex items-center gap-3">
             <ThemeToggle />
           </div>

@@ -32,7 +32,7 @@ export default function PreferencesCard({
           <span
             className={`${
               isToggled ? 'translate-x-6' : 'translate-x-1'
-            } inline-block h-4 w-4 transform rounded-full bg-white transition-transform`}
+            } inline-block h-4 w-4 transform rounded-full bg-surface transition-transform`}
           />
         </button>
       </div>
