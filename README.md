@@ -39,32 +39,55 @@ ROIScholar is a transparent, data-driven platform that helps STEM students under
 ROIScholar/
 ├── backend/
 │   ├── src/
-│   │   ├── config/             # Database and Auth configurations
-│   │   ├── controllers/        # Logic for Auth, Loans, ROI, and Applications
-│   │   ├── middleware/         # Authentication and validation middlewares
-│   │   ├── models/             # Mongoose schemas (User, Loan, Application, etc.)
-│   │   ├── routes/             # API endpoint definitions
-│   │   ├── services/           # Email (Brevo) and business services
-│   │   ├── seed/               # Data seeding (Scholarships, Salaries)
-│   │   └── app.js              # Express application setup
-│   ├── server.js               # Backend entry point
-│   └── .env                    # Backend secrets
+│   │   ├── config/             # DB, Passport, and Redis configurations
+│   │   │   ├── database.js
+│   │   │   ├── passport.js
+│   │   │   └── redis.js
+│   │   ├── controllers/        # Business logic for all modules
+│   │   │   ├── authController.js
+│   │   │   ├── loanController.js
+│   │   │   ├── universityController.js
+│   │   │   └── applicationController.js
+│   │   ├── middleware/         # Security and validation layers
+│   │   │   ├── auth.middleware.js
+│   │   │   └── upload.middleware.js
+│   │   ├── models/             # Mongoose Schemas
+│   │   │   ├── User.model.js
+│   │   │   └── Application.model.js
+│   │   ├── routes/             # API Endpoint definitions
+│   │   │   ├── auth.routes.js
+│   │   │   └── university.routes.js
+│   │   ├── services/           # External integrations (Brevo, etc.)
+│   │   │   └── emailService.js
+│   │   ├── seed/               # Data population scripts
+│   │   │   ├── scholarshipData.js
+│   │   │   └── salaryData.js
+│   │   └── app.js              # Express app setup
+│   ├── server.js               # Entry point
+│   └── .env                    # Production secrets
 ├── frontend/
 │   ├── src/
-│   │   ├── components/         # Reusable UI components (Calculator, Compare, etc.)
-│   │   ├── features/           # Redux state management (Auth, Loan slices)
-│   │   ├── pages/              # Main view components (Landing, Profile, etc.)
-│   │   ├── services/           # API communication layer (Axios)
-│   │   ├── styles/             # Tailwind CSS and global themes
-│   │   ├── utils/              # Calculation and formatting helpers
-│   │   ├── App.jsx             # Root React component
-│   │   └── main.jsx            # Frontend entry point
-│   ├── public/                 # Static assets (Favicon, Logo)
-│   ├── index.html              # Single page entry
-│   ├── .env                    # Frontend environment variables
-│   └── vite.config.js          # Vite build configuration
-├── README.md                   # Project documentation
-└── package.json                # Root dependency management
+│   │   ├── components/         # Reusable UI components
+│   │   │   ├── Calculator/     # Loan calculation forms
+│   │   │   ├── University/     # Cards and lists
+│   │   │   ├── Compare/        # Side-by-side tables
+│   │   │   └── Layout/         # Navbar, Footer, Sidebar
+│   │   ├── features/           # Redux state slices
+│   │   ├── pages/              # Main view containers
+│   │   │   ├── LandingPage.jsx
+│   │   │   ├── ProfilePage.jsx
+│   │   │   └── ApplicationTracker.jsx
+│   │   ├── services/           # Axios API instances
+│   │   │   ├── api.js
+│   │   │   └── authService.js
+│   │   ├── styles/             # Global CSS and Tailwind configs
+│   │   ├── utils/              # Calculation logic & formatters
+│   │   ├── App.jsx             # Main routing
+│   │   └── main.jsx            # React entry
+│   ├── public/                 # Static branding assets
+│   ├── .env                    # Frontend environment vars
+│   └── vite.config.js          # Build tool config
+└── README.md                   # Project documentation
 ```
 
 ## 🚀 Tech Stack
