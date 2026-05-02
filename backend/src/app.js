@@ -30,6 +30,7 @@ app.use('/api/scenarios', scenarioRoutes);
 app.use('/api/applications', require('./routes/application.routes'));
 app.use('/api/roi', require('./routes/roi.routes'));
 app.use('/api/loan', require('./routes/loan.routes'));
+app.use('/api/scholarships', require('./routes/scholarship.routes'));
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
