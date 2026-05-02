@@ -37,195 +37,34 @@ ROIScholar is a transparent, data-driven platform that helps STEM students under
 
 ```text
 ROIScholar/
-│
-├── frontend/                          # React + Vite Frontend Application
-│   ├── public/
-│   │   ├── index.html
-│   │   ├── favicon.ico
-│   │   └── robots.txt
-│   │
+├── backend/
 │   ├── src/
-│   │   ├── assets/                    # Images, fonts, icons
-│   │   │   ├── images/
-│   │   │   ├── fonts/
-│   │   │   └── icons/
-│   │   │
-│   │   ├── components/                # Reusable UI Components
-│   │   │   ├── Layout/
-│   │   │   │   ├── Navbar.jsx
-│   │   │   │   ├── Sidebar.jsx
-│   │   │   │   ├── Footer.jsx
-│   │   │   │   └── Layout.jsx
-│   │   │   │
-│   │   │   ├── UI/
-│   │   │   │   ├── Button.jsx
-│   │   │   │   ├── Input.jsx
-│   │   │   │   ├── Card.jsx
-│   │   │   │   ├── Modal.jsx
-│   │   │   │   ├── Loader.jsx
-│   │   │   │   ├── Toast.jsx
-│   │   │   │   └── Tooltip.jsx
-│   │   │   │
-│   │   │   ├── Loan/
-│   │   │   │   ├── LoanCalculator.jsx
-│   │   │   │   ├── AmortizationTable.jsx
-│   │   │   │   ├── LoanSummaryCard.jsx
-│   │   │   │   └── InterestChart.jsx
-│   │   │   │
-│   │   │   ├── ROI/
-│   │   │   │   ├── ROISimulator.jsx
-│   │   │   │   ├── BreakEvenChart.jsx
-│   │   │   │   ├── SalaryInput.jsx
-│   │   │   │   └── ROIMetrics.jsx
-│   │   │   │
-│   │   │   ├── University/
-│   │   │   │   ├── UniversityCard.jsx
-│   │   │   │   ├── CompareTable.jsx
-│   │   │   │   ├── CostBreakdown.jsx
-│   │   │   │   └── FilterBar.jsx
-│   │   │   │
-│   │   │   └── Application/
-│   │   │       ├── MultiStepForm.jsx
-│   │   │       ├── Step1Personal.jsx
-│   │   │       ├── Step2University.jsx
-│   │   │       ├── Step3Loan.jsx
-│   │   │       ├── Step4Documents.jsx
-│   │   │       └── ProgressBar.jsx
-│   │   │
-│   │   ├── pages/                     # Page Components
-│   │   │   ├── LandingPage.jsx
-│   │   │   ├── LoginPage.jsx
-│   │   │   ├── RegisterPage.jsx
-│   │   │   ├── Dashboard.jsx
-│   │   │   ├── CalculatorPage.jsx
-│   │   │   ├── ROISimulatorPage.jsx
-│   │   │   ├── CompareUniversities.jsx
-│   │   │   ├── ApplicationTracker.jsx
-│   │   │   ├── ProfilePage.jsx
-│   │   │   └── NotFoundPage.jsx
-│   │   │
-│   │   ├── features/                  # Redux Slices
-│   │   │   ├── auth/
-│   │   │   │   ├── authSlice.js
-│   │   │   │   └── authAPI.js
-│   │   │   ├── loan/
-│   │   │   │   ├── loanSlice.js
-│   │   │   │   └── loanUtils.js
-│   │   │   ├── roi/
-│   │   │   │   ├── roiSlice.js
-│   │   │   │   └── salaryData.js
-│   │   │   ├── university/
-│   │   │   │   ├── universitySlice.js
-│   │   │   │   └── universityData.js
-│   │   │   └── ui/
-│   │   │       └── uiSlice.js
-│   │   │
-│   │   ├── hooks/                     # Custom Hooks
-│   │   │   ├── useAuth.js
-│   │   │   ├── useDebounce.js
-│   │   │   ├── useLoanCalculator.js
-│   │   │   ├── useLocalStorage.js
-│   │   │   ├── useROISimulator.js
-│   │   │   └── useTheme.js
-│   │   │
-│   │   ├── services/                  # API Services
-│   │   │   ├── api.js
-│   │   │   ├── authService.js
-│   │   │   ├── loanService.js
-│   │   │   ├── universityService.js
-│   │   │   └── storage.js
-│   │   │
-│   │   ├── utils/                     # Utility Functions
-│   │   │   ├── constants.js
-│   │   │   ├── validation.js
-│   │   │   ├── formatters.js
-│   │   │   ├── calculators.js
-│   │   │   └── validators.js
-│   │   │
-│   │   ├── styles/                    # Global Styles
-│   │   │   ├── globals.css
-│   │   │   ├── tailwind.css
-│   │   │   └── themes.css
-│   │   │
-│   │   ├── App.jsx
-│   │   ├── AppRoutes.jsx
-│   │   ├── main.jsx
-│   │   └── store.js
-│   │
-│   ├── .env.example
-│   ├── .eslintrc.js
-│   ├── .prettierrc
-│   ├── index.html
-│   ├── package.json
-│   ├── vite.config.js
-│   └── README.md
-│
-├── backend/                           # Node.js + Express Backend
+│   │   ├── config/             # Database and Auth configurations
+│   │   ├── controllers/        # Logic for Auth, Loans, ROI, and Applications
+│   │   ├── middleware/         # Authentication and validation middlewares
+│   │   ├── models/             # Mongoose schemas (User, Loan, Application, etc.)
+│   │   ├── routes/             # API endpoint definitions
+│   │   ├── services/           # Email (Brevo) and business services
+│   │   ├── seed/               # Data seeding (Scholarships, Salaries)
+│   │   └── app.js              # Express application setup
+│   ├── server.js               # Backend entry point
+│   └── .env                    # Backend secrets
+├── frontend/
 │   ├── src/
-│   │   ├── config/                    # Configuration
-│   │   │   ├── database.js
-│   │   │   ├── redis.js
-│   │   │   └── passport.js
-│   │   │
-│   │   ├── models/                    # Database Models
-│   │   │   ├── User.model.js
-│   │   │   ├── Loan.model.js
-│   │   │   ├── University.model.js
-│   │   │   ├── Application.model.js
-│   │   │   └── SalaryData.model.js
-│   │   │
-│   │   ├── controllers/               # Business Logic
-│   │   │   ├── authController.js
-│   │   │   ├── loanController.js
-│   │   │   ├── roiController.js
-│   │   │   ├── universityController.js
-│   │   │   └── applicationController.js
-│   │   │
-│   │   ├── routes/                    # API Routes
-│   │   │   ├── auth.routes.js
-│   │   │   ├── loan.routes.js
-│   │   │   ├── roi.routes.js
-│   │   │   ├── university.routes.js
-│   │   │   └── application.routes.js
-│   │   │
-│   │   ├── middleware/                # Custom Middleware
-│   │   │   ├── auth.middleware.js
-│   │   │   ├── error.middleware.js
-│   │   │   ├── validation.middleware.js
-│   │   │   └── rateLimiter.js
-│   │   │
-│   │   ├── services/                  # Business Services
-│   │   │   ├── emailService.js
-│   │   │   ├── calculatorService.js
-│   │   │   ├── salaryService.js
-│   │   │   └── exchangeRateService.js
-│   │   │
-│   │   ├── utils/                     # Utilities
-│   │   │   ├── logger.js
-│   │   │   ├── helpers.js
-│   │   │   ├── constants.js
-│   │   │   └── validators.js
-│   │   │
-│   │   ├── validations/               # Input Validation
-│   │   │   ├── user.validation.js
-│   │   │   ├── loan.validation.js
-│   │   │   └── application.validation.js
-│   │   │
-│   │   └── app.js                     # Express App Setup
-│   │
-│   ├── .env.example
-│   ├── .eslintrc.js
-│   ├── package.json
-│   └── server.js
-│
-├── .dockerignore
-├── .env.example
-├── .gitignore
-├── docker-compose.yml
-├── Dockerfile
-├── LICENSE
-├── package.json
-└── README.md
+│   │   ├── components/         # Reusable UI components (Calculator, Compare, etc.)
+│   │   ├── features/           # Redux state management (Auth, Loan slices)
+│   │   ├── pages/              # Main view components (Landing, Profile, etc.)
+│   │   ├── services/           # API communication layer (Axios)
+│   │   ├── styles/             # Tailwind CSS and global themes
+│   │   ├── utils/              # Calculation and formatting helpers
+│   │   ├── App.jsx             # Root React component
+│   │   └── main.jsx            # Frontend entry point
+│   ├── public/                 # Static assets (Favicon, Logo)
+│   ├── index.html              # Single page entry
+│   ├── .env                    # Frontend environment variables
+│   └── vite.config.js          # Vite build configuration
+├── README.md                   # Project documentation
+└── package.json                # Root dependency management
 ```
 
 ## 🚀 Tech Stack
