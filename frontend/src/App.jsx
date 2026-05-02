@@ -43,6 +43,10 @@ const routeMeta = {
     title: 'Dashboard | RoiScholar',
     description: 'Monitor your saved scenarios, application status, and financial insights.',
   },
+  '/scholarships': {
+    title: 'Scholarship Finder | RoiScholar',
+    description: 'Discover fully-funded grants and STEM-specific scholarships to reduce your total education loan.',
+  },
 };
 
 const RouteMeta = () => {
