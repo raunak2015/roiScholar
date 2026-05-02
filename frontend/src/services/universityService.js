@@ -2,7 +2,7 @@ import { DEFAULT_COMPARE_COUNTRIES, FALLBACK_UNIVERSITIES } from './universityDa
 import { buildUniversityRecord } from './universityHelpers';
 
 const UNIVERSITY_API_BASE_URL =
-  import.meta.env.VITE_UNIVERSITY_API_BASE_URL || 'http://universities.hipolabs.com/search';
+  import.meta.env.VITE_UNIVERSITY_API_BASE_URL || 'https://universities.hipolabs.com/search';
 
 const DEFAULT_LIMIT_PER_COUNTRY = 20;
 
