@@ -134,32 +134,34 @@ export default function ApplicationTracker() {
 
     try {
       setLoading(true);
-      console.log('Submitting application:', formData);
+      console.log('Submitting application (Demo Mode):', formData);
       
-      const response = await submitApplication(formData);
+      // Mock delay for demo purposes (2 seconds as requested)
+      await new Promise(resolve => setTimeout(resolve, 2000));
       
-      if (response.success) {
-        toast.success('Application submitted successfully! Check your email for confirmation.');
-        
-        // Reset form state
-        setFormData({
-          fullName: '',
-          email: '',
-          phone: '',
-          educationLevel: '',
-          university: '',
-          program: '',
-          loanAmount: '',
-          loanTerm: '',
-          documents: [],
-        });
+      toast.success('Email is sent successfully!');
+      
+      // Reset form state
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        educationLevel: '',
+        university: '',
+        program: '',
+        loanAmount: '',
+        loanTerm: '',
+        documents: [],
+      });
 
-        // Navigate to dashboard
+      // Brief delay before navigation for better UX in demo
+      setTimeout(() => {
         navigate('/dashboard', { replace: false });
-      }
+      }, 1500);
+      
     } catch (error) {
       console.error('Error submitting application:', error);
-      toast.error(error?.response?.data?.message || 'Unable to submit application. Please try again.');
+      toast.error('Unable to submit application. Please try again.');
     } finally {
       setLoading(false);
     }
