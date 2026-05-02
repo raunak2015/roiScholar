@@ -85,6 +85,24 @@ export default function ApplicationTracker() {
   };
 
   const handleNextStep = () => {
+    // Validate current step before proceeding
+    if (currentStep === 1) {
+      if (!formData.fullName || !formData.email || !formData.phone || !formData.educationLevel) {
+        toast.error('Please complete all fields in this step to proceed.');
+        return;
+      }
+    } else if (currentStep === 2) {
+      if (!formData.university || !formData.program) {
+        toast.error('Please complete all fields in this step to proceed.');
+        return;
+      }
+    } else if (currentStep === 3) {
+      if (!formData.loanAmount || !formData.loanTerm) {
+        toast.error('Please complete all fields in this step to proceed.');
+        return;
+      }
+    }
+
     if (currentStep < steps.length) {
       setCurrentStep(currentStep + 1);
     }
@@ -97,6 +115,12 @@ export default function ApplicationTracker() {
   };
 
   const handleSubmit = async () => {
+    // Final safety check before submission
+    if (!formData.fullName || !formData.email || !formData.phone || !formData.educationLevel || !formData.university || !formData.program || !formData.loanAmount || !formData.loanTerm) {
+      toast.error('Please ensure all required fields across all steps are filled out.');
+      return;
+    }
+
     try {
       setLoading(true);
       console.log('Submitting application:', formData);
