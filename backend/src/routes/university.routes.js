@@ -6,5 +6,6 @@ const universityController = require('../controllers/universityController');
 // @desc    Search universities
 // @access  Public
 router.get('/search', universityController.searchUniversities);
+router.get('/compare', universityController.compareUniversities);
 
 module.exports = router;
