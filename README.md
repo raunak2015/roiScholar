@@ -8,6 +8,17 @@ Clear Costs. Real ROI. Smart STEM Decisions.
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](CONTRIBUTING.md)
 
+## 📸 Screenshots
+
+### 🏠 Landing Page
+![Landing Page](screenshots/landing.png)
+
+### 🧮 Loan Architect (Calculator)
+![Calculator](screenshots/calculator.png)
+
+### 📊 University Comparison
+![Comparison](screenshots/compare.png)
+
 ## 📋 Problem Statement
 
 Why do STEM students face education loan anxiety from unclear costs in 2026?
