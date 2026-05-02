@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import MainNavbar from '../components/Layout/MainNavbar';
@@ -15,6 +16,8 @@ import { submitApplication } from '../services/applicationService';
 export default function ApplicationTracker() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useSelector((state) => state.auth || {});
+  
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -29,16 +32,24 @@ export default function ApplicationTracker() {
     documents: [],
   });
 
+  // Pre-fill from auth user
+  useEffect(() => {
+    if (user) {
+      setFormData(prev => ({
+        ...prev,
+        fullName: prev.fullName || user.name || '',
+        email: prev.email || user.email || ''
+      }));
+    }
+  }, [user]);
+
+  // Pre-fill from navigation state (e.g. from Compare page)
   useEffect(() => {
     if (location.state) {
       setFormData(prev => ({
         ...prev,
         ...location.state
       }));
-      // Optional: Jump to step 2 if university is already selected
-      if (location.state.university) {
-        setCurrentStep(2);
-      }
     }
   }, [location.state]);
 
@@ -85,6 +96,24 @@ export default function ApplicationTracker() {
   };
 
   const handleNextStep = () => {
+    // Validate current step before proceeding
+    if (currentStep === 1) {
+      if (!formData.fullName || !formData.email || !formData.phone || !formData.educationLevel) {
+        toast.error('Please complete all fields in this step to proceed.');
+        return;
+      }
+    } else if (currentStep === 2) {
+      if (!formData.university || !formData.program) {
+        toast.error('Please complete all fields in this step to proceed.');
+        return;
+      }
+    } else if (currentStep === 3) {
+      if (!formData.loanAmount || !formData.loanTerm) {
+        toast.error('Please complete all fields in this step to proceed.');
+        return;
+      }
+    }
+
     if (currentStep < steps.length) {
       setCurrentStep(currentStep + 1);
     }
@@ -97,6 +126,12 @@ export default function ApplicationTracker() {
   };
 
   const handleSubmit = async () => {
+    // Final safety check before submission
+    if (!formData.fullName || !formData.email || !formData.phone || !formData.educationLevel || !formData.university || !formData.program || !formData.loanAmount || !formData.loanTerm) {
+      toast.error('Please ensure all required fields across all steps are filled out.');
+      return;
+    }
+
     try {
       setLoading(true);
       console.log('Submitting application:', formData);
