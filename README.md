@@ -389,6 +389,8 @@ npm run test:e2e
 
 ## 📡 API Endpoints
 
+**Live Documentation:** [Postman API Hub](https://documenter.getpostman.com/view/50840775/2sBXqKoL8Z)
+
 ### 🔐 Authentication
 
 | Method | Endpoint | Description |
