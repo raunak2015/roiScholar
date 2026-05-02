@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import MultiStepLoanForm from '../components/Calculator/MultiStepLoanForm';
 import CalculatorResultCard from '../components/Calculator/CalculatorResultCard';
 import MainNavbar from '../components/Layout/MainNavbar';
+import { useCurrency } from '../hooks/useCurrency';
 import { calculateLoanSummary } from '../features/loan/loanUtils';
 import { setLoanInputs, setLoanResults } from '../features/loan/loanSlice';
 
 export default function CalculatorPage() {
   const dispatch = useDispatch();
   const loanState = useSelector((state) => state.loan || {});
+  const { code, rate } = useCurrency();
 
   const [calculatorData, setCalculatorData] = useState({
     university: 'Stanford University',
@@ -19,16 +21,20 @@ export default function CalculatorPage() {
   });
 
   const handleCalculate = (data) => {
+    // If input is in INR, normalize to USD for the calculation engine
+    const normalizationFactor = code === 'INR' ? (1 / 83.5) : 1;
+    
     setCalculatorData(data);
 
-    const principal = Number(data.loanAmount) || 0;
+    const principal = (Number(data.loanAmount) || 0) * normalizationFactor;
     const annualInterestRate = Number(data.interestRate) || 0;
     const termInMonths = (Number(data.tenure) || 0) * 12;
+    const gracePeriodMonths = (Number(data.duration) || 0) * 12 + (Number(data.gracePeriod) || 0);
 
     // Dispatch inputs and results into Redux
-    dispatch(setLoanInputs({ principal, annualInterestRate, termInMonths }));
+    dispatch(setLoanInputs({ principal, annualInterestRate, termInMonths, gracePeriodMonths }));
 
-    const summary = calculateLoanSummary({ principal, annualInterestRate, termInMonths });
+    const summary = calculateLoanSummary({ principal, annualInterestRate, termInMonths, gracePeriodMonths });
     dispatch(setLoanResults(summary));
   };
 

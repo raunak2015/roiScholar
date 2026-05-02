@@ -1,7 +1,7 @@
 const DEFAULT_LOAN_TERM_MONTHS = 60;
 
-export const calculateMonthlyPayment = (principal, annualInterestRate, termInMonths = DEFAULT_LOAN_TERM_MONTHS) => {
-	const amount = Number(principal) || 0;
+export const calculateMonthlyPayment = (principal, annualInterestRate, termInMonths = DEFAULT_LOAN_TERM_MONTHS, gracePeriodMonths = 0) => {
+	let amount = Number(principal) || 0;
 	const months = Number(termInMonths) || DEFAULT_LOAN_TERM_MONTHS;
 	const monthlyRate = (Number(annualInterestRate) || 0) / 100 / 12;
 
@@ -11,6 +11,11 @@ export const calculateMonthlyPayment = (principal, annualInterestRate, termInMon
 
 	if (monthlyRate === 0) {
 		return amount / months;
+	}
+
+	// During grace period, interest accrues and is added to principal (compounding)
+	if (gracePeriodMonths > 0) {
+		amount = amount * Math.pow(1 + monthlyRate, gracePeriodMonths);
 	}
 
 	return (amount * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
@@ -28,11 +33,17 @@ export const calculateTotalInterest = (principal, monthlyPayment, termInMonths =
 	return payment * months - amount;
 };
 
-export const calculateAmortizationSchedule = (principal, annualInterestRate, termInMonths = DEFAULT_LOAN_TERM_MONTHS) => {
-	const amount = Number(principal) || 0;
+export const calculateAmortizationSchedule = (principal, annualInterestRate, termInMonths = DEFAULT_LOAN_TERM_MONTHS, gracePeriodMonths = 0) => {
+	let amount = Number(principal) || 0;
 	const months = Number(termInMonths) || DEFAULT_LOAN_TERM_MONTHS;
-	const monthlyPayment = calculateMonthlyPayment(amount, annualInterestRate, months);
 	const monthlyRate = (Number(annualInterestRate) || 0) / 100 / 12;
+
+	// Adjust amount for grace period interest accrual
+	if (gracePeriodMonths > 0 && monthlyRate > 0) {
+		amount = amount * Math.pow(1 + monthlyRate, gracePeriodMonths);
+	}
+
+	const monthlyPayment = calculateMonthlyPayment(principal, annualInterestRate, months, gracePeriodMonths);
 	let balance = amount;
 
 	return Array.from({ length: months }, (_, index) => {
@@ -50,14 +61,17 @@ export const calculateAmortizationSchedule = (principal, annualInterestRate, ter
 	});
 };
 
-export const calculateLoanSummary = ({ principal, annualInterestRate, termInMonths }) => {
-	const monthlyPayment = calculateMonthlyPayment(principal, annualInterestRate, termInMonths);
-	const totalInterest = calculateTotalInterest(principal, monthlyPayment, termInMonths);
+export const calculateLoanSummary = ({ principal, annualInterestRate, termInMonths, gracePeriodMonths = 0 }) => {
+	const monthlyPayment = calculateMonthlyPayment(principal, annualInterestRate, termInMonths, gracePeriodMonths);
+	
+	const totalRepayment = monthlyPayment * termInMonths;
+	const totalInterest = totalRepayment - (Number(principal) || 0);
 
 	return {
+		principal: Number(principal) || 0,
 		monthlyPayment,
 		totalInterest,
-		totalRepayment: (Number(principal) || 0) + totalInterest,
-		amortizationSchedule: calculateAmortizationSchedule(principal, annualInterestRate, termInMonths),
+		totalRepayment,
+		amortizationSchedule: calculateAmortizationSchedule(principal, annualInterestRate, termInMonths, gracePeriodMonths),
 	};
 };
