@@ -195,15 +195,15 @@ export default function CompareUniversities() {
                   key={uni.id}
                   onClick={() => toggleUniversity(uni.id)}
                   className={`p-6 rounded-2xl cursor-pointer transition-all duration-300 transform hover:-translate-y-1 ${selectedUniversities.includes(uni.id)
-                      ? 'bg-primary text-on-primary shadow-xl ring-2 ring-primary ring-offset-2'
-                      : 'bg-surface-container-low text-on-surface hover:shadow-lg border border-outline-variant/10'
+                    ? 'bg-primary text-on-primary shadow-xl ring-2 ring-primary ring-offset-2'
+                    : 'bg-surface-container-low text-on-surface hover:shadow-lg border border-outline-variant/10'
                     }`}
                 >
                   <div className="flex items-start gap-4 mb-5">
                     <img
                       alt={uni.name}
                       src={uni.logo}
-                      className={`w-16 h-16 rounded-xl object-contain p-2 ${selectedUniversities.includes(uni.id) ? 'bg-white/20' : 'bg-surface-container-highest'
+                      className={`w-16 h-16 rounded-xl object-contain p-2 ${selectedUniversities.includes(uni.id) ? 'bg-on-surface/10' : 'bg-surface-container-highest'
                         }`}
                       onError={(e) => {
                         e.target.onerror = null;
@@ -214,8 +214,8 @@ export default function CompareUniversities() {
                       <h3 className="font-bold text-lg leading-tight mb-1">{uni.name}</h3>
                       <p
                         className={`text-sm font-medium ${selectedUniversities.includes(uni.id)
-                            ? 'text-on-primary/80'
-                            : 'text-on-surface-variant'
+                          ? 'text-on-surface/80'
+                          : 'text-on-surface-variant'
                           }`}
                       >
                         {uni.program}
@@ -245,10 +245,10 @@ export default function CompareUniversities() {
                   </div>
 
                   <div className="mt-6 flex items-center justify-between">
-                    <span className={`text-xs font-bold uppercase tracking-widest ${selectedUniversities.includes(uni.id) ? 'text-on-primary/70' : 'text-primary'}`}>
+                    <span className={`text-xs font-bold uppercase tracking-widest ${selectedUniversities.includes(uni.id) ? 'text-on-surface/70' : 'text-primary'}`}>
                       {selectedUniversities.includes(uni.id) ? 'Selected for Comparison' : 'Select to Compare'}
                     </span>
-                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${selectedUniversities.includes(uni.id) ? 'bg-white border-white text-primary' : 'border-outline-variant'
+                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${selectedUniversities.includes(uni.id) ? 'bg-primary border-primary text-on-primary' : 'border-outline-variant'
                       }`}>
                       {selectedUniversities.includes(uni.id) && <span className="material-symbols-outlined text-sm font-bold">check</span>}
                     </div>
@@ -267,12 +267,12 @@ export default function CompareUniversities() {
                         <img
                           key={id}
                           src={uni?.logo}
-                          className="inline-block h-10 w-10 rounded-full ring-2 ring-white bg-white object-contain p-1"
+                          className="inline-block h-10 w-10 rounded-full ring-2 ring-surface bg-surface-container object-contain p-1"
                         />
                       );
                     })}
                     {selectedUniversities.length > 3 && (
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-xs font-bold text-on-primary ring-2 ring-white">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-xs font-bold text-on-primary ring-2 ring-surface">
                         +{selectedUniversities.length - 3}
                       </div>
                     )}
@@ -293,8 +293,8 @@ export default function CompareUniversities() {
                     onClick={handleCompare}
                     disabled={selectedUniversities.length < 2}
                     className={`px-8 py-3 rounded-2xl font-bold shadow-lg transition-all ${selectedUniversities.length >= 2
-                        ? 'bg-primary text-on-primary hover:scale-105 active:scale-95'
-                        : 'bg-primary/50 text-on-primary/50 cursor-not-allowed'
+                      ? 'bg-primary text-on-primary hover:scale-105 active:scale-95'
+                      : 'bg-primary/50 text-on-primary/50 cursor-not-allowed'
                       }`}
                   >
                     Compare Now

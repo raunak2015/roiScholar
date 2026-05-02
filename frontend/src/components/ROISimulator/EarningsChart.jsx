@@ -1,6 +1,6 @@
 export default function EarningsChart() {
   return (
-    <div className="lg:col-span-12 bg-white rounded-xl p-8 shadow-sm border-t-4 border-primary">
+    <div className="lg:col-span-12 bg-surface-container rounded-xl p-8 shadow-sm border-t-4 border-primary">
       <div className="flex justify-between items-end mb-8">
         <div>
           <h3 className="text-xl font-bold text-primary">Earnings vs. Repayment Velocity</h3>

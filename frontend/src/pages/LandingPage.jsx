@@ -33,7 +33,7 @@ const LandingPage = () => {
                 >
                   CALCULATE YOUR TRUE COST
                 </button>
-                <button 
+                <button
                   onClick={scrollToFeatures}
                   className="inline-flex items-center justify-center px-10 py-4 bg-surface-container text-on-surface font-bold rounded-lg tracking-wide hover:bg-surface-container-high active:scale-95 transition-all uppercase"
                 >

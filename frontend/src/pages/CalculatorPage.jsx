@@ -9,7 +9,7 @@ import { setLoanInputs, setLoanResults } from '../features/loan/loanSlice';
 export default function CalculatorPage() {
   const dispatch = useDispatch();
   const loanState = useSelector((state) => state.loan || {});
-  
+
   const [calculatorData, setCalculatorData] = useState({
     university: 'Stanford University',
     degree: 'MS in Computer Science',

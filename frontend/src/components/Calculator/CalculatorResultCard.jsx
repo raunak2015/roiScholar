@@ -49,7 +49,7 @@ export default function CalculatorResultCard({ calculatorData = {}, loanResults 
       {/* Results Card */}
       <div className="relative overflow-hidden bg-gradient-to-br from-primary to-primary-container rounded-xl p-8 text-on-primary shadow-xl">
         {/* Decorative elements */}
-        <div className="absolute -right-12 -top-12 w-48 h-48 bg-white/5 rounded-full blur-3xl"></div>
+        <div className="absolute -right-12 -top-12 w-48 h-48 bg-on-primary/5 rounded-full blur-3xl"></div>
         <div className="absolute -left-12 -bottom-12 w-48 h-48 bg-secondary/20 rounded-full blur-3xl"></div>
 
         <div className="relative z-10 space-y-10">
@@ -83,7 +83,7 @@ export default function CalculatorResultCard({ calculatorData = {}, loanResults 
           </div>
 
           {/* Total Cost */}
-          <div className="pt-6 border-t border-white/10">
+          <div className="pt-6 border-t border-on-primary/10">
             <div className="flex justify-between items-center mb-6">
               <span className="text-sm font-semibold opacity-80">Total Cost of Loan</span>
               <span className="text-3xl font-black">
@@ -101,7 +101,7 @@ export default function CalculatorResultCard({ calculatorData = {}, loanResults 
               </button>
               <button
                 onClick={handleSaveScenario}
-                className="w-full py-4 bg-white/10 text-white rounded-lg font-bold uppercase tracking-widest text-xs hover:bg-white/20 transition-all border border-white/10 active:scale-95 transform"
+                className="w-full py-4 bg-on-primary/10 text-on-primary rounded-lg font-bold uppercase tracking-widest text-xs hover:bg-on-primary/20 transition-all border border-on-primary/10 active:scale-95 transform"
               >
                 Save Scenario ({savedScenarios.length})
               </button>
@@ -139,10 +139,10 @@ export default function CalculatorResultCard({ calculatorData = {}, loanResults 
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuCebcDIksA-RhFJSbdimvJX1g9tCyt2xokv3sy7kBiGJVLHAx1hkmrNWqmzRLlTtUEL9T2yoAfMllRHbGxIxv0HaEQZtELqFAUXVc5xF3qh7Yp9WbYoSh5NIRCswmRRXMizMF46zhalTqWJaMCAo3v3rdGyQNXtNLSV8bnjZono8T3VYz5ppt3WVkekG4c4kQwYgbuAb9Aunl_AZrUJtqrOZhATuHOqshxNoJzUrxECSe4VbvN2zjMxJHQIFUYCW_oWyOsH6bFz-4s"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
-          <span className="text-white text-xs font-bold uppercase tracking-[0.2em] mb-1">
+          <span className="text-on-surface text-xs font-bold uppercase tracking-[0.2em] mb-1">
             Advanced Tool
           </span>
-          <h4 className="text-white font-bold">Simulate ROI for STEM Degrees</h4>
+          <h4 className="text-on-surface font-bold">Simulate ROI for STEM Degrees</h4>
         </div>
       </div>
     </aside>

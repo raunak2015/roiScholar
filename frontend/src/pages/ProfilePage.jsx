@@ -101,7 +101,7 @@ export default function ProfilePage() {
                 </button>
                 <button
                   onClick={handleSave}
-                  className="px-8 py-2.5 bg-gradient-to-r from-primary to-primary-container text-white text-sm font-bold rounded-lg shadow-lg hover:shadow-primary/20 active:scale-95 transition-all tracking-wider uppercase"
+                  className="px-8 py-2.5 bg-gradient-to-r from-primary to-primary-container text-on-primary text-sm font-bold rounded-lg shadow-lg hover:shadow-primary/20 active:scale-95 transition-all tracking-wider uppercase"
                 >
                   SAVE PREFERENCES
                 </button>

@@ -43,7 +43,7 @@ export default function ROIVisualizer({
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-[#1e2b58] p-4 rounded-xl shadow-2xl text-white text-xs border border-white/10">
+        <div className="bg-surface-container p-4 rounded-xl shadow-2xl text-on-surface text-xs border border-outline-variant/10">
           <p className="font-black mb-3 tracking-widest">{label}</p>
           <div className="space-y-2">
             <div className="flex justify-between gap-10 items-center">
@@ -52,7 +52,7 @@ export default function ROIVisualizer({
             </div>
             <div className="flex justify-between gap-10 items-center">
               <span className="opacity-70 font-bold uppercase">Balance</span>
-              <span className="font-black text-[#4ade80]">{format(payload[0].value, { minimumFractionDigits: 0 })}</span>
+              <span className="font-black text-secondary">{format(payload[0].value, { minimumFractionDigits: 0 })}</span>
             </div>
           </div>
         </div>
@@ -62,22 +62,22 @@ export default function ROIVisualizer({
   };
 
   return (
-    <div className="w-full bg-white rounded-3xl p-8 border border-outline-variant/10 shadow-sm mt-8">
+    <div className="w-full bg-surface-container rounded-3xl p-8 border border-outline-variant/10 shadow-sm mt-8">
       <div className="flex justify-between items-start mb-10">
         <div>
-          <h3 className="text-xl font-black text-[#1e2b58] tracking-tight">Earnings vs. Repayment Velocity</h3>
+          <h3 className="text-xl font-black text-on-surface tracking-tight">Earnings vs. Repayment Velocity</h3>
           <p className="text-sm text-on-surface-variant font-medium mt-1">Projected cumulative wealth over 10 years</p>
         </div>
         
         {/* Custom Legend to match mockup */}
         <div className="flex gap-6">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-[#1e2b58]"></div>
-            <span className="text-[10px] font-black text-[#1e2b58] uppercase tracking-widest">Cumulative Earnings</span>
+            <div className="w-3 h-3 rounded-full bg-primary"></div>
+            <span className="text-[10px] font-black text-on-surface uppercase tracking-widest">Cumulative Earnings</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-[#006a61]"></div>
-            <span className="text-[10px] font-black text-[#1e2b58] uppercase tracking-widest">Loan Balance</span>
+            <div className="w-3 h-3 rounded-full bg-secondary"></div>
+            <span className="text-[10px] font-black text-on-surface uppercase tracking-widest">Loan Balance</span>
           </div>
         </div>
       </div>

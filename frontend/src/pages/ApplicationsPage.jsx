@@ -90,7 +90,7 @@ export default function ApplicationsPage() {
                       className="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/5 shadow-sm hover:shadow-md hover:border-primary/20 transition-all cursor-pointer group"
                     >
                       <div className="flex items-start gap-4 mb-4">
-                        <img src={app.logo} alt="" className="w-10 h-10 rounded-lg object-contain bg-white p-1" />
+                        <img src={app.logo} alt="" className="w-10 h-10 rounded-lg object-contain bg-surface-container p-1" />
                         <div>
                           <h4 className="font-bold text-on-surface text-sm group-hover:text-primary transition-colors">
                             {app.university}
@@ -147,7 +147,7 @@ export default function ApplicationsPage() {
                   <tr key={app.id} className="hover:bg-primary/5 transition-colors cursor-pointer group">
                     <td className="px-8 py-6">
                       <div className="flex items-center gap-4">
-                        <img src={app.logo} alt="" className="w-10 h-10 rounded-xl bg-white p-1.5 shadow-sm border border-outline-variant/10" />
+                        <img src={app.logo} alt="" className="w-10 h-10 rounded-xl bg-surface-container p-1.5 shadow-sm border border-outline-variant/10" />
                         <div>
                           <div className="font-bold text-on-surface group-hover:text-primary transition-colors">{app.university}</div>
                           <div className="text-xs text-on-surface-variant">{app.program}</div>
