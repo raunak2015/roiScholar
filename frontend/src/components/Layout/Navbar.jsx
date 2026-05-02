@@ -9,6 +9,7 @@ const navItems = [
   { name: 'Calculator', to: '/calculator' },
   { name: 'ROI Simulator', to: '/roi-simulator' },
   { name: 'Compare', to: '/compare' },
+  { name: 'Scholarships', to: '/scholarships' },
 ];
 
 export default function Navbar() {
