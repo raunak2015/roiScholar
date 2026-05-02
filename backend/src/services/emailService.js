@@ -1,6 +1,15 @@
-const { BrevoClient } = require('@getbrevo/brevo');
+const nodemailer = require('nodemailer');
 
-const brevo = new BrevoClient({ apiKey: process.env.BREVO_API_KEY });
+// Brevo SMTP transporter using the xsmtpsib- key
+const transporter = nodemailer.createTransport({
+  host: 'smtp-relay.brevo.com',
+  port: 587,
+  secure: false,
+  auth: {
+    user: 'a53b64001@smtp-brevo.com',
+    pass: process.env.BREVO_API_KEY,
+  },
+});
 
 const FROM_EMAIL = 'srr0607378@gmail.com';
 const FROM_NAME = 'RoiScholar';
@@ -13,11 +22,11 @@ const FROM_NAME = 'RoiScholar';
  */
 exports.sendApplicationConfirmation = async (to, name, university) => {
   try {
-    const result = await brevo.transactionalEmails.sendTransacEmail({
-      sender: { name: FROM_NAME, email: FROM_EMAIL },
-      to: [{ email: to, name }],
+    const info = await transporter.sendMail({
+      from: `"${FROM_NAME}" <${FROM_EMAIL}>`,
+      to,
       subject: 'Application Received - RoiScholar',
-      htmlContent: `
+      html: `
         <div style="font-family: 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; background: #f8fafc; padding: 32px; border-radius: 12px;">
           <div style="background: linear-gradient(135deg, #6366f1, #8b5cf6); padding: 24px; border-radius: 8px; text-align: center; margin-bottom: 24px;">
             <h1 style="color: white; margin: 0; font-size: 24px;">RoiScholar</h1>
@@ -39,10 +48,10 @@ exports.sendApplicationConfirmation = async (to, name, university) => {
       `,
     });
 
-    console.log('Brevo email sent successfully:', result?.messageId);
-    return { success: true, data: result };
+    console.log('Email sent successfully:', info.messageId);
+    return { success: true, data: info };
   } catch (err) {
-    console.error('Email Send Error:', err?.message || err);
+    console.error('Email Send Error:', err.message);
     return { success: false, error: err.message };
   }
 };
@@ -52,11 +61,11 @@ exports.sendApplicationConfirmation = async (to, name, university) => {
  */
 exports.sendWelcomeEmail = async (to, name) => {
   try {
-    const result = await brevo.transactionalEmails.sendTransacEmail({
-      sender: { name: FROM_NAME, email: FROM_EMAIL },
-      to: [{ email: to, name }],
+    const info = await transporter.sendMail({
+      from: `"${FROM_NAME}" <${FROM_EMAIL}>`,
+      to,
       subject: 'Welcome to RoiScholar!',
-      htmlContent: `
+      html: `
         <div style="font-family: 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; background: #f8fafc; padding: 32px; border-radius: 12px;">
           <div style="background: linear-gradient(135deg, #6366f1, #8b5cf6); padding: 24px; border-radius: 8px; text-align: center; margin-bottom: 24px;">
             <h1 style="color: white; margin: 0; font-size: 24px;">RoiScholar</h1>
@@ -79,10 +88,10 @@ exports.sendWelcomeEmail = async (to, name) => {
       `,
     });
 
-    console.log('Brevo welcome email sent:', result?.messageId);
-    return { success: true, data: result };
+    console.log('Welcome email sent:', info.messageId);
+    return { success: true, data: info };
   } catch (err) {
-    console.error('Welcome Email Error:', err?.message || err);
+    console.error('Welcome Email Error:', err.message);
     return { success: false, error: err.message };
   }
 };

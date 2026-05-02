@@ -15,10 +15,16 @@ const getMe = async () => {
   return response.data;
 };
 
+const updatePassword = async (passwordData) => {
+  const response = await apiClient.put('/auth/updatepassword', passwordData);
+  return response.data;
+};
+
 const authService = {
   register,
   login,
   getMe,
+  updatePassword,
 };
 
 export default authService;

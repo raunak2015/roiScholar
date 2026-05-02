@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import MainNavbar from '../components/Layout/MainNavbar';
@@ -15,6 +16,8 @@ import { submitApplication } from '../services/applicationService';
 export default function ApplicationTracker() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useSelector((state) => state.auth || {});
+  
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -29,16 +32,24 @@ export default function ApplicationTracker() {
     documents: [],
   });
 
+  // Pre-fill from auth user
+  useEffect(() => {
+    if (user) {
+      setFormData(prev => ({
+        ...prev,
+        fullName: prev.fullName || user.name || '',
+        email: prev.email || user.email || ''
+      }));
+    }
+  }, [user]);
+
+  // Pre-fill from navigation state (e.g. from Compare page)
   useEffect(() => {
     if (location.state) {
       setFormData(prev => ({
         ...prev,
         ...location.state
       }));
-      // Optional: Jump to step 2 if university is already selected
-      if (location.state.university) {
-        setCurrentStep(2);
-      }
     }
   }, [location.state]);
 
