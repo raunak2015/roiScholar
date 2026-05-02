@@ -133,10 +133,10 @@ export default function ApplicationTracker() {
     <div className="bg-surface min-h-screen flex flex-col">
       <MainNavbar userName="JD" />
 
-      <main className="max-w-4xl mx-auto px-8 py-16 flex-grow w-full">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16 pb-28 md:pb-12 flex-grow w-full">
         {/* Hero Section */}
         <section className="text-center mb-12">
-          <h1 className="text-5xl font-black tracking-tighter text-on-surface mb-4">
+          <h1 className="text-3xl sm:text-5xl font-black tracking-tighter text-on-surface mb-4">
             Your Academic Journey <span className="text-secondary">Begins Here</span>
           </h1>
           <p className="text-lg text-on-surface-variant max-w-2xl mx-auto">
@@ -148,9 +148,9 @@ export default function ApplicationTracker() {
         <StepProgressBar currentStep={currentStep} steps={steps} />
 
         {/* Form Card */}
-        <div className="bg-surface-container-lowest p-10 md:p-16 rounded-xl shadow-sm border border-outline-variant/10 mb-8">
+        <div className="relative bg-surface-container-lowest p-6 sm:p-10 md:p-16 rounded-xl shadow-sm border border-outline-variant/10 mb-8">
           {/* Auto-save Indicator */}
-          <div className="absolute top-8 right-8 flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full">
+          <div className="mb-6 md:mb-0 md:absolute md:top-8 md:right-8 flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full w-fit ml-auto">
             <span className="w-2 h-2 rounded-full bg-secondary"></span>
             <span className="text-xs font-medium text-on-surface-variant">Your progress is auto-saved</span>
           </div>

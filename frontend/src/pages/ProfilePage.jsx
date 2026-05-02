@@ -37,10 +37,10 @@ export default function ProfilePage() {
     <div className="bg-surface min-h-screen flex flex-col">
       <MainNavbar userName="JD" />
 
-      <main className="max-w-7xl mx-auto px-8 py-12 flex-grow">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 pb-28 md:pb-12 flex-grow">
         {/* Editorial Header */}
         <header className="mb-12">
-          <h1 className="text-[2.75rem] font-extrabold text-on-surface leading-tight tracking-tighter mb-2">
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-on-surface leading-tight tracking-tighter mb-2">
             Settings & Identity
           </h1>
           <p className="text-on-surface-variant text-lg max-w-2xl leading-relaxed">
@@ -92,16 +92,16 @@ export default function ProfilePage() {
               </div>
 
               {/* Action Bar */}
-              <div className="flex items-center justify-end gap-4 pt-8">
+              <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 sm:gap-4 pt-8">
                 <button
                   onClick={handleDiscard}
-                  className="px-6 py-2.5 text-sm font-bold text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all"
+                  className="px-6 py-2.5 text-sm font-bold text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all w-full sm:w-auto"
                 >
                   DISCARD CHANGES
                 </button>
                 <button
                   onClick={handleSave}
-                  className="px-8 py-2.5 bg-gradient-to-r from-primary to-primary-container text-on-primary text-sm font-bold rounded-lg shadow-lg hover:shadow-primary/20 active:scale-95 transition-all tracking-wider uppercase"
+                  className="px-8 py-2.5 bg-gradient-to-r from-primary to-primary-container text-on-primary text-sm font-bold rounded-lg shadow-lg hover:shadow-primary/20 active:scale-95 transition-all tracking-wider uppercase w-full sm:w-auto"
                 >
                   SAVE PREFERENCES
                 </button>

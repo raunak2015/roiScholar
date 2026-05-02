@@ -62,13 +62,13 @@ export default function MultiStepLoanForm({ onCalculate }) {
   };
 
   return (
-    <div className="bg-surface-container-low rounded-3xl p-8 border border-outline-variant/10 shadow-sm lg:col-span-7">
+    <div className="bg-surface-container-low rounded-3xl p-5 sm:p-8 border border-outline-variant/10 shadow-sm lg:col-span-7">
       {/* Stepper */}
-      <div className="flex justify-between mb-12 relative">
+      <div className="flex justify-between mb-10 relative gap-2">
         <div className="absolute top-1/2 left-0 w-full h-0.5 bg-surface-container-highest -translate-y-1/2 z-0"></div>
         {steps.map((step, index) => (
           <div key={step.id} className="relative z-10 flex flex-col items-center">
-            <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 font-bold
+            <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all duration-500 font-bold
               ${index <= activeStep ? 'bg-primary text-on-primary' : 'bg-surface-container-highest text-on-surface-variant'}
               ${index < activeStep ? 'bg-tertiary' : ''}
             `}>
@@ -78,7 +78,7 @@ export default function MultiStepLoanForm({ onCalculate }) {
                 <span className="material-symbols-outlined">{step.icon}</span>
               )}
             </div>
-            <span className={`text-xs mt-2 font-bold uppercase tracking-widest ${index <= activeStep ? 'text-primary' : 'text-on-surface-variant'}`}>
+            <span className={`text-[10px] sm:text-xs mt-2 font-bold uppercase tracking-widest ${index <= activeStep ? 'text-primary' : 'text-on-surface-variant'}`}>
               {step.title}
             </span>
           </div>
@@ -221,12 +221,12 @@ export default function MultiStepLoanForm({ onCalculate }) {
               </div>
             )}
 
-            <div className="pt-8 flex justify-between gap-4 border-t border-outline-variant/10 mt-8">
+            <div className="pt-8 flex justify-between gap-3 sm:gap-4 border-t border-outline-variant/10 mt-8">
               <button
                 type="button"
                 onClick={handleBack}
                 disabled={activeStep === 0}
-                className={`px-8 py-3 rounded-xl font-bold transition-all
+                className={`px-5 sm:px-8 py-3 rounded-xl font-bold transition-all text-sm sm:text-base
                   ${activeStep === 0 ? 'opacity-0 cursor-default' : 'bg-surface-container-high text-on-surface hover:bg-surface-container-highest'}
                 `}
               >
@@ -235,7 +235,7 @@ export default function MultiStepLoanForm({ onCalculate }) {
               <button
                 type="button"
                 onClick={() => handleNext(validateForm, values)}
-                className="px-10 py-3 bg-primary text-on-primary rounded-xl font-bold shadow-lg hover:shadow-xl hover:bg-primary/90 transition-all active:scale-95"
+                className="px-6 sm:px-10 py-3 bg-primary text-on-primary rounded-xl font-bold shadow-lg hover:shadow-xl hover:bg-primary/90 transition-all active:scale-95 text-sm sm:text-base"
               >
                 {activeStep === steps.length - 1 ? 'Calculate ROI' : 'Next Step'}
               </button>

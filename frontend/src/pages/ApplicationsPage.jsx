@@ -48,11 +48,11 @@ export default function ApplicationsPage() {
     <div className="bg-surface min-h-screen flex flex-col">
       <MainNavbar userName="JD" />
 
-      <main className="max-w-7xl mx-auto px-8 py-12 flex-grow w-full">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 pb-28 md:pb-12 flex-grow w-full">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
           <div>
-            <h1 className="text-4xl font-extrabold text-on-surface tracking-tight mb-2">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-on-surface tracking-tight mb-2">
               Application Tracker
             </h1>
             <p className="text-on-surface-variant text-lg">
@@ -127,7 +127,7 @@ export default function ApplicationsPage() {
 
         {/* Detailed List View Section */}
         <section className="bg-surface-container-lowest rounded-3xl border border-outline-variant/10 overflow-hidden shadow-sm">
-          <div className="px-8 py-6 border-b border-outline-variant/10 flex justify-between items-center bg-surface-container-low/30">
+          <div className="px-4 sm:px-8 py-6 border-b border-outline-variant/10 flex justify-between items-center bg-surface-container-low/30">
             <h3 className="font-bold text-on-surface">Application History</h3>
             <button className="text-primary text-sm font-bold hover:underline">View All</button>
           </div>

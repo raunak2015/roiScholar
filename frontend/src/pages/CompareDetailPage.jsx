@@ -83,10 +83,10 @@ export default function CompareDetailPage() {
     <div className="bg-surface min-h-screen flex flex-col">
       <MainNavbar userName="JD" />
 
-      <main className="max-w-7xl mx-auto px-8 py-10 flex-grow">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10 pb-28 md:pb-12 flex-grow">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-extrabold tracking-tight text-on-surface mb-2">
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-on-surface mb-2">
             Compare Universities
           </h1>
           <p className="text-on-surface-variant text-lg">
@@ -128,9 +128,9 @@ export default function CompareDetailPage() {
             <h2 className="text-2xl font-bold text-primary mb-8">Detailed Comparison</h2>
 
             {/* Action Header */}
-            <div className="flex justify-between items-end mb-12">
+            <div className="flex flex-col md:flex-row justify-between md:items-end gap-4 mb-12">
               <div>
-                <h1 className="text-4xl font-extrabold tracking-tight text-on-surface mb-2">
+                <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-on-surface mb-2">
                   {universities
                     .filter((u) => selectedIds.includes(u.id))
                     .map((u) => u.name)

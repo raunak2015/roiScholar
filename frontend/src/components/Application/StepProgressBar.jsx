@@ -3,18 +3,18 @@ export default function StepProgressBar({ currentStep, steps }) {
 
   return (
     <div className="mb-12">
-      <div className="flex justify-between mb-6">
+      <div className="flex justify-between mb-6 gap-2">
         {steps.map((step) => (
           <div key={step.number} className={`flex flex-col ${step.number === steps.length ? 'items-end' : 'items-start'}`}>
             <span
-              className={`text-xs font-bold uppercase tracking-widest mb-1 ${
+              className={`text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-1 ${
                 currentStep >= step.number ? 'text-secondary' : 'text-on-surface-variant'
               }`}
             >
               Step {String(step.number).padStart(2, '0')}
             </span>
             <span
-              className={`font-semibold ${
+              className={`text-xs sm:text-base font-semibold ${
                 currentStep >= step.number ? 'text-on-surface' : 'text-on-surface-variant opacity-40'
               }`}
             >

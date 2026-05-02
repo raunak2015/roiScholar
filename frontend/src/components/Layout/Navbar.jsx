@@ -29,10 +29,18 @@ export default function Navbar() {
     navigate('/login');
   };
 
+  const mobileTabs = [
+    { name: 'Dashboard', to: '/dashboard', icon: 'dashboard' },
+    { name: 'Calculator', to: '/calculator', icon: 'calculate' },
+    { name: 'ROI', to: '/roi-simulator', icon: 'trending_up' },
+    { name: 'Compare', to: '/compare', icon: 'compare_arrows' },
+    { name: 'Profile', to: '/profile', icon: 'person' },
+  ];
+
   return (
     <header className="sticky top-0 w-full z-50 bg-surface shadow-sm border-b border-outline-variant/10">
-      <div className="max-w-7xl mx-auto px-8 flex justify-between items-center h-20">
-        <Link to="/dashboard" className="text-xl font-black tracking-tighter text-primary">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16 md:h-20">
+        <Link to="/dashboard" className="text-lg md:text-xl font-black tracking-tighter text-primary">
           RoiScholar
         </Link>
 
@@ -54,18 +62,18 @@ export default function Navbar() {
           })}
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
           <button
             className="p-2 rounded-full hover:bg-surface-container-high active:scale-95 transition-transform"
             type="button"
           >
-            <span className="material-symbols-outlined text-primary">notifications</span>
+            <span className="material-symbols-outlined text-primary text-[20px] md:text-[24px]">notifications</span>
           </button>
           <button
-            className="p-2 rounded-full hover:bg-surface-container-high active:scale-95 transition-transform"
+            className="hidden sm:inline-flex p-2 rounded-full hover:bg-surface-container-high active:scale-95 transition-transform"
             type="button"
           >
-            <span className="material-symbols-outlined text-primary">help_outline</span>
+            <span className="material-symbols-outlined text-primary text-[20px] md:text-[24px]">help_outline</span>
           </button>
 
           <div className="hidden lg:flex items-center gap-3">
@@ -82,7 +90,7 @@ export default function Navbar() {
               </Link>
               <button
                 onClick={handleLogout}
-                className="text-sm font-bold text-error hover:bg-error/10 px-3 py-1.5 rounded-lg transition-colors"
+                className="hidden md:inline-flex text-sm font-bold text-error hover:bg-error/10 px-3 py-1.5 rounded-lg transition-colors"
               >
                 Logout
               </button>
@@ -99,6 +107,30 @@ export default function Navbar() {
           )}
         </div>
       </div>
+
+      {isAuthenticated && (
+        <nav className="md:hidden fixed bottom-0 inset-x-0 z-50 border-t border-outline-variant/20 bg-surface/95 backdrop-blur-md px-2 py-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+          <div className="grid grid-cols-5 gap-1">
+            {mobileTabs.map((item) => {
+              const isActive = location.pathname === item.to;
+              return (
+                <Link
+                  key={item.name}
+                  to={item.to}
+                  className={`flex flex-col items-center justify-center gap-1 rounded-xl py-2 text-[11px] font-semibold transition-colors ${
+                    isActive
+                      ? 'bg-primary text-on-primary shadow-sm'
+                      : 'text-on-surface-variant hover:bg-surface-container-high'
+                  }`}
+                >
+                  <span className="material-symbols-outlined text-[18px]">{item.icon}</span>
+                  <span className="leading-none">{item.name}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </nav>
+      )}
     </header>
   );
 }

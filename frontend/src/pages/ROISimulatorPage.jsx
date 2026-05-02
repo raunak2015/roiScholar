@@ -50,10 +50,10 @@ export default function ROISimulatorPage() {
     <div className="min-h-screen bg-surface flex flex-col font-['Inter']">
       <MainNavbar />
 
-      <main className="flex-1 max-w-7xl mx-auto px-8 py-12 w-full">
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 pb-28 md:pb-12 w-full">
         {/* Header Section */}
         <header className="mb-10">
-          <h1 className="text-[2.75rem] font-black tracking-tight text-on-surface mb-2">
+          <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-on-surface mb-2">
             ROI Simulator
           </h1>
           <p className="text-on-surface-variant text-base max-w-2xl font-medium">
@@ -85,7 +85,7 @@ export default function ROISimulatorPage() {
       </main>
 
       <footer className="w-full border-t border-outline-variant/10 bg-surface mt-16">
-        <div className="max-w-7xl mx-auto px-8 py-12 flex flex-col md:flex-row justify-between items-start gap-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row justify-between items-start gap-12">
           <div className="space-y-4">
             <div className="text-xl font-black text-primary">RoiScholar</div>
             <div className="text-on-surface-variant text-xs font-medium leading-relaxed max-w-[240px]">
