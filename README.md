@@ -39,55 +39,192 @@ ROIScholar is a transparent, data-driven platform that helps STEM students under
 ROIScholar/
 ├── backend/
 │   ├── src/
-│   │   ├── config/             # DB, Passport, and Redis configurations
+│   │   ├── config/
 │   │   │   ├── database.js
 │   │   │   ├── passport.js
 │   │   │   └── redis.js
-│   │   ├── controllers/        # Business logic for all modules
+│   │   ├── controllers/
+│   │   │   ├── applicationController.js
 │   │   │   ├── authController.js
 │   │   │   ├── loanController.js
-│   │   │   ├── universityController.js
-│   │   │   └── applicationController.js
-│   │   ├── middleware/         # Security and validation layers
+│   │   │   ├── roiController.js
+│   │   │   ├── scholarshipController.js
+│   │   │   └── universityController.js
+│   │   ├── middleware/
 │   │   │   ├── auth.middleware.js
-│   │   │   └── upload.middleware.js
-│   │   ├── models/             # Mongoose Schemas
-│   │   │   ├── User.model.js
-│   │   │   └── Application.model.js
-│   │   ├── routes/             # API Endpoint definitions
+│   │   │   ├── error.middleware.js
+│   │   │   ├── rateLimiter.js
+│   │   │   ├── upload.middleware.js
+│   │   │   └── validation.middleware.js
+│   │   ├── models/
+│   │   │   ├── Application.model.js
+│   │   │   ├── Loan.model.js
+│   │   │   ├── SalaryData.model.js
+│   │   │   ├── Scholarship.model.js
+│   │   │   ├── University.model.js
+│   │   │   └── User.model.js
+│   │   ├── routes/
+│   │   │   ├── application.routes.js
 │   │   │   ├── auth.routes.js
+│   │   │   ├── loan.routes.js
+│   │   │   ├── roi.routes.js
+│   │   │   ├── scenario.routes.js
+│   │   │   ├── scholarship.routes.js
 │   │   │   └── university.routes.js
-│   │   ├── services/           # External integrations (Brevo, etc.)
-│   │   │   └── emailService.js
-│   │   ├── seed/               # Data population scripts
-│   │   │   ├── scholarshipData.js
-│   │   │   └── salaryData.js
-│   │   └── app.js              # Express app setup
-│   ├── server.js               # Entry point
-│   └── .env                    # Production secrets
+│   │   ├── services/
+│   │   │   ├── calculatorService.js
+│   │   │   ├── emailService.js
+│   │   │   ├── exchangeRateService.js
+│   │   │   └── salaryService.js
+│   │   ├── utils/
+│   │   │   ├── constants.js
+│   │   │   ├── helpers.js
+│   │   │   ├── logger.js
+│   │   │   ├── seed.js
+│   │   │   └── validators.js
+│   │   ├── validations/
+│   │   │   ├── application.validation.js
+│   │   │   ├── loan.validation.js
+│   │   │   └── user.validation.js
+│   │   ├── seed/
+│   │   │   ├── salaryData.js
+│   │   │   └── scholarshipData.js
+│   │   └── app.js
+│   ├── .env
+│   ├── .env.example
+│   ├── .eslintrc.js
+│   ├── package.json
+│   ├── render.md
+│   └── server.js
 ├── frontend/
+│   ├── public/
+│   │   ├── favicon.ico
+│   │   ├── index.html
+│   │   ├── logo.png
+│   │   └── robots.txt
 │   ├── src/
-│   │   ├── components/         # Reusable UI components
-│   │   │   ├── Calculator/     # Loan calculation forms
-│   │   │   ├── University/     # Cards and lists
-│   │   │   ├── Compare/        # Side-by-side tables
-│   │   │   └── Layout/         # Navbar, Footer, Sidebar
-│   │   ├── features/           # Redux state slices
-│   │   ├── pages/              # Main view containers
+│   │   ├── assets/
+│   │   │   ├── fonts/
+│   │   │   ├── icons/
+│   │   │   └── images/
+│   │   ├── components/
+│   │   │   ├── Application/
+│   │   │   │   ├── MultiStepForm.jsx
+│   │   │   │   ├── ProgressBar.jsx
+│   │   │   │   ├── Step1Personal.jsx
+│   │   │   │   ├── Step2University.jsx
+│   │   │   │   ├── Step3Loan.jsx
+│   │   │   │   └── Step4Documents.jsx
+│   │   │   ├── Calculator/
+│   │   │   │   ├── AmortizationTable.jsx
+│   │   │   │   ├── InterestChart.jsx
+│   │   │   │   ├── LoanCalculator.jsx
+│   │   │   │   ├── LoanSummaryCard.jsx
+│   │   │   │   └── MultiStepLoanForm.jsx
+│   │   │   ├── Compare/
+│   │   │   │   ├── ComparisonTable.jsx
+│   │   │   │   ├── CompareTable.jsx
+│   │   │   │   ├── CostBreakdown.jsx
+│   │   │   │   ├── FilterBar.jsx
+│   │   │   │   ├── UniversityCard.jsx
+│   │   │   │   └── UniversitySelectionBar.jsx
+│   │   │   ├── Layout/
+│   │   │   │   ├── Footer.jsx
+│   │   │   │   ├── Layout.jsx
+│   │   │   │   ├── Navbar.jsx
+│   │   │   │   └── Sidebar.jsx
+│   │   │   ├── ROI/
+│   │   │   │   ├── BreakEvenChart.jsx
+│   │   │   │   ├── ROIMetrics.jsx
+│   │   │   │   ├── ROISimulator.jsx
+│   │   │   │   └── SalaryInput.jsx
+│   │   │   ├── UI/
+│   │   │   │   ├── Button.jsx
+│   │   │   │   ├── Card.jsx
+│   │   │   │   ├── CurrencyToggle.jsx
+│   │   │   │   ├── Input.jsx
+│   │   │   │   ├── Loader.jsx
+│   │   │   │   ├── Modal.jsx
+│   │   │   │   ├── Toast.jsx
+│   │   │   │   └── Tooltip.jsx
+│   │   │   └── University/
+│   │   │       ├── UniversityCard.jsx
+│   │   │       ├── UniversityDetails.jsx
+│   │   │       └── UniversityGrid.jsx
+│   │   ├── features/
+│   │   │   ├── auth/
+│   │   │   │   ├── authAPI.js
+│   │   │   │   └── authSlice.js
+│   │   │   ├── loan/
+│   │   │   │   ├── loanSlice.js
+│   │   │   │   └── loanUtils.js
+│   │   │   ├── roi/
+│   │   │   │   ├── roiSlice.js
+│   │   │   │   └── salaryData.js
+│   │   │   ├── university/
+│   │   │   │   ├── universityData.js
+│   │   │   │   └── universitySlice.js
+│   │   │   └── ui/
+│   │   │       └── uiSlice.js
+│   │   ├── hooks/
+│   │   │   ├── useAuth.js
+│   │   │   ├── useDebounce.js
+│   │   │   ├── useLoanCalculator.js
+│   │   │   ├── useLocalStorage.js
+│   │   │   ├── useROISimulator.js
+│   │   │   └── useTheme.js
+│   │   ├── pages/
+│   │   │   ├── ApplicationTracker.jsx
+│   │   │   ├── CalculatorPage.jsx
+│   │   │   ├── CompareUniversities.jsx
+│   │   │   ├── Dashboard.jsx
 │   │   │   ├── LandingPage.jsx
+│   │   │   ├── LoginPage.jsx
+│   │   │   ├── NotFoundPage.jsx
 │   │   │   ├── ProfilePage.jsx
-│   │   │   └── ApplicationTracker.jsx
-│   │   ├── services/           # Axios API instances
+│   │   │   ├── RegisterPage.jsx
+│   │   │   ├── ROISimulatorPage.jsx
+│   │   │   └── ScholarshipsPage.jsx
+│   │   ├── services/
 │   │   │   ├── api.js
-│   │   │   └── authService.js
-│   │   ├── styles/             # Global CSS and Tailwind configs
-│   │   ├── utils/              # Calculation logic & formatters
-│   │   ├── App.jsx             # Main routing
-│   │   └── main.jsx            # React entry
-│   ├── public/                 # Static branding assets
-│   ├── .env                    # Frontend environment vars
-│   └── vite.config.js          # Build tool config
-└── README.md                   # Project documentation
+│   │   │   ├── applicationService.js
+│   │   │   ├── authService.js
+│   │   │   ├── currencyService.js
+│   │   │   ├── loanService.js
+│   │   │   ├── scholarshipService.js
+│   │   │   ├── storage.js
+│   │   │   ├── universityHelpers.js
+│   │   │   └── universityService.js
+│   │   ├── styles/
+│   │   │   ├── globals.css
+│   │   │   ├── tailwind.css
+│   │   │   └── themes.css
+│   │   ├── utils/
+│   │   │   ├── calculators.js
+│   │   │   ├── constants.js
+│   │   │   ├── formatters.js
+│   │   │   ├── validation.js
+│   │   │   └── validators.js
+│   │   ├── App.jsx
+│   │   ├── AppRoutes.jsx
+│   │   ├── main.jsx
+│   │   └── store.js
+│   ├── .env
+│   ├── .env.example
+│   ├── .eslintrc.js
+│   ├── .prettierrc
+│   ├── index.html
+│   ├── package.json
+│   ├── vite.config.js
+│   └── README.md
+├── .dockerignore
+├── .env.example
+├── .gitignore
+├── docker-compose.yml
+├── Dockerfile
+├── LICENSE
+├── package.json
+└── README.md
 ```
 
 ## 🚀 Tech Stack
