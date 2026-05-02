@@ -2,7 +2,7 @@
 
 Clear Costs. Real ROI. Smart STEM Decisions.
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/yourusername/ROIScholar)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/raunak2015/roiScholar)
 [![React](https://img.shields.io/badge/React-18.2-61DAFB)](https://reactjs.org/)
 [![Node](https://img.shields.io/badge/Node-20.x-339933)](https://nodejs.org/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
@@ -293,8 +293,8 @@ ROIScholar/
 ### 📥 Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/ROIScholar.git
-cd ROIScholar
+git clone https://github.com/raunak2015/roiScholar.git
+cd roiScholar
 ```
 
 ### 🔧 Backend Setup
@@ -509,6 +509,7 @@ vercel --prod
 
 ### ☁️ Backend on Render
 
+- Backend URL: [https://roischolar-backend.onrender.com](https://roischolar-backend.onrender.com)
 - Create render service configuration.
 - Connect repository to Render.
 - Enable deploy on push to main.
@@ -612,9 +613,12 @@ Distributed under the MIT License. See LICENSE for details.
 
 ## 📞 Contact and Support
 
-- Project: https://github.com/yourusername/ROIScholar
-- Demo: https://roischolar.vercel.app
-- Issues: GitHub Issues
+- Project: [https://github.com/raunak2015/roiScholar](https://github.com/raunak2015/roiScholar)
+- Demo: [https://roischolar.vercel.app](https://roischolar.vercel.app)
+- Backend API: [https://roischolar-backend.onrender.com](https://roischolar-backend.onrender.com)
+- Video Demo: [https://youtu.be/eNbowG9-8i4](https://youtu.be/eNbowG9-8i4)
+- Figma Design: [Figma Link](https://www.figma.com/design/FfDPR7pyW3JzwM4EeRB9Ch/Untitled?node-id=0-1&t=BNkbnL1AY3UULrNq-1)
+- Issues: [GitHub Issues](https://github.com/raunak2015/roiScholar/issues)
 - Email: support@roischolar.com
 
 ## 🎯 Roadmap
