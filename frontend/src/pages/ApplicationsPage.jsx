@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MainNavbar from '../components/Layout/MainNavbar';
 import Footer from '../components/Layout/Footer';
 
@@ -40,6 +41,7 @@ const INITIAL_APPLICATIONS = [
 ];
 
 export default function ApplicationsPage() {
+  const navigate = useNavigate();
   const [applications, setApplications] = useState(INITIAL_APPLICATIONS);
 
   const getStatusLabel = (statusId) => APPLICATION_STATUSES.find(s => s.id === statusId);
@@ -59,7 +61,10 @@ export default function ApplicationsPage() {
               Manage your university applications and track their ROI status in real-time.
             </p>
           </div>
-          <button className="flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-2xl font-bold shadow-lg hover:bg-primary/90 transition-all active:scale-95">
+          <button 
+            onClick={() => navigate('/apply-now')}
+            className="flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-2xl font-bold shadow-lg hover:bg-primary/90 transition-all active:scale-95"
+          >
             <span className="material-symbols-outlined">add</span>
             Add New Application
           </button>
