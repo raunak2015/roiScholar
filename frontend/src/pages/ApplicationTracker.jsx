@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import MainNavbar from '../components/Layout/MainNavbar';
 import Footer from '../components/Layout/Footer';
@@ -10,10 +10,13 @@ import LoanEstimateStep from '../components/Application/LoanEstimateStep';
 import DocumentUploadStep from '../components/Application/DocumentUploadStep';
 import ApplicationFormFooter from '../components/Application/ApplicationFormFooter';
 import ContextualSection from '../components/Application/ContextualSection';
+import { submitApplication } from '../services/applicationService';
 
 export default function ApplicationTracker() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [currentStep, setCurrentStep] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -25,6 +28,19 @@ export default function ApplicationTracker() {
     loanTerm: '',
     documents: [],
   });
+
+  useEffect(() => {
+    if (location.state) {
+      setFormData(prev => ({
+        ...prev,
+        ...location.state
+      }));
+      // Optional: Jump to step 2 if university is already selected
+      if (location.state.university) {
+        setCurrentStep(2);
+      }
+    }
+  }, [location.state]);
 
   const steps = [
     { number: 1, label: 'Personal' },
@@ -80,31 +96,37 @@ export default function ApplicationTracker() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     try {
-      console.log('Application submitted:', formData);
+      setLoading(true);
+      console.log('Submitting application:', formData);
       
-      // Reset form state
-      setFormData({
-        fullName: '',
-        email: '',
-        phone: '',
-        educationLevel: '',
-        university: '',
-        program: '',
-        loanAmount: '',
-        loanTerm: '',
-        documents: [],
-      });
+      const response = await submitApplication(formData);
+      
+      if (response.success) {
+        toast.success('Application submitted successfully! Check your email for confirmation.');
+        
+        // Reset form state
+        setFormData({
+          fullName: '',
+          email: '',
+          phone: '',
+          educationLevel: '',
+          university: '',
+          program: '',
+          loanAmount: '',
+          loanTerm: '',
+          documents: [],
+        });
 
-      toast.success('Application submitted successfully.');
-
-      // Navigate to dashboard
-      navigate('/dashboard', { replace: false });
+        // Navigate to dashboard
+        navigate('/dashboard', { replace: false });
+      }
     } catch (error) {
       console.error('Error submitting application:', error);
-      toast.error('Unable to submit application. Please try again.');
-      navigate('/dashboard', { replace: false });
+      toast.error(error?.response?.data?.message || 'Unable to submit application. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -166,6 +188,7 @@ export default function ApplicationTracker() {
             onNext={handleNextStep}
             onSubmit={handleSubmit}
             onBack={() => navigate('/dashboard')}
+            loading={loading}
           />
         </div>
 

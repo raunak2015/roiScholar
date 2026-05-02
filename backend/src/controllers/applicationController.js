@@ -18,6 +18,12 @@ exports.submitApplication = async (req, res) => {
       loanTerm,
     } = req.body;
 
+    // Map uploaded files to document objects
+    const documents = req.files ? req.files.map(file => ({
+      name: file.originalname,
+      url: `/uploads/${file.filename}`
+    })) : [];
+
     const application = await Application.create({
       userId,
       fullName,
@@ -28,6 +34,7 @@ exports.submitApplication = async (req, res) => {
       program,
       loanAmount,
       loanTerm,
+      documents
     });
 
     if (application) {

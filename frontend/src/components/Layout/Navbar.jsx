@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from '../../features/auth/authSlice';
 import ThemeToggle from '../UI/ThemeToggle';
+import CurrencyToggle from '../UI/CurrencyToggle';
 
 const navItems = [
   { name: 'Dashboard', to: '/dashboard' },
@@ -77,6 +78,7 @@ export default function Navbar() {
           </button>
 
           <div className="hidden lg:flex items-center gap-3">
+            <CurrencyToggle />
             <ThemeToggle />
           </div>
 

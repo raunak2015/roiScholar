@@ -13,7 +13,7 @@ const currencySlice = createSlice({
   name: 'currency',
   initialState: {
     baseCurrency: 'USD',
-    targetCurrency: 'INR',
+    targetCurrency: 'USD',
     rates: {
       USD: 1,
       INR: 83.5,

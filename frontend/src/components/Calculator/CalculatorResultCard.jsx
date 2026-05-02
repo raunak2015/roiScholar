@@ -9,8 +9,7 @@ export default function CalculatorResultCard({ calculatorData = {}, loanResults 
   const savedScenarios = useSelector((state) => state.loan?.savedScenarios || []);
   const { format } = useCurrency();
   
-  const { monthlyPayment = 0, totalInterest = 0, totalRepayment = 0 } = loanResults;
-  const { principal = 0 } = calculatorData;
+  const { monthlyPayment = 0, totalInterest = 0, totalRepayment = 0, principal = 0 } = loanResults;
 
   const handleApplyForRate = () => {
     // Redirect to application or loan form

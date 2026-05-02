@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, useFormikContext } from 'formik';
+import { useEffect } from 'react';
 import * as Yup from 'yup';
 import { useCurrency } from '../../hooks/useCurrency';
 
@@ -27,9 +28,33 @@ const validationSchema = [
   }),
 ];
 
+const CurrencySync = ({ rate, code, prevCode, setPrevCode }) => {
+  const { values, setValues } = useFormikContext();
+
+  useEffect(() => {
+    if (code !== prevCode) {
+      // Conversion logic
+      const factor = code === 'INR' ? 83.5 : (1 / 83.5);
+      
+      setValues({
+        ...values,
+        tuitionPerYear: Math.round(values.tuitionPerYear * factor),
+        livingMonthly: Math.round(values.livingMonthly * factor),
+        insurance: Math.round(values.insurance * factor),
+        misc: Math.round(values.misc * factor),
+        loanAmount: Math.round(values.loanAmount * factor),
+      });
+      setPrevCode(code);
+    }
+  }, [code, prevCode, values, setValues, setPrevCode]);
+
+  return null;
+};
+
 export default function MultiStepLoanForm({ onCalculate }) {
   const [activeStep, setActiveStep] = useState(0);
-  const { symbol, format } = useCurrency();
+  const { symbol, format, rate, code } = useCurrency();
+  const [prevCode, setPrevCode] = useState(code);
 
   const initialValues = {
     university: '',
@@ -45,10 +70,15 @@ export default function MultiStepLoanForm({ onCalculate }) {
     gracePeriod: 6, // months
   };
 
-  const handleNext = (validateForm, values) => {
+  const handleNext = (validateForm, values, setFieldValue) => {
     validateForm().then((errors) => {
       if (Object.keys(errors).length === 0) {
         if (activeStep < steps.length - 1) {
+          // If moving from Budget (step 1) to Loan (step 2), pre-fill loanAmount
+          if (activeStep === 1) {
+            const totalEstimated = (values.tuitionPerYear * values.duration) + (values.livingMonthly * 12 * values.duration) + Number(values.insurance) + Number(values.misc);
+            setFieldValue('loanAmount', Math.round(totalEstimated));
+          }
           setActiveStep(activeStep + 1);
         } else {
           onCalculate(values);
@@ -90,8 +120,9 @@ export default function MultiStepLoanForm({ onCalculate }) {
         validationSchema={validationSchema[activeStep]}
         onSubmit={(values) => onCalculate(values)}
       >
-        {({ values, validateForm, errors, touched }) => (
+        {({ values, validateForm, errors, touched, setFieldValue }) => (
           <Form className="space-y-6">
+            <CurrencySync rate={rate} code={code} prevCode={prevCode} setPrevCode={setPrevCode} />
             {activeStep === 0 && (
               <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
                 <h3 className="text-xl font-bold text-on-surface mb-6">Program Details</h3>
@@ -176,7 +207,7 @@ export default function MultiStepLoanForm({ onCalculate }) {
                 <div className="p-4 bg-primary/5 rounded-2xl border border-primary/10 flex justify-between items-center">
                   <span className="font-bold text-on-surface">Total Cost Estimated:</span>
                   <span className="text-2xl font-extrabold text-primary">
-                    {format(((values.tuitionPerYear * values.duration) + (values.livingMonthly * 12 * values.duration) + Number(values.insurance) + Number(values.misc)))}
+                    {symbol}{Math.round(((values.tuitionPerYear * values.duration) + (values.livingMonthly * 12 * values.duration) + Number(values.insurance) + Number(values.misc))).toLocaleString()}
                   </span>
                 </div>
               </div>
@@ -234,7 +265,7 @@ export default function MultiStepLoanForm({ onCalculate }) {
               </button>
               <button
                 type="button"
-                onClick={() => handleNext(validateForm, values)}
+                onClick={() => handleNext(validateForm, values, setFieldValue)}
                 className="px-6 sm:px-10 py-3 bg-primary text-on-primary rounded-xl font-bold shadow-lg hover:shadow-xl hover:bg-primary/90 transition-all active:scale-95 text-sm sm:text-base"
               >
                 {activeStep === steps.length - 1 ? 'Calculate ROI' : 'Next Step'}

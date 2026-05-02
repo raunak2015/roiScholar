@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import { useCurrency } from '../../hooks/useCurrency';
 
 export default function ComparisonTable({ universities = [], selected = [], onSelect = () => {} }) {
+  const navigate = useNavigate();
   const { format } = useCurrency();
 
   const toggleSelect = (id) => {
@@ -30,6 +32,7 @@ export default function ComparisonTable({ universities = [], selected = [], onSe
             <th className="px-6 py-4 text-right font-bold text-primary">Starting Salary</th>
             <th className="px-6 py-4 text-right font-bold text-primary">Break-even</th>
             <th className="px-6 py-4 text-right font-bold text-primary">10-Year ROI</th>
+            <th className="px-6 py-4 text-right font-bold text-primary">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -81,6 +84,23 @@ export default function ComparisonTable({ universities = [], selected = [], onSe
               </td>
               <td className="px-6 py-4 text-right font-semibold text-tertiary">
                 {uni.roi?.tenYearProjection ? format(uni.roi.tenYearProjection, { compact: true }) : 'N/A'}
+              </td>
+              <td className="px-6 py-4 text-right">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate('/apply-now', {
+                      state: {
+                        university: uni.name,
+                        program: uni.program,
+                        loanAmount: uni.totalCost,
+                      },
+                    });
+                  }}
+                  className="bg-secondary text-on-secondary px-4 py-2 rounded-lg text-xs font-bold hover:bg-secondary/90 transition-all active:scale-95"
+                >
+                  Apply
+                </button>
               </td>
             </tr>
           ))}
