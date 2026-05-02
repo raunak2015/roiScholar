@@ -23,8 +23,8 @@ export default function RegionalDefaults({
   ];
 
   return (
-    <div className="bg-surface-container-lowest rounded-xl p-8 shadow-[0_4px_24px_rgba(0,35,111,0.04)]">
-      <div className="flex items-center justify-between mb-8">
+    <div className="bg-surface-container-lowest rounded-xl p-5 sm:p-8 shadow-[0_4px_24px_rgba(0,35,111,0.04)]">
+      <div className="flex items-center justify-between mb-6 sm:mb-8">
         <div>
           <h2 className="text-xl font-bold text-on-surface tracking-tight">
             Regional & Educational Defaults
@@ -33,12 +33,12 @@ export default function RegionalDefaults({
             Set your default search parameters and preferred currency.
           </p>
         </div>
-        <span className="material-symbols-outlined text-secondary opacity-40 text-4xl">
+        <span className="material-symbols-outlined text-secondary opacity-40 text-3xl sm:text-4xl">
           travel_explore
         </span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-end">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8 items-end">
         {/* Target Country */}
         <div className="space-y-2">
           <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">

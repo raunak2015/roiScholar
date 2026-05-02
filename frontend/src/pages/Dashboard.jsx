@@ -16,7 +16,7 @@ const Dashboard = () => {
         <div className="bg-surface text-on-surface min-h-screen flex flex-col font-['Inter']">
           <MainNavbar userName={userName} />
 
-          <main className="max-w-7xl mx-auto px-8 py-12 flex-grow">
+          <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 pb-28 md:pb-12 flex-grow">
             <DashboardWelcome userName={userName} />
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">

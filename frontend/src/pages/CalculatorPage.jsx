@@ -37,9 +37,9 @@ export default function CalculatorPage() {
     <div className="min-h-screen bg-surface flex flex-col">
       <MainNavbar />
 
-      <main className="flex-1 max-w-7xl mx-auto px-8 py-12 w-full">
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 pb-28 md:pb-12 w-full">
         <header className="mb-12">
-          <h1 className="text-[2.75rem] font-extrabold text-on-surface tracking-tight leading-none">
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-on-surface tracking-tight leading-none">
             Loan Architect
           </h1>
           <p className="text-on-surface-variant text-lg mt-4 max-w-2xl">
@@ -55,7 +55,7 @@ export default function CalculatorPage() {
       </main>
 
       <footer className="w-full border-t border-surface-container mt-16 bg-surface">
-        <div className="max-w-7xl mx-auto px-8 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-lg font-bold text-primary">RoiScholar</div>
           <div className="flex flex-wrap justify-center gap-8">
             <button className="text-sm text-on-surface-variant hover:text-primary transition-colors">

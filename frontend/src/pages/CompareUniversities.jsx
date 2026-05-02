@@ -95,9 +95,9 @@ export default function CompareUniversities() {
     <div className="bg-surface min-h-screen flex flex-col">
       <MainNavbar userName="JD" />
 
-      <main className="max-w-7xl mx-auto px-8 py-10 flex-grow">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10 pb-28 md:pb-12 flex-grow">
         <div className={`${filteredUniversities.length > 0 ? 'mb-10' : 'mb-6'} transition-all duration-300`}>
-          <h1 className="text-4xl font-extrabold tracking-tight text-on-surface mb-2">
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-on-surface mb-2">
             Compare Universities
           </h1>
           <p className="text-on-surface-variant text-lg">
@@ -183,11 +183,13 @@ export default function CompareUniversities() {
               </p>
             </div>
 
-            <ComparisonTable
-              universities={filteredUniversities}
-              selected={selectedUniversities}
-              onSelect={(ids) => dispatch(setSelectedUniversities(ids))}
-            />
+            <div className="hidden md:block">
+              <ComparisonTable
+                universities={filteredUniversities}
+                selected={selectedUniversities}
+                onSelect={(ids) => dispatch(setSelectedUniversities(ids))}
+              />
+            </div>
 
             <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12">
               {filteredUniversities.map((uni) => (
@@ -257,9 +259,9 @@ export default function CompareUniversities() {
               ))}
             </div>
 
-            <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-bottom-10 duration-500">
-              <div className="bg-surface-container-high/90 backdrop-blur-md p-4 rounded-3xl shadow-2xl border border-outline-variant/20 flex items-center gap-6">
-                <div className="flex items-center gap-3 px-4">
+            <div className="fixed bottom-24 md:bottom-10 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-bottom-10 duration-500 w-[calc(100%-1.5rem)] sm:w-auto">
+              <div className="bg-surface-container-high/90 backdrop-blur-md p-3 sm:p-4 rounded-3xl shadow-2xl border border-outline-variant/20 flex items-center gap-3 sm:gap-6 w-full sm:w-auto justify-between">
+                <div className="flex items-center gap-3 px-1 sm:px-4">
                   <div className="flex -space-x-3 overflow-hidden">
                     {selectedUniversities.slice(0, 3).map((id) => {
                       const uni = universities.find(u => u.id === id);
@@ -282,17 +284,17 @@ export default function CompareUniversities() {
                     <p className="text-xs text-on-surface-variant mt-1">Ready to compare</p>
                   </div>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 shrink-0">
                   <button
                     onClick={() => dispatch(setSelectedUniversities([]))}
-                    className="px-6 py-3 bg-surface-container text-on-surface rounded-2xl font-bold hover:bg-surface-container-highest transition-all"
+                    className="px-4 sm:px-6 py-2.5 sm:py-3 bg-surface-container text-on-surface rounded-2xl font-bold hover:bg-surface-container-highest transition-all text-sm"
                   >
                     Clear
                   </button>
                   <button
                     onClick={handleCompare}
                     disabled={selectedUniversities.length < 2}
-                    className={`px-8 py-3 rounded-2xl font-bold shadow-lg transition-all ${selectedUniversities.length >= 2
+                    className={`px-5 sm:px-8 py-2.5 sm:py-3 rounded-2xl font-bold shadow-lg transition-all text-sm ${selectedUniversities.length >= 2
                       ? 'bg-primary text-on-primary hover:scale-105 active:scale-95'
                       : 'bg-primary/50 text-on-primary/50 cursor-not-allowed'
                       }`}
