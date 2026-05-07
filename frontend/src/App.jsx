@@ -6,7 +6,7 @@ import ReactGA from 'react-ga4';
 import { ToastContainer } from 'react-toastify';
 import AppRoutes from './AppRoutes';
 import AppErrorBoundary from './components/UI/AppErrorBoundary';
-
+import { getRouteMetadata, PAGE_METADATA, generateOrganizationSchema, generateApplicationSchema } from './utils/seoHelpers';
 
 const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
 
@@ -14,44 +14,14 @@ if (GA_MEASUREMENT_ID) {
   ReactGA.initialize(GA_MEASUREMENT_ID);
 }
 
-const routeMeta = {
-  default: {
-    title: 'RoiScholar',
-    description: 'Compare universities, calculate loan ROI, and plan your STEM career with RoiScholar.',
-  },
-  '/': {
-    title: 'RoiScholar | Plan Your STEM Future',
-    description: 'Make data-driven education decisions with ROI projections and loan insights for STEM programs.',
-  },
-  '/calculator': {
-    title: 'Loan Calculator | RoiScholar',
-    description: 'Estimate monthly payments, interest, and repayment totals for your education loan.',
-  },
-  '/roi-simulator': {
-    title: 'ROI Simulator | RoiScholar',
-    description: 'Project your career earnings and find the break-even point for your STEM degree investment.',
-  },
-  '/compare': {
-    title: 'Compare Universities | RoiScholar',
-    description: 'Compare tuition, ROI, and outcomes across top STEM programs worldwide.',
-  },
-  '/applications': {
-    title: 'Application Tracker | RoiScholar',
-    description: 'Track your application progress and manage documents in one place.',
-  },
-  '/dashboard': {
-    title: 'Dashboard | RoiScholar',
-    description: 'Monitor your saved scenarios, application status, and financial insights.',
-  },
-  '/scholarships': {
-    title: 'Scholarship Finder | RoiScholar',
-    description: 'Discover fully-funded grants and STEM-specific scholarships to reduce your total education loan.',
-  },
-};
-
+/**
+ * Enhanced RouteMeta component with comprehensive SEO support
+ * Manages dynamic metadata, structured data, and analytics for each route
+ */
 const RouteMeta = () => {
   const location = useLocation();
-  const meta = routeMeta[location.pathname] || routeMeta.default;
+  const metadata = getRouteMetadata(location.pathname);
+  const pageData = PAGE_METADATA[location.pathname];
 
   React.useEffect(() => {
     if (!GA_MEASUREMENT_ID) return;
@@ -59,14 +29,54 @@ const RouteMeta = () => {
     ReactGA.send({
       hitType: 'pageview',
       page: `${location.pathname}${location.search}`,
-      title: meta.title,
+      title: metadata.title,
     });
-  }, [location.pathname, location.search, meta.title]);
+  }, [location.pathname, location.search, metadata.title]);
 
   return (
     <Helmet>
-      <title>{meta.title}</title>
-      <meta name="description" content={meta.description} />
+      {/* Primary Meta Tags */}
+      <title>{metadata.title}</title>
+      <meta name="description" content={metadata.description} />
+      <meta name="keywords" content={metadata.keywords} />
+      <meta name="author" content={metadata.author} />
+      
+      {/* Robots Meta */}
+      <meta 
+        name="robots" 
+        content={pageData?.robots ? `${pageData.robots}, follow` : 'index, follow'} 
+      />
+
+      {/* Canonical URL */}
+      <link rel="canonical" href={metadata.canonicalUrl} />
+
+      {/* Open Graph Meta Tags */}
+      <meta property="og:type" content={metadata.ogType} />
+      <meta property="og:title" content={metadata.title} />
+      <meta property="og:description" content={metadata.description} />
+      <meta property="og:url" content={metadata.url} />
+      <meta property="og:image" content={metadata.image} />
+      <meta property="og:site_name" content="RoiScholar" />
+
+      {/* Twitter Card Meta Tags */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={metadata.title} />
+      <meta name="twitter:description" content={metadata.description} />
+      <meta name="twitter:image" content={metadata.image} />
+      <meta name="twitter:creator" content="@roischolar" />
+
+      {/* Additional SEO Meta Tags */}
+      <meta name="language" content="English" />
+      <meta name="revisit-after" content="7 days" />
+      <meta name="theme-color" content="#1e40af" />
+
+      {/* JSON-LD Structured Data */}
+      <script type="application/ld+json">
+        {JSON.stringify(generateOrganizationSchema())}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify(generateApplicationSchema())}
+      </script>
     </Helmet>
   );
 };
