@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const path = require('path');
 const universityRoutes = require('./routes/university.routes');
 const scenarioRoutes = require('./routes/scenario.routes');
+const seoRoutes = require('./routes/seo.routes');
 
 const app = express();
 
@@ -47,6 +48,7 @@ app.use('/api/applications', require('./routes/application.routes'));
 app.use('/api/roi', require('./routes/roi.routes'));
 app.use('/api/loan', require('./routes/loan.routes'));
 app.use('/api/scholarships', require('./routes/scholarship.routes'));
+app.use('/api/seo', seoRoutes);
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
