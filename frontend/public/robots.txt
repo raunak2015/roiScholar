@@ -1,0 +1,41 @@
+# robots.txt for RoiScholar
+# https://www.robotstxt.org/
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /uploads/
+Disallow: /health
+Disallow: /uploads/*
+Disallow: *?sort=
+Disallow: *?utm_
+Disallow: */search
+
+# Specific rules for Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Specific rules for Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+# Sitemap location
+Sitemap: https://roischolar.com/sitemap.xml
+Sitemap: https://roischolar.com/sitemap-universities.xml
+
+# Crawl-delay and Request-rate
+Request-rate: 10/1s
